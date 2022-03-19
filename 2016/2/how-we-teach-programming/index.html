@@ -1,0 +1,412 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>How We Teach Programming, and Where We&#x27;re Going Wrong</title>
+    <meta name="description" content="Programming matters. As more of the country recognizes the importance of the skill, an increasing number of methods for teaching programming concepts have popped up. However, the emphasis should lean towards how to apply programming across disciplines.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    
+
+<link rel="apple-touch-icon" sizes="57x57" href="/static/c2c_icons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/static/c2c_icons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/static/c2c_icons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/static/c2c_icons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/static/c2c_icons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/static/c2c_icons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/static/c2c_icons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/static/c2c_icons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/c2c_icons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-194x194.png" sizes="194x194">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/static/c2c_icons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/static/c2c_icons/manifest.json">
+<link rel="mask-icon" href="/static/c2c_icons/safari-pinned-tab.svg" color="#773333">
+<link rel="shortcut icon" href="/static/c2c_icons/favicon.ico">
+<meta name="msapplication-TileColor" content="#773333">
+<meta name="msapplication-TileImage" content="/static/c2c_icons/mstile-144x144.png">
+<meta name="msapplication-config" content="/static/c2c_icons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+    <!-- 3rd March 2022 07:41 -->
+    <!-- Fonts -->    
+    <link href='https://fonts.googleapis.com/css?family=Unica+One' rel='stylesheet' type='text/css'>
+    <script src="https://use.typekit.net/qeu2zlf.js"></script>
+    <script>try{Typekit.load({ async: false });}catch(e){}</script>
+    <noscript>
+      <!-- Fallback fonts (if no JS) -->
+      <link href='http://fonts.googleapis.com/css?family=Dosis:400|Anonymous+Pro' rel='stylesheet' type='text/css'>
+    </noscript>
+
+    <!-- Styles / Scripts -->
+    
+    <link rel="stylesheet" href="/static/styles/css/cachestocaches.min.css"/>
+    <script src="/static/styles/js/modernizr-2.8.3.min.js"></script>
+
+    
+
+  
+  
+  
+  <meta name="twitter:card"
+          content="summary_large_image" />
+  <meta prefix="og: http://ogp.me/ns#"
+          name="twitter:title"
+          property="og:title"
+          content="How We Teach Programming, and Where We&#x27;re Going Wrong" />
+  <meta name="twitter:site"
+          content="@CachesToCaches">
+  <meta prefix="og: http://ogp.me/ns#"
+          property="og:type"
+          content="website" />
+  
+  
+    <meta prefix="og: http://ogp.me/ns#"
+            name="twitter:image:src"
+            property="og:image"
+            content="http://cachestocaches.com/media/photologue/photos/cache/hello-world-question_display.jpg" />
+    <meta name="thumbnail"
+            content="http://cachestocaches.com/media/photologue/photos/cache/hello-world-question_thumbnail.jpg" />
+  
+  
+  <meta prefix="og: http://ogp.me/ns#"
+          name="twitter:description"
+          property="og:description"
+          content="Programming matters. As more of the country recognizes the importance of the skill, an increasing number of methods for teaching programming concepts have popped up. However, the emphasis should lean towards how to apply programming across disciplines." />
+  <meta prefix="og: http://ogp.me/ns#"
+          property="og:url"
+          content="http://cachestocaches.com/2016/2/how-we-teach-programming/" />
+
+  </head>
+
+  <body
+      itemscope
+      itemtype="http://schema.org/WebPage"
+      data-spy="scroll"
+      data-target="#side-nav">
+    
+    <nav class="sidebar">
+      <div class="content">
+        
+  <div><a href="/"><img src="/static/logos/c2c_logo_2.png" class="img-responsive center-block" style="width:240px;"/></a></div>
+  <br/>
+  <div class="center-text narrow-font">
+    <span><a href="/">home</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/archive/">archive</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/contributors/">about</a></span>
+  </div>
+  <div class="social-icon-container">
+    <a class="social-icon light-border twitter" href="https://twitter.com/intent/follow?screen_name=CachesToCaches"></a>
+    <a class="social-icon light-border facebook" href="https://www.facebook.com/CachesToCaches"></a>
+    <a class="social-icon light-border googleplus" href="https://www.google.com/+Cachestocaches_c2c" rel="publisher"></a>
+    <a class="social-icon light-border github" href="https://github.com/CachesToCaches"></a>
+    <a class="social-icon light-border rss-feed" href="/feed"></a>
+  </div>
+
+  <img class="bottom-art" src="/static/art/c2c_triangles.svg"></img>
+  <div class="center-text floating-description"><a href="http://gjstein.com">designed and maintained by<br/>Gregory J Stein</a></div>
+
+        <br/>
+        
+  <div class="title"><a href="#">How We Teach Programming, and Where We&#x27;re Going Wrong</a></div>
+  <hr/>
+  <div id="nav-sidebar">
+    <ul class="nav" id="toc"></ul>
+  </div>
+  <hr/>
+  
+
+      </div>
+    </nav>
+    <nav class="header">
+      
+  <div class="content">
+  <span class="heading-font"><a href="/">Caches to Caches</a> | </span><span><a href="/">home</a></span><span class="center-dot"></span><span><a href="/archive/">archive</a></span><span class="center-dot"></span><span><a href="/contributors/">about</a></span>
+  </div>
+
+    </nav>
+    <div class="page"
+         itemsope
+         itemtype="http://schema.org/Blog">
+      <div class="content-top">
+        
+  <div class="unit-line-height">
+  
+  <!-- Series Details -->
+
+  <!-- Post Image -->
+    <div class="marginnote invisible-sm post-detail">
+      <div>
+      
+
+        <p><div class="date heading-font">Fri 5 Feb 2016</div>
+          <a href="/contributors/#gregory-j-stein"><span class="author" itemprop="name">Gregory J Stein</span></a>
+          
+        </p>
+
+        
+          <p><div class="heading-font">Category</div>
+            <a class="category" href="/category/general-computing/">
+              General Computing
+            </a>
+          </p>
+        
+
+        
+          <p><div class="heading-font">Tags</div>
+            
+              <a class="tag" href="/tag/education/">Education</a>
+            
+              <a class="tag" href="/tag/editorial/">Editorial</a>
+            
+          </p>
+        
+      </div>
+    </div>
+
+    
+      <h1 class="title">
+        <div>
+          <span itemprop="name">How We Teach Programming, and Where We&#x27;re Going Wrong</span>
+        </div>
+      </h1>
+    
+
+    
+
+
+    <div class="note visible-sm post-detail">
+      <div>
+
+      <div>
+        <span class="date heading-font">Fri 5 Feb 2016</span>
+          <a href="/contributors/#gregory-j-stein"><span class="author" itemprop="name">Gregory J Stein</span></a>
+          
+      </div>
+
+        
+          <div>
+          <span class="heading-font">Category</span>
+            <a class="category" href="/category/general-computing/">
+              General Computing
+            </a>
+          </div>
+        
+
+        
+          <div><span class="heading-font">Tags</span>
+            
+              <a class="tag" href="/tag/education/">Education</a>
+            
+              <a class="tag" href="/tag/editorial/">Editorial</a>
+            
+          </div>
+        
+
+
+        
+      </div>
+    </div>
+
+
+</div>
+
+
+      </div>
+      <div class="content">
+        
+  
+  <div class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <!-- Post Title -->
+  
+  
+
+  <!-- Post Content -->
+  
+    <div class="justify word-break" itemprop="articleBody">
+      
+        <p>On the heels of President Obama's <a href="http://www.wired.com/2016/01/obama-pledges-4-billion-to-computer-science-in-us-schools/">recent pledge</a> to increase funding for computer science education in U.S. schools, I worry about the future of education in the discipline. Without a doubt, teaching students how to program is a <em>must</em> for ensuring that the United States can modernize its workforce and compete on a global scale. However, the ways in which programming is taught in schools often lacks real grounding, and effort needs to be made in order distance general education in computer science from the training given to computer scientists.</p>
+<p>The purpose of learning how to code is not to become an expert programmer (just as learning mathematics is not for the express purpose of creating mathematicians), but is to allow people to recognize when a little bit of simple programming can save a huge amount of time and effort. Many introductory and online courses in programming focus too much on abstract skills<span class="sidenote note no-word-break invisible-sm">Abstract skills, like <em>algorithms</em>, are assuredly important, but when was the last time any of you coded your own merge-sort. </span> and not enough on how these skills can be practically applied.
+<p class="note no-word-break visible-sm">Abstract skills, like <em>algorithms</em>, are assuredly important, but when was the last time any of you coded your own merge-sort. </p></p>
+<p></p>
+<h2>Gaming on the Rise</h2>
+<p>Modern approaches to teaching computer science so often involve much of the same sort of activities: learn how to print strings, work with loops, add a bunch of numbers together, etc. While I enjoy tackling these exercises (and have devoted <a href="http://gjstein.com">my academic career</a> to doing so), most people don't, further raising the barrier for learning to code.</p>
+<p>Enter the gaming industry.</p>
+<p>With an increasing number of people looking into programming, many gaming and technology companies recognize that there's an opportunity here to reach more customers. They have created games, like <a href="http://store.steampowered.com/app/375820/">Human Resource Machine</a>, which attempt to make programming more fun, by effectively tricking people into puzzle solving using techniques drawn from computer science.</p>
+<p><div class="out-img-wrapper"><div><note class="marginnote img-caption invisible-sm"><p><a href="http://store.steampowered.com/app/375820/">Human Resource Machine</a> is a game that involves puzzle solving through designing simple programs. As the game progresses, more sophisticated concepts are introduced including loop structures (via <code>jump</code> statements) and storing values in memory. It was designed by game studio <a href="http://2dboy.com">2D Boy</a>, also known for games <a href="http://worldofgoo.com">World of Goo</a> and <a href="http://tomorrowcorporation.com/littleinferno">Little Inferno</a>.</p></note><img src="/media/photologue/photos/cache/human_resource_machine_screenshot_display.jpg" class="img-responsive center-block" title="Human Resource Machine Screenshot" style="max-height:427px"/><note class="img-caption visible-sm"><p><a href="http://store.steampowered.com/app/375820/">Human Resource Machine</a> is a game that involves puzzle solving through designing simple programs. As the game progresses, more sophisticated concepts are introduced including loop structures (via <code>jump</code> statements) and storing values in memory. It was designed by game studio <a href="http://2dboy.com">2D Boy</a>, also known for games <a href="http://worldofgoo.com">World of Goo</a> and <a href="http://tomorrowcorporation.com/littleinferno">Little Inferno</a>.</p></note></div></div></p>
+<p>In addition to games which aim to teach programming concepts, there has been increased interest in encouraging young students to create programs to interface with their favorite games. Far and above the most popular game for this purpose is the Microsoft-owned <a href="https://minecraft.net">Minecraft</a>. The game, shown in the screenshot below, is about exploring a open-ended, block-like world, collecting resources and then using those resources to build new items and structures<span class="sidenote note no-word-break invisible-sm">Even at a professional level, Prof. Stefanie Tellex of Brown has introduced a means by which Minecraft can be <a href="http://h2r.cs.brown.edu/announcing-burlapcraft/">used as an environment</a> for experimental robotics. </span>. In addition to the game's immense popularity and accessible learning curve, the game's code is relatively easy to modify directly, allowing students to write simple programs and then see the effects of their work in-game. In addition to books devoted to programming-via-Minecraft, summer camps have started to appear that teach these concepts in a more classroom-like setting.
+<p class="note no-word-break visible-sm">Even at a professional level, Prof. Stefanie Tellex of Brown has introduced a means by which Minecraft can be <a href="http://h2r.cs.brown.edu/announcing-burlapcraft/">used as an environment</a> for experimental robotics. </p></p>
+<p><div class="out-img-wrapper"><div><note class="marginnote img-caption invisible-sm"><p><a href="https://minecraft.net">Minecraft</a>, the Microsoft-owned game about building and exploration in a block-like world,  has become quite a popular educational tool. Students are encouraged to write code to modify the game so as to illustrate programming concepts in a more visual and interactive way.</p></note><img src="/media/photologue/photos/cache/minecraft-modding-screenshot_display.jpg" class="img-responsive center-block" title="Minecraft Modding" style="max-height:429px"/><note class="img-caption visible-sm"><p><a href="https://minecraft.net">Minecraft</a>, the Microsoft-owned game about building and exploration in a block-like world,  has become quite a popular educational tool. Students are encouraged to write code to modify the game so as to illustrate programming concepts in a more visual and interactive way.</p></note></div></div></p>
+<p>Despite the success of this approach, outlets such as these are geared towards those who already recognize the importance of learning to program, and are perhaps not as effective for everyone else. They don't answer the burning question: <em>Why should I learn to program?</em> With computer science becoming a national focus, this responsibility becomes that of our educational system.</p>
+<h2>An Anecdote</h2>
+<p>Whenever people ask me why they should learn to program, I tell them this story.</p>
+<p>During one of my summers between semesters at college, I found a job working as a paralegal for a few months at a law firm in New York City. At the time, I hadn't quite figured out what it was I hoped to concentrate my studies on, and I knew that I would gain worthwhile contacts and meaningful experience from such a position. </p>
+<p>One of the more tedious responsibilities of my job was to extract certain chunks of data from finalized legal documents, parse them, and then collect them into separate documents for the Firm's meticulous records. Often, this sort of data re-formatting was sufficiently quick that no one thought very much about it. However, during busy periods, this procedure would quickly get in the way of more pressing work, and the task would frequently be delegated to the newer employees, i.e. me, who had less on their plate. Over time, dealing with these requests became a relatively large portion of my job.</p>
+<p><div class="out-img-wrapper"><div><note class="marginnote img-caption invisible-sm"><p>I suspect that most people, even those who use Microsoft Word and Microsoft Excel at a professional level, are unaware that there is a scripting language (<a href="https://msdn.microsoft.com/en-us/library/office/ee814735(v=office.14).aspx">VBA</a>) and programming environment built-in to their software. I, most recently, created a script to convert rudimentary <a href="/tag/latex">LaTeX</a> code into a plainly formatted Word document.</p></note><img src="/media/photologue/photos/cache/ms_word_VBA_example_2_display.jpg" class="img-responsive center-block" title="Microsoft Word VBA Editor" style="max-height:299px"/><note class="img-caption visible-sm"><p>I suspect that most people, even those who use Microsoft Word and Microsoft Excel at a professional level, are unaware that there is a scripting language (<a href="https://msdn.microsoft.com/en-us/library/office/ee814735(v=office.14).aspx">VBA</a>) and programming environment built-in to their software. I, most recently, created a script to convert rudimentary <a href="/tag/latex">LaTeX</a> code into a plainly formatted Word document.</p></note></div></div></p>
+<p>Eventually, the tedium of my position began to wear on me, so I decided to automate as much of the process as I could using <a href="https://msdn.microsoft.com/en-us/library/office/ee814735(v=office.14).aspx">Visual Basic for Applications (VBA)</a>, a programming/scripting language which is built into Microsoft office. The code was not particularly sophisticated, consisting mostly of string parsing and formatting routines. My little program saved me and my department tens, if not hundreds, of hours of data entry over the course of my time there. Naturally, the output of my tool was always reviewed by a user for accuracy so that nothing would ever be lost to any bugs in the code; although this prevented the script from completely automating the task, the savings were undeniable. I received a small bonus for my trouble (though not having to manually enter all of that data was it's own reward) and helped to de-stress my colleagues for a short while.</p>
+<h2>Next Steps</h2>
+<p><div class="out-img-wrapper"><div><note class="marginnote img-caption invisible-sm"><p>President Obama, like many legislators, recognizes the importance of teaching young students how to program. Here he is at an <a href="https://code.org">Hour of Code</a> event, which shows students that they can learn some programming fundamentals in just an hour [<a href="http://www.wired.com/2014/12/obama-becomes-first-president-write-computer-program/">source: Wired</a>].</p></note><img src="/media/photologue/photos/cache/obama_hour_of_code_display.jpg" class="img-responsive center-block" title="President Obama at "Hour of Code"" style="max-height:800px"/><note class="img-caption visible-sm"><p>President Obama, like many legislators, recognizes the importance of teaching young students how to program. Here he is at an <a href="https://code.org">Hour of Code</a> event, which shows students that they can learn some programming fundamentals in just an hour [<a href="http://www.wired.com/2014/12/obama-becomes-first-president-write-computer-program/">source: Wired</a>].</p></note></div></div> </p>
+<p>What's the takeaway from my paralegal experience? Is it that everyone at the Firm should have known how to program? Perhaps, though there is a larger point to be made: being able to program can only ever be as important as recognizing when writing code to accomplish a task will be worthwhile. Don't get me wrong: I still think that programming is a fundamental skill, like mathematics and reading/writing, and that President Obama's pledge to incorporate computer science into curricula is certainly a step in the right direction. However, the emphasis needs to be on teaching more practical skills, like recognizing when a task can be made far easier through automation.</p>
+<p>I welcome your thoughts/comments below.</p>
+      
+    </div>
+  
+
+  <!-- Post Footer -->
+  
+
+  <!-- Additional Metadata -->
+  <meta itemprop="description" content="Programming matters. As more of the country recognizes the importance of the skill, an increasing number of methods for teaching programming concepts have popped up. However, the emphasis should lean towards how to apply programming across disciplines.">
+
+</div>
+
+
+      </div>
+      <div class="content-bottom">
+        
+
+  <hr/>
+  <p><blockquote>
+    Liked this post? Subscribe to our <a class="post-link" href="/feed">RSS feed</a> or add your email to our newsletter:
+
+    <!-- Begin MailChimp Signup Form -->
+    <link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+    <div id="mc_embed_signup">
+      <form action="https://cachestocaches.us15.list-manage.com/subscribe/post?u=f290745e370ad37f53ed7c7ac&amp;id=b7922d14de" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+        <div id="mc_embed_signup_scroll">
+	  
+	  <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+          <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+          <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_f290745e370ad37f53ed7c7ac_b7922d14de" tabindex="-1" value=""></div>
+          <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+        </div>
+      </form>
+    </div>
+
+  </blockquote></p>
+
+  <!--End mc_embed_signup-->
+  <hr/>
+
+
+  <!-- All posts in series -->
+  
+
+  <div>
+  <div class="social-icon-container visible-xs">
+    <a class="social-icon hacker-news"
+           href="https://news.ycombinator.com/item?id=11041324"></a><a class="social-icon twitter"
+         href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fcachestocaches.com%2F2016%2F2%2Fhow-we-teach-programming%2F&text=Great%20post%20at"></a><a class="social-icon facebook"
+         href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fcachestocaches.com%2F2016%2F2%2Fhow-we-teach-programming%2F"></a><a class="social-icon googleplus"
+         href="https://plus.google.com/share?url=http%3A%2F%2Fcachestocaches.com%2F2016%2F2%2Fhow-we-teach-programming%2F"></a><a class="social-icon linkedin"
+         href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fcachestocaches.com%2F2016%2F2%2Fhow-we-teach-programming%2F&title=Caches%20To%20Caches&source=http%3A//cachestocaches.com"></a><a class="social-icon rss-feed"
+         href="/feed"></a>
+  </div>
+</div>
+
+
+  <hr/>
+
+  <script type="text/javascript">
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = 'cachestocaches';
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+ function createCallback() {
+     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+   };
+</script>
+<a class="heading-font" id="disqus_thread" style="cursor:pointer;"onclick="createCallback();return false;"><h4 class="constrain-width">+ Show Comments From Disqus</h4></a>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="content">
+      
+  <div><a href="/"><img src="/static/logos/c2c_logo_2.png" class="img-responsive center-block" style="width:240px;"/></a></div>
+  <br/>
+  <div class="center-text narrow-font">
+    <span><a href="/">home</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/archive/">archive</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/contributors/">about</a></span>
+  </div>
+  <div class="social-icon-container">
+    <a class="social-icon light-border twitter" href="https://twitter.com/intent/follow?screen_name=CachesToCaches"></a>
+    <a class="social-icon light-border facebook" href="https://www.facebook.com/CachesToCaches"></a>
+    <a class="social-icon light-border googleplus" href="https://www.google.com/+Cachestocaches_c2c" rel="publisher"></a>
+    <a class="social-icon light-border github" href="https://github.com/CachesToCaches"></a>
+    <a class="social-icon light-border rss-feed" href="/feed"></a>
+  </div>
+
+  <br/>
+  <div class="center-text"><a href="http://gjstein.com">designed and maintained by<br/>Gregory J Stein</a></div>
+
+      
+      
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <!-- Sidebar / Table of Contents -->
+    <script src="/static/styles/js/jquery.tableofcontents.g.min.js"></script>
+    <script src="/static/styles/js/sticky-nav.js"></script>
+    <script src="/static/styles/js/bootstrap-scrollspy.min.js"></script>
+    <script>
+    $(function(){$("#toc").tableOfContents(null,{
+      startLevel: 2, depth: 1});
+      $('body').scrollspy({
+        target: '#nav-sidebar',
+        offset: 20});
+    });
+    </script>
+    
+    <!-- Code Highlighting : highlight.js -->
+    
+
+<!-- <link rel="stylesheet" href="/static/highlight/styles/c2c.css"> -->
+<script src="/static/highlight/highlight.pack.js"></script>
+<script>hljs.configure({languages:[]});hljs.initHighlightingOnLoad();</script>
+<script src="/static/styles/js/anchor-scroll.js"></script>
+
+
+    <!-- Equation Rendering : mathjax -->
+    <script type="text/x-mathjax-config">
+     MathJax.Hub.Config({
+       jax: ["input/TeX","output/CommonHTML"],
+       tex2jax: { inlineMath: [["$","$"]] },
+       CommonHTML: {
+         linebreaks: { automatic: true, width: "container" }
+       }
+     });
+    </script>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML" type="text/javascript"></script>
+
+    
+  <script>
+  (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+          function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+          e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+          e.src='//www.google-analytics.com/analytics.js';
+          r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+  ga('create','UA-60578350-2','auto');ga('send','pageview');
+  </script>
+
+  </body>
+</html>

@@ -1,0 +1,465 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Technologies Behind Caches To Caches</title>
+    <meta name="description" content="Here&#x27;s how I built this blog, which relies on Django/Apache on Amazon EC2">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    
+
+<link rel="apple-touch-icon" sizes="57x57" href="/static/c2c_icons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/static/c2c_icons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/static/c2c_icons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/static/c2c_icons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/static/c2c_icons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/static/c2c_icons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/static/c2c_icons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/static/c2c_icons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/c2c_icons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-194x194.png" sizes="194x194">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/static/c2c_icons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/static/c2c_icons/manifest.json">
+<link rel="mask-icon" href="/static/c2c_icons/safari-pinned-tab.svg" color="#773333">
+<link rel="shortcut icon" href="/static/c2c_icons/favicon.ico">
+<meta name="msapplication-TileColor" content="#773333">
+<meta name="msapplication-TileImage" content="/static/c2c_icons/mstile-144x144.png">
+<meta name="msapplication-config" content="/static/c2c_icons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+    <!-- 3rd March 2022 07:41 -->
+    <!-- Fonts -->    
+    <link href='https://fonts.googleapis.com/css?family=Unica+One' rel='stylesheet' type='text/css'>
+    <script src="https://use.typekit.net/qeu2zlf.js"></script>
+    <script>try{Typekit.load({ async: false });}catch(e){}</script>
+    <noscript>
+      <!-- Fallback fonts (if no JS) -->
+      <link href='http://fonts.googleapis.com/css?family=Dosis:400|Anonymous+Pro' rel='stylesheet' type='text/css'>
+    </noscript>
+
+    <!-- Styles / Scripts -->
+    
+    <link rel="stylesheet" href="/static/styles/css/cachestocaches.min.css"/>
+    <script src="/static/styles/js/modernizr-2.8.3.min.js"></script>
+
+    
+
+  
+  
+  
+  <meta name="twitter:card"
+          content="summary_large_image" />
+  <meta prefix="og: http://ogp.me/ns#"
+          name="twitter:title"
+          property="og:title"
+          content="Technologies Behind Caches To Caches" />
+  <meta name="twitter:site"
+          content="@CachesToCaches">
+  <meta prefix="og: http://ogp.me/ns#"
+          property="og:type"
+          content="website" />
+  
+  
+    <meta prefix="og: http://ogp.me/ns#"
+            name="twitter:image:src"
+            property="og:image"
+            content="http://cachestocaches.com/media/photologue/photos/cache/c2c-technologies-cover_display.png" />
+    <meta name="thumbnail"
+            content="http://cachestocaches.com/media/photologue/photos/cache/c2c-technologies-cover_thumbnail.png" />
+  
+  
+  <meta prefix="og: http://ogp.me/ns#"
+          name="twitter:description"
+          property="og:description"
+          content="Here&#x27;s how I built this blog, which relies on Django/Apache on Amazon EC2" />
+  <meta prefix="og: http://ogp.me/ns#"
+          property="og:url"
+          content="http://cachestocaches.com/2015/8/technologies-behind-caches-caches/" />
+
+  </head>
+
+  <body
+      itemscope
+      itemtype="http://schema.org/WebPage"
+      data-spy="scroll"
+      data-target="#side-nav">
+    
+    <nav class="sidebar">
+      <div class="content">
+        
+  <div><a href="/"><img src="/static/logos/c2c_logo_2.png" class="img-responsive center-block" style="width:240px;"/></a></div>
+  <br/>
+  <div class="center-text narrow-font">
+    <span><a href="/">home</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/archive/">archive</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/contributors/">about</a></span>
+  </div>
+  <div class="social-icon-container">
+    <a class="social-icon light-border twitter" href="https://twitter.com/intent/follow?screen_name=CachesToCaches"></a>
+    <a class="social-icon light-border facebook" href="https://www.facebook.com/CachesToCaches"></a>
+    <a class="social-icon light-border googleplus" href="https://www.google.com/+Cachestocaches_c2c" rel="publisher"></a>
+    <a class="social-icon light-border github" href="https://github.com/CachesToCaches"></a>
+    <a class="social-icon light-border rss-feed" href="/feed"></a>
+  </div>
+
+  <img class="bottom-art" src="/static/art/c2c_triangles.svg"></img>
+  <div class="center-text floating-description"><a href="http://gjstein.com">designed and maintained by<br/>Gregory J Stein</a></div>
+
+        <br/>
+        
+  <div class="title"><a href="#">Technologies Behind Caches To Caches</a></div>
+  <hr/>
+  <div id="nav-sidebar">
+    <ul class="nav" id="toc"></ul>
+  </div>
+  <hr/>
+  
+
+      </div>
+    </nav>
+    <nav class="header">
+      
+  <div class="content">
+  <span class="heading-font"><a href="/">Caches to Caches</a> | </span><span><a href="/">home</a></span><span class="center-dot"></span><span><a href="/archive/">archive</a></span><span class="center-dot"></span><span><a href="/contributors/">about</a></span>
+  </div>
+
+    </nav>
+    <div class="page"
+         itemsope
+         itemtype="http://schema.org/Blog">
+      <div class="content-top">
+        
+  <div class="unit-line-height">
+  
+  <!-- Series Details -->
+
+  <!-- Post Image -->
+    <div class="marginnote invisible-sm post-detail">
+      <div>
+      
+
+        <p><div class="date heading-font">Mon 10 Aug 2015</div>
+          <a href="/contributors/#gregory-j-stein"><span class="author" itemprop="name">Gregory J Stein</span></a>
+          
+        </p>
+
+        
+          <p><div class="heading-font">Category</div>
+            <a class="category" href="/category/web-development/">
+              Web Development
+            </a>
+          </p>
+        
+
+        
+          <p><div class="heading-font">Tags</div>
+            
+              <a class="tag" href="/tag/meta/">Meta</a>
+            
+              <a class="tag" href="/tag/django/">Django</a>
+            
+              <a class="tag" href="/tag/python/">Python</a>
+            
+          </p>
+        
+      </div>
+    </div>
+
+    
+      <h1 class="title">
+        <div>
+          <span itemprop="name">Technologies Behind Caches To Caches</span>
+        </div>
+      </h1>
+    
+
+    
+
+
+    <div class="note visible-sm post-detail">
+      <div>
+
+      <div>
+        <span class="date heading-font">Mon 10 Aug 2015</span>
+          <a href="/contributors/#gregory-j-stein"><span class="author" itemprop="name">Gregory J Stein</span></a>
+          
+      </div>
+
+        
+          <div>
+          <span class="heading-font">Category</span>
+            <a class="category" href="/category/web-development/">
+              Web Development
+            </a>
+          </div>
+        
+
+        
+          <div><span class="heading-font">Tags</span>
+            
+              <a class="tag" href="/tag/meta/">Meta</a>
+            
+              <a class="tag" href="/tag/django/">Django</a>
+            
+              <a class="tag" href="/tag/python/">Python</a>
+            
+          </div>
+        
+
+
+        
+      </div>
+    </div>
+
+
+</div>
+
+
+      </div>
+      <div class="content">
+        
+  
+  <div class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <!-- Post Title -->
+  
+  
+
+  <!-- Post Content -->
+  
+    <div class="justify word-break" itemprop="articleBody">
+      
+        <p>There are a number of different technologies which have gone into creating this blog. Now that it's mostly complete (though I'm constantly tweaking its look), I figure I should give a list of these different tools so that someone can use it as a starting point for their own site. Though I've created a blog, many of the steps I've gone through are useful for anyone creating a small, content-driven website of their own.</p>
+<p><span class="sidenote note no-word-break invisible-sm">While I used to use <a href="http://getbootstrap.com/">Bootstrap</a> for styling, I ultimately wanted more customization to the appearance of the site and it was easier to start from scratch. I discuss some of my design decisions <a href="/2017/9/clear-visual-design-web/">in another one of my posts</a>. </span>In short, this site (and my personal website) are hosted on a single <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/t2-instances.html">Amazon T2.micro instance</a> using <a href="https://www.djangoproject.com/">Django</a> and <a href="http://httpd.apache.org/">Apache</a> and wrote my own custom formatting with <a href="http://lesscss.org/">Less</a>. However, there's much more to it than that. I also made my mark in social media, being sure to get the pages associated with my site.
+<p class="note no-word-break visible-sm">While I used to use <a href="http://getbootstrap.com/">Bootstrap</a> for styling, I ultimately wanted more customization to the appearance of the site and it was easier to start from scratch. I discuss some of my design decisions <a href="/2017/9/clear-visual-design-web/">in another one of my posts</a>. </p>
+See more details after the jump.</p>
+<p></p>
+<h2>Server Backend</h2>
+<p>As I stated above, I host this blog using the <a href="https://aws.amazon.com/">Amazon Web Services</a> on  <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/t2-instances.html">Amazon T2.micro instance</a> which should be more than sufficient, in terms of bandwidth and computation, for the foreseeable future. In addition, since I'm within my first year of the service, I'm eligible for the <a href="http://aws.amazon.com/free/">AWS Free Tier</a>, so that my T2.micro costs me nothing.</p>
+<p>The server is written entirely in python using the popular and powerful <a href="https://www.djangoproject.com/">Django web framework</a>. After looking into other options, like <a href="http://rubyonrails.org/">Ruby on Rails</a>, I found Django had add-ons for everything I thought I may need and easy to use, since I use python frequently for other projects. In addition, <a href="http://httpd.apache.org/">Apache</a> can directly run Django applications through the built-in <a href="https://code.google.com/p/modwsgi/">mod_wsgi</a>, which allows for communication between python applications and Apache. Also, Apache allows me to run multiple Django applications simultaneously, which means that I can host both this blog and <a href="http://gjstein.com">my personal website</a> on a single machine. More recently (as of early 2018), I have been using <a href="https://www.docker.com">Docker</a> with <a href="https://docs.docker.com/compose/django/#connect-the-database">Docker Compose</a> for both my development and production environments. Using Docker makes it easy to run a local version of my site when I'm changing things, yet is designed so that I can push my changes to my server with ease, without having to worry about what packages are installed on each machine.</p>
+<h2>Content and Images</h2>
+<p>I rely on Django to store my website's content, which means that I (rather lazily) use the <a href="https://docs.djangoproject.com/en/1.8/ref/contrib/admin/">Django admin site</a> to write blog posts and to handle the remainder of the content on my blog. However, it was a decent amount of work to get my python classes, known in Django as models, the way I liked them, so that I could have tags, categories and series associated with every blog post, and so that each of these labels could have their own cover image and extended descriptions.</p>
+<p>I use the <a href="https://pypi.python.org/pypi/Markdown">python Markdown implementation</a> (which can be easily installed through <code>pip</code>) to process my blog post content, which is otherwise written in plain text. In addition, I have custom escape sequences in the text which are processed before the markdown, so that I can inject additional HTML code without having to modify the Django templates directly from the admin site. For example, whenever I save an image to the server through a post on the admin site, I can use my custom <code>img</code> escape command to search for the file location on server, rather than directly figuring out the URL to access it myself.</p>
+<p>With regard to images, I save them to the server using Django's <code>ImageField</code> model, and then serve them up using apache. In addition, since Django does not automatically delete saved images, I created a separate <code>Image</code> model class which takes care of this (otherwise missing) functionality. Furthermore, I rely on <code>PIL</code>, the 'python image library', to create thumbnails for each of the same images and to handle deletion of those files as well.</p>
+<p>Third, I decided against building my own comment engine, since creating it would have been a hassle and policing it without additional tools would have been complicated. Instead, I decided to outsource this to <a href="https://disqus.com/home/welcome/">Disqus</a>, a popular comment hosting service. Though this means that I've sacrificed the ability to completely customize the look of the comment section, the ease of use of Disqus outweighs any other disadvantages.</p>
+<p>Finally, as a member of the academic community, much of my worth is measured by my publication list. As such, <a href="http://gjstein.com/publications">my personal website</a> has a section devoted to listing my publications. To do this, I use the fantastic <a href="https://github.com/lucastheis/django-publications">django-publications framework</a>. It's built in <a href="" data-toggle="tooltip" title="BibTeX is a reference generating engine often used in conjunction with LaTeX; for large papers, it's a fantastic way to make sure citations are not a massive burden.">BibTeX</a> parser is enormously helpful: to the point that adding new publications from the server requires virtually no effort.</p>
+<h2>Layout</h2>
+<p>Formatting the blog was not particularly difficult, since I use <a href="http://getbootstrap.com/">Boostrap</a> to do most of the heavy lifting. However, I really wanted the blog to look a specific way so I customized the look using the <a href="http://lesscss.org/">Less</a> CSS preprocessor. If you've never used Less, I'd highly recommend it. It really adds functionality that I feel is otherwise lacking when I'm directly programming CSS, particularly the ability to define variables, which makes it extremely easy to try out different color and formatting schemes.</p>
+<p>In addition to using Bootstrap for CSS, I rely on a number of its built-in javascript plugins, which naturally require <a href="https://jquery.com/">jQuery</a>. I use the <code>dropdown</code> functionality for the navigation bar at the top of the page and the <code>scrollspy</code> for the sidebar (which you can only see when you're on a large enough device). In addition, I use a <a href="http://fuelyourcoding.com/scripts/toc/">table of contents plugin</a> to add items to the sidebar. I use the table of contents plugin to automatically populate the sidebar with the headings from the body of all the post. I chose this one, by Doug Neiner, since it does almost exactly what I wanted and nothing more, as opposed to <a href="http://gregfranko.com/jquery.tocify.js/">tocify</a> which is much less lightweight. Finally, I use the <a href="" data-toggle="tooltip" title="This is what a tooltip looks like...">tooltip functionality</a> for some of the post content and sidebar links, so that a short description shows up when the link is hovered over.</p>
+<p>The sidebar is also "sticky", meaning that it stays at the top of the page as its scrolled past. To do this, I modified some code from <a href="http://stackoverflow.com/a/17338688/3672986">this StackOverflow post</a>, which was limited in that it did not stop when the footer reached the bottom. My code, shown below, does not suffer from this limitation:</p>
+<p><div class="listing-caption visible-sm">Sticky Sidebar <code class="code-language">JavaScript</code></div><div class="sidenote listing-caption invisible-sm"><div>Sticky Sidebar</div><div class="unit-line-height"><code class="code-language">JavaScript</code></div></div><pre><code class="lang-javascript pre-scrollable">$(function(){
+
+  var above = '#sticky-top';
+  var sticky = '#sticky-sidebar';
+  var footer = '#footer';
+  var vertOffset = 100;
+  var footerPadding = 00;
+  
+  if (!!$(sticky).offset()) { // ensure sticky element exists
+
+    var stickyTopInit = $(above).offset().top;
+
+    $(window).scroll(function(){ // scroll event
+
+      var windowTop = $(window).scrollTop() + vertOffset;
+      var footerTop = $(footer).offset().top-footerPadding;
+      var stickyTop = $(above).offset().top + $(above).height();
+
+      if (stickyTop+$(sticky).height() > footerTop - vertOffset) {
+        // Rare case when sidebar is supporting footer
+        return
+      }
+    
+      if (windowTop+$(sticky).height() >= footerTop) {
+        // If the sidebar is below the footer, raise it up
+        $(sticky).css({position:'relative',
+                       top: footerTop-stickyTop-$(sticky).height(),
+                       width: ''});
+      } 
+      else {
+        if ( stickyTop < windowTop ) {
+          // If the top of the window is below the sidebar, lower it
+          // This will also return the sidebar to its position
+          $(sticky).css({ position: 'fixed', top: vertOffset, width: $(above).width() });
+        } else {
+          // Return the sidebar to its correct place
+          $(sticky).css({ position: 'static', width: '' });
+        }
+      }
+    });
+  }
+});
+</code></pre></p>
+<h2>Additional Resources</h2>
+<p>Beyond the tools listed above, there were a number of others that I used for the blog and, relatedly, increasing the presence of the blog on the web. Here are some of those resources that I found to be most useful.</p>
+<h3>Structured Data/Analytics [Google]</h3>
+<p>Behind the scenes, there was quite a lot I had to do in the way of measuring traffic to this site and ensuring search engines properly crawled the blog. I was not quite experienced enough to check that my search engine presence was adequate, and I relied on Google's set of (free!) tools to get everything up and running. You may have noticed that I run Google Analytics to get an idea of how many people have visited <a href="http://cachestocaches.com">Caches To Caches</a>.</p>
+<p>First, I did purchase my domains through <a href="https://domains.google.com/">Google Domains</a>, which meant that they were automatically visible to the remainder of the tools without much additional effort. However, there are <a href="https://support.google.com/webmasters/answer/34592?hl=en">good instructions</a> to add your site through <a href="https://www.google.com/webmasters/">Google Webmaster Tools</a>. Using Google Webmaster Tools is extremely useful for making sure that Google actively indexes your site, so that it will appear on its search results, after a refresh period of up to a week. In addition, it will alert you if it encounters any errors during the crawl. Relatedly, Google's provided <a href="https://developers.google.com/structured-data/testing-tool/">Structured Data Testing Tool</a> can help you ensure that your <a href="http://schema.org/">schema.org</a> structured markup has been done correctly (which can be a real pain the first time around). Try entering the URL for this page on their interface to see how my content is structured.</p>
+<p>I also have a <a href="https://cse.google.com">Google Custom Search Engine</a>, which returns Google search results limited to this site from the input field in the sidebar. It's extremely easy to setup and use, and has a variety of visualization options for the results. In addition, the custom search engine can be instructed to rapidly crawl and index specific pages on my site, which made it an invaluable tool for ensuring that my search engine meta tags were properly set up.</p>
+<h3>Emacs</h3>
+<p><a href="https://www.gnu.org/software/emacs/">Emacs</a> is handily my text/code editor of choice. After years of periodically coming back to it, I now use it for everything from my HTML and python editing, to actually writing the blog posts and taking notes about ideas for additional content. I won't go into too much detail here, but if you'd like to learn more, I have a growing list of posts about it at the <a href="http://cachestocaches.com/tag/emacs/">Emacs tag page</a>.</p>
+<h3>Social Media</h3>
+<p>While not directly involved with the content on the blog, I did go out of my way to ensure that I pulled out all of the stops regarding social media. While I mostly did this for the experience, in case I were ever to create a product website in the future (perhaps a far off goal of mine), I recognize that it's rather important in today's culture that readers have both the ability to find a particular site through the most heavily trafficked social media sites and to share content through them. I created pages for <a href="https://www.facebook.com/CachesToCaches">Facebook</a>, <a href="https://www.google.com/+Cachestocaches_c2c">Twitter</a>, <a href="https://www.google.com/+Cachestocaches_c2c">Google+</a>, and <a href="https://github.com/CachesToCaches">GitHub</a>, in which I store much of my sample code.</p>
+<h2>Conclusion</h2>
+<p>I may continue to add-to/update this list as the blog continues to grow and change. For now, this list is mostly complete. Let me know if you think I've made any unwise decisions in the comments. I appreciate any suggestions.</p>
+      
+    </div>
+  
+
+  <!-- Post Footer -->
+  
+
+  <!-- Additional Metadata -->
+  <meta itemprop="description" content="Here&#x27;s how I built this blog, which relies on Django/Apache on Amazon EC2">
+
+</div>
+
+
+      </div>
+      <div class="content-bottom">
+        
+
+  <hr/>
+  <p><blockquote>
+    Liked this post? Subscribe to our <a class="post-link" href="/feed">RSS feed</a> or add your email to our newsletter:
+
+    <!-- Begin MailChimp Signup Form -->
+    <link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+    <div id="mc_embed_signup">
+      <form action="https://cachestocaches.us15.list-manage.com/subscribe/post?u=f290745e370ad37f53ed7c7ac&amp;id=b7922d14de" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+        <div id="mc_embed_signup_scroll">
+	  
+	  <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+          <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+          <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_f290745e370ad37f53ed7c7ac_b7922d14de" tabindex="-1" value=""></div>
+          <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+        </div>
+      </form>
+    </div>
+
+  </blockquote></p>
+
+  <!--End mc_embed_signup-->
+  <hr/>
+
+
+  <!-- All posts in series -->
+  
+
+  <div>
+  <div class="social-icon-container visible-xs">
+    <a class="social-icon twitter"
+         href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fcachestocaches.com%2F2015%2F8%2Ftechnologies-behind-caches-caches%2F&text=Great%20post%20at"></a><a class="social-icon facebook"
+         href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fcachestocaches.com%2F2015%2F8%2Ftechnologies-behind-caches-caches%2F"></a><a class="social-icon googleplus"
+         href="https://plus.google.com/share?url=http%3A%2F%2Fcachestocaches.com%2F2015%2F8%2Ftechnologies-behind-caches-caches%2F"></a><a class="social-icon linkedin"
+         href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fcachestocaches.com%2F2015%2F8%2Ftechnologies-behind-caches-caches%2F&title=Caches%20To%20Caches&source=http%3A//cachestocaches.com"></a><a class="social-icon rss-feed"
+         href="/feed"></a>
+  </div>
+</div>
+
+
+  <hr/>
+
+  <script type="text/javascript">
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = 'cachestocaches';
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+ function createCallback() {
+     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+   };
+</script>
+<a class="heading-font" id="disqus_thread" style="cursor:pointer;"onclick="createCallback();return false;"><h4 class="constrain-width">+ Show Comments From Disqus</h4></a>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="content">
+      
+  <div><a href="/"><img src="/static/logos/c2c_logo_2.png" class="img-responsive center-block" style="width:240px;"/></a></div>
+  <br/>
+  <div class="center-text narrow-font">
+    <span><a href="/">home</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/archive/">archive</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/contributors/">about</a></span>
+  </div>
+  <div class="social-icon-container">
+    <a class="social-icon light-border twitter" href="https://twitter.com/intent/follow?screen_name=CachesToCaches"></a>
+    <a class="social-icon light-border facebook" href="https://www.facebook.com/CachesToCaches"></a>
+    <a class="social-icon light-border googleplus" href="https://www.google.com/+Cachestocaches_c2c" rel="publisher"></a>
+    <a class="social-icon light-border github" href="https://github.com/CachesToCaches"></a>
+    <a class="social-icon light-border rss-feed" href="/feed"></a>
+  </div>
+
+  <br/>
+  <div class="center-text"><a href="http://gjstein.com">designed and maintained by<br/>Gregory J Stein</a></div>
+
+      
+      
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <!-- Sidebar / Table of Contents -->
+    <script src="/static/styles/js/jquery.tableofcontents.g.min.js"></script>
+    <script src="/static/styles/js/sticky-nav.js"></script>
+    <script src="/static/styles/js/bootstrap-scrollspy.min.js"></script>
+    <script>
+    $(function(){$("#toc").tableOfContents(null,{
+      startLevel: 2, depth: 1});
+      $('body').scrollspy({
+        target: '#nav-sidebar',
+        offset: 20});
+    });
+    </script>
+    
+    <!-- Code Highlighting : highlight.js -->
+    
+
+<!-- <link rel="stylesheet" href="/static/highlight/styles/c2c.css"> -->
+<script src="/static/highlight/highlight.pack.js"></script>
+<script>hljs.configure({languages:[]});hljs.initHighlightingOnLoad();</script>
+<script src="/static/styles/js/anchor-scroll.js"></script>
+
+
+    <!-- Equation Rendering : mathjax -->
+    <script type="text/x-mathjax-config">
+     MathJax.Hub.Config({
+       jax: ["input/TeX","output/CommonHTML"],
+       tex2jax: { inlineMath: [["$","$"]] },
+       CommonHTML: {
+         linebreaks: { automatic: true, width: "container" }
+       }
+     });
+    </script>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML" type="text/javascript"></script>
+
+    
+  <script>
+  (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+          function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+          e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+          e.src='//www.google-analytics.com/analytics.js';
+          r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+  ga('create','UA-60578350-2','auto');ga('send','pageview');
+  </script>
+
+  </body>
+</html>

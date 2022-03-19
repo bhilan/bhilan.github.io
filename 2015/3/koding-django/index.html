@@ -1,0 +1,455 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Koding with Django</title>
+    <meta name="description" content="Koding’s free cloud-based linux dev environment has had me playing for a while. Here’s how to use it with Django.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    
+
+<link rel="apple-touch-icon" sizes="57x57" href="/static/c2c_icons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/static/c2c_icons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/static/c2c_icons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/static/c2c_icons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/static/c2c_icons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/static/c2c_icons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/static/c2c_icons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/static/c2c_icons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/c2c_icons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-194x194.png" sizes="194x194">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/static/c2c_icons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/static/c2c_icons/manifest.json">
+<link rel="mask-icon" href="/static/c2c_icons/safari-pinned-tab.svg" color="#773333">
+<link rel="shortcut icon" href="/static/c2c_icons/favicon.ico">
+<meta name="msapplication-TileColor" content="#773333">
+<meta name="msapplication-TileImage" content="/static/c2c_icons/mstile-144x144.png">
+<meta name="msapplication-config" content="/static/c2c_icons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+    <!-- 3rd March 2022 07:41 -->
+    <!-- Fonts -->    
+    <link href='https://fonts.googleapis.com/css?family=Unica+One' rel='stylesheet' type='text/css'>
+    <script src="https://use.typekit.net/qeu2zlf.js"></script>
+    <script>try{Typekit.load({ async: false });}catch(e){}</script>
+    <noscript>
+      <!-- Fallback fonts (if no JS) -->
+      <link href='http://fonts.googleapis.com/css?family=Dosis:400|Anonymous+Pro' rel='stylesheet' type='text/css'>
+    </noscript>
+
+    <!-- Styles / Scripts -->
+    
+    <link rel="stylesheet" href="/static/styles/css/cachestocaches.min.css"/>
+    <script src="/static/styles/js/modernizr-2.8.3.min.js"></script>
+
+    
+
+  
+  
+  
+  <meta name="twitter:card"
+          content="summary_large_image" />
+  <meta prefix="og: http://ogp.me/ns#"
+          name="twitter:title"
+          property="og:title"
+          content="Koding with Django" />
+  <meta name="twitter:site"
+          content="@CachesToCaches">
+  <meta prefix="og: http://ogp.me/ns#"
+          property="og:type"
+          content="website" />
+  
+  
+    <meta prefix="og: http://ogp.me/ns#"
+            name="twitter:image:src"
+            property="og:image"
+            content="http://cachestocaches.com/media/photologue/photos/cache/koding_with_django_bkd_display.jpg" />
+    <meta name="thumbnail"
+            content="http://cachestocaches.com/media/photologue/photos/cache/koding_with_django_bkd_thumbnail.jpg" />
+  
+  
+  <meta prefix="og: http://ogp.me/ns#"
+          name="twitter:description"
+          property="og:description"
+          content="Koding’s free cloud-based linux dev environment has had me playing for a while. Here’s how to use it with Django." />
+  <meta prefix="og: http://ogp.me/ns#"
+          property="og:url"
+          content="http://cachestocaches.com/2015/3/koding-django/" />
+
+  </head>
+
+  <body
+      itemscope
+      itemtype="http://schema.org/WebPage"
+      data-spy="scroll"
+      data-target="#side-nav">
+    
+    <nav class="sidebar">
+      <div class="content">
+        
+  <div><a href="/"><img src="/static/logos/c2c_logo_2.png" class="img-responsive center-block" style="width:240px;"/></a></div>
+  <br/>
+  <div class="center-text narrow-font">
+    <span><a href="/">home</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/archive/">archive</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/contributors/">about</a></span>
+  </div>
+  <div class="social-icon-container">
+    <a class="social-icon light-border twitter" href="https://twitter.com/intent/follow?screen_name=CachesToCaches"></a>
+    <a class="social-icon light-border facebook" href="https://www.facebook.com/CachesToCaches"></a>
+    <a class="social-icon light-border googleplus" href="https://www.google.com/+Cachestocaches_c2c" rel="publisher"></a>
+    <a class="social-icon light-border github" href="https://github.com/CachesToCaches"></a>
+    <a class="social-icon light-border rss-feed" href="/feed"></a>
+  </div>
+
+  <img class="bottom-art" src="/static/art/c2c_triangles.svg"></img>
+  <div class="center-text floating-description"><a href="http://gjstein.com">designed and maintained by<br/>Gregory J Stein</a></div>
+
+        <br/>
+        
+  <div class="title"><a href="#">Koding with Django</a></div>
+  <hr/>
+  <div id="nav-sidebar">
+    <ul class="nav" id="toc"></ul>
+  </div>
+  <hr/>
+  
+
+      </div>
+    </nav>
+    <nav class="header">
+      
+  <div class="content">
+  <span class="heading-font"><a href="/">Caches to Caches</a> | </span><span><a href="/">home</a></span><span class="center-dot"></span><span><a href="/archive/">archive</a></span><span class="center-dot"></span><span><a href="/contributors/">about</a></span>
+  </div>
+
+    </nav>
+    <div class="page"
+         itemsope
+         itemtype="http://schema.org/Blog">
+      <div class="content-top">
+        
+  <div class="unit-line-height">
+  
+  <!-- Series Details -->
+
+  <!-- Post Image -->
+    <div class="marginnote invisible-sm post-detail">
+      <div>
+      
+
+        <p><div class="date heading-font">Tue 24 Mar 2015</div>
+          <a href="/contributors/#gregory-j-stein"><span class="author" itemprop="name">Gregory J Stein</span></a>
+          
+        </p>
+
+        
+          <p><div class="heading-font">Category</div>
+            <a class="category" href="/category/web-development/">
+              Web Development
+            </a>
+          </p>
+        
+
+        
+          <p><div class="heading-font">Tags</div>
+            
+              <a class="tag" href="/tag/django/">Django</a>
+            
+              <a class="tag" href="/tag/python/">Python</a>
+            
+          </p>
+        
+      </div>
+    </div>
+
+    
+      <h1 class="title">
+        <div>
+          <span itemprop="name">Koding with Django</span>
+        </div>
+      </h1>
+    
+
+    
+
+
+    <div class="note visible-sm post-detail">
+      <div>
+
+      <div>
+        <span class="date heading-font">Tue 24 Mar 2015</span>
+          <a href="/contributors/#gregory-j-stein"><span class="author" itemprop="name">Gregory J Stein</span></a>
+          
+      </div>
+
+        
+          <div>
+          <span class="heading-font">Category</span>
+            <a class="category" href="/category/web-development/">
+              Web Development
+            </a>
+          </div>
+        
+
+        
+          <div><span class="heading-font">Tags</span>
+            
+              <a class="tag" href="/tag/django/">Django</a>
+            
+              <a class="tag" href="/tag/python/">Python</a>
+            
+          </div>
+        
+
+
+        
+      </div>
+    </div>
+
+
+</div>
+
+
+      </div>
+      <div class="content">
+        
+  
+  <div class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <!-- Post Title -->
+  
+  
+
+  <!-- Post Content -->
+  
+    <div class="justify word-break" itemprop="articleBody">
+      
+        <p>No, there's no typo in the title. <a href="https://koding.com/" title="Koding Homepage">Koding</a> is a nice platform for building code online. Today we're going to be setting up a Koding instance, installing Django on it, and displaying its equivalent of a "Hello World" message. </p>
+<p>Doing this on a Koding server has a couple of advantages. Not only are you using a fresh computer to do your development, something which is nice to do every once in a while, but you can develop your application collaboratively in real time, and use the Django <code>runserver</code> command to host web pages for short periods of time and show them off to your friends and family on the web. </p>
+<p>Also, did I mention it's <em>free</em>?</p>
+<p></p>
+<h2>What is Koding?</h2>
+<p>If you haven't already checked it out, Koding is a great way to get into developing web-applications. It's a <em>free</em> cloud based integrated development environment (IDE) built around a Linux virtual machine. Essentially, using Koding gives you almost direct access to an <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/t2-instances.html">Amazon Web Services t2.micro instance</a> which sports a single virtual CPU, 1 GB of RAM and 3 GB of hard drive space. It's great for testing small web applications, particularly if you want to show off your code or, as in the example we're about to explore below, quickly host a page/application on the web without incurring any costs. Of course there exists a paid tier for people with more serious projects, but today's little project will be far from needing more power.</p>
+<p>Take the time now to create an account and get started on <a href="https://koding.com/" title="Koding Homepage">Koding's website</a>. Once you create your virtual machine [VM], we can begin working with Django.</p>
+<h2>Installing Django</h2>
+<p>Now that your Koding VM is spun up and ready to go, we're ready to install Django. Python should already be installed, so that, when you type <code>python</code> into the terminal window, a message should pop up which resembles the following:</p>
+<p><div class="listing-caption visible-sm">Running Python <code class="code-language">bash</code></div><div class="sidenote listing-caption invisible-sm"><div>Running Python</div><div class="unit-line-height"><code class="code-language">bash</code></div></div><pre><code class="lang-bash pre-scrollable">gjstein: ~ $ python
+Python 2.7.0 (default, Apr 11 2014, 13:05:11) 
+[GCC 4.8.2] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>>
+</code></pre></p>
+<p>Type <code>exit()</code> and return to leave Python. If you prefer to use Python 3.4 (as I often do), I've included an <a href="#python3">extra section</a> at the end of this post describing how to make that happen. Also, if you're already pretty familiar with Django, feel free to skip this section and move on.</p>
+<p>Let's start by making a folder for our new Django project, which we will name <code>hello_django</code>, and then switch into our new directory.</p>
+<p><div class="listing-caption visible-sm">Create Project Directory <code class="code-language">bash</code></div><div class="sidenote listing-caption invisible-sm"><div>Create Project Directory</div><div class="unit-line-height"><code class="code-language">bash</code></div></div><pre><code class="lang-bash pre-scrollable">gjstein: ~ $ mkdir Documents/hello_django
+gjstein: ~/Documents/hello_django $ cd Documents/hello_django/
+</code></pre></p>
+<p>We will be installing Django into a python virtual environment, which is <a href="http://www.jeffknupp.com/blog/2013/12/18/starting-a-django-16-project-the-right-way/" title="Why virtualenv?">useful in the long-term</a>, as it allows you to use multiple versions of Django, Python and other packages on a single machine. To get started, we must first install the <code>python-virtualenv</code> package which is done with the following command in the terminal.</p>
+<p><div class="listing-caption visible-sm">Install Virtual Environment <code class="code-language">bash</code></div><div class="sidenote listing-caption invisible-sm"><div>Install Virtual Environment</div><div class="unit-line-height"><code class="code-language">bash</code></div></div><pre><code class="lang-bash pre-scrollable">gjstein: ~/Documents/hello_django $ sudo apt-get install python-virtualenv
+</code></pre> </p>
+<p>Next, the virtual environment needs to be created and then activated, which is very simple to do with the package we just installed.</p>
+<p><div class="listing-caption visible-sm">Start Virtual Environment <code class="code-language">bash</code></div><div class="sidenote listing-caption invisible-sm"><div>Start Virtual Environment</div><div class="unit-line-height"><code class="code-language">bash</code></div></div><pre><code class="lang-bash pre-scrollable">gjstein: ~/Documents/hello_django $ virtualenv venv
+gjstein: ~/Documents/hello_django $ source venv/bin/activate
+(venv)gjstein: ~/Documents/hello_django $
+</code></pre></p>
+<p>Note the addition of <code>(venv)</code> to the prompt to signify that we are inside our newly created, and properly activated, virtual environment. Now, any of the python packages we install will exist only while this environment is active, allowing you to isolate your different projects from one another.</p>
+<p>We're finally ready to install Django. Fortunately for us, this is also very simple using <code>pip</code>, the python package manager:</p>
+<p><div class="listing-caption visible-sm">Install Django <code class="code-language">bash</code></div><div class="sidenote listing-caption invisible-sm"><div>Install Django</div><div class="unit-line-height"><code class="code-language">bash</code></div></div><pre><code class="lang-bash pre-scrollable">(venv)gjstein: ~/Documents/hello_django $ pip install Django
+</code></pre></p>
+<p>Finally, creating a Django application can be done with the newly installed <code>django-admin.py startproject</code> command:</p>
+<p><div class="listing-caption visible-sm">Start a Django Project <code class="code-language">bash</code></div><div class="sidenote listing-caption invisible-sm"><div>Start a Django Project</div><div class="unit-line-height"><code class="code-language">bash</code></div></div><pre><code class="lang-bash pre-scrollable">(venv)gjstein: ~/Documents/hello_django $ django-admin.py startproject hello_django
+</code></pre></p>
+<p>Now by switching into our newly created directory and using the <code>ls</code> command to show the files, we should see the following:</p>
+<p><pre class="pre-scrollable"><code class="lang-bash">(venv)gjstein: ~/Documents/hello_django $ cd hello_django
+(venv)gjstein: ~/Documents/hello_django/hello_django $ ls
+hello_django  manage.py
+</code></pre></p>
+<p>The <code>hello_django</code> folder contains a number of files for your newly created Django project while <code>manage.py</code> will allow us to run some of the powerful functions built into Django.</p>
+<h2>Viewing The Webpage</h2>
+<p>Our Django application is now initialized and we're finally ready to see our new webpage. Running the application is very simple with the built in <code>runserver</code> command, to which we will pass with the optional argument <code>0.0.0.0:8000</code> argument that will allow us to view the page over the internet with our own web browser. You should see something that looks like the snippet below:</p>
+<p><div class="listing-caption visible-sm">Running Django <code class="code-language">bash</code></div><div class="sidenote listing-caption invisible-sm"><div>Running Django</div><div class="unit-line-height"><code class="code-language">bash</code></div></div><pre><code class="lang-bash pre-scrollable">(venv)gjstein: ~/Documents/hello_django $ python manage.py runserver 0.0.0.0:8000
+Performing system checks...
+
+System check identified no issues (0 silenced).
+ 
+You have unapplied migrations; your app may not work properly until they are applied.
+Run 'python manage.py migrate' to apply them.
+ 
+March 23, 2015 - 20:16:11
+Django version 1.7.7, using settings 'hello_django.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+</code></pre></p>
+<p>The 'unapplied migrations' warning is nothing to worry about and should be familiar if you've worked with Django before. Now that the server is running, we'd like to view our new page. To do this, we need to find the url (or the IP address) of our virtual machine. This can be found by clicking on the menu for our VM at the top-left of the page, as is shown in the screenshot below.</p>
+<p><img src="/media/photologue/photos/cache/finding-vm-link_display.jpg" class="img-responsive center-block" title="Finding VM Link" style="max-height:306px"/></p>
+<p>We can click on the link to the right of <code>Assigned URL</code> to take us to the root webpage of our VM. However, this is not the content we are hosting with our server, but, rather, it's the default webpage that Koding provides. When we ran our Django server, you may recall, we hosted our page using the <code>0.0.0.0:8000</code> argument, which means that we are serving our application on port 8000. The details of this are not particularly important, but it does mean that we must append <code>:8000</code> to our Koding assigned URL to see our page, so that <a href="">http://XXXX.XXXX.koding.io</a> should become <a href="">http://XXXX.XXXX.koding.io:8000</a>.</p>
+<p><img src="/media/photologue/photos/cache/django-it-worked-page_display.png" class="img-responsive center-block" title="It worked!" style="max-height:207px"/></p>
+<p>Once we make this change, we expect to see the classic "It worked" page that is served by a newly initialized Django application. Naturally, there's not really much there yet. This is unsurprising, since we haven't done any real work! Now it's time for you to start building your application. If you haven't seen the <a href="https://docs.djangoproject.com/en/1.7/intro/tutorial01/" title="Django Tutorial">Django tutorial</a> then now would be a great time to get started.</p>
+<p>Welcome to Django!</p>
+<h2>Extra: Using Python 3 <a name="python3"></a></h2>
+<p>Some people prefer to use Python 3 with their projects (the current version at the time of this writing is 3.4.3), however, keep in mind that, since not every package will work with Python 3, this will depend heavily on your setup. There is only one quick change that needs to be made in order to get Python 3 working. The <code>virtualenv</code> package will take an optional argument, the Python version. In this case, the first line from the <em>Start Virtual Environment</em> listing above becomes the following.</p>
+<p><div class="listing-caption visible-sm">Initialize Virtual Environment (Python 3) <code class="code-language">bash</code></div><div class="sidenote listing-caption invisible-sm"><div>Initialize Virtual Environment (Python 3)</div><div class="unit-line-height"><code class="code-language">bash</code></div></div><pre><code class="lang-bash pre-scrollable">gjstein: ~/Documents/hello_django $ virtualenv -p python3 venv
+</code></pre></p>
+<p>Now, running the <code>python</code> command after activating the virtual environment will run Python 3 instead, and any Django projects created/run in the environment will match.</p>
+      
+    </div>
+  
+
+  <!-- Post Footer -->
+  
+
+  <!-- Additional Metadata -->
+  <meta itemprop="description" content="Koding’s free cloud-based linux dev environment has had me playing for a while. Here’s how to use it with Django.">
+
+</div>
+
+
+      </div>
+      <div class="content-bottom">
+        
+
+  <hr/>
+  <p><blockquote>
+    Liked this post? Subscribe to our <a class="post-link" href="/feed">RSS feed</a> or add your email to our newsletter:
+
+    <!-- Begin MailChimp Signup Form -->
+    <link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+    <div id="mc_embed_signup">
+      <form action="https://cachestocaches.us15.list-manage.com/subscribe/post?u=f290745e370ad37f53ed7c7ac&amp;id=b7922d14de" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+        <div id="mc_embed_signup_scroll">
+	  
+	  <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+          <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+          <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_f290745e370ad37f53ed7c7ac_b7922d14de" tabindex="-1" value=""></div>
+          <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+        </div>
+      </form>
+    </div>
+
+  </blockquote></p>
+
+  <!--End mc_embed_signup-->
+  <hr/>
+
+
+  <!-- All posts in series -->
+  
+
+  <div>
+  <div class="social-icon-container visible-xs">
+    <a class="social-icon twitter"
+         href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fcachestocaches.com%2F2015%2F3%2Fkoding-django%2F&text=Great%20post%20at"></a><a class="social-icon facebook"
+         href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fcachestocaches.com%2F2015%2F3%2Fkoding-django%2F"></a><a class="social-icon googleplus"
+         href="https://plus.google.com/share?url=http%3A%2F%2Fcachestocaches.com%2F2015%2F3%2Fkoding-django%2F"></a><a class="social-icon linkedin"
+         href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fcachestocaches.com%2F2015%2F3%2Fkoding-django%2F&title=Caches%20To%20Caches&source=http%3A//cachestocaches.com"></a><a class="social-icon rss-feed"
+         href="/feed"></a>
+  </div>
+</div>
+
+
+  <hr/>
+
+  <script type="text/javascript">
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = 'cachestocaches';
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+ function createCallback() {
+     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+   };
+</script>
+<a class="heading-font" id="disqus_thread" style="cursor:pointer;"onclick="createCallback();return false;"><h4 class="constrain-width">+ Show Comments From Disqus</h4></a>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="content">
+      
+  <div><a href="/"><img src="/static/logos/c2c_logo_2.png" class="img-responsive center-block" style="width:240px;"/></a></div>
+  <br/>
+  <div class="center-text narrow-font">
+    <span><a href="/">home</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/archive/">archive</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/contributors/">about</a></span>
+  </div>
+  <div class="social-icon-container">
+    <a class="social-icon light-border twitter" href="https://twitter.com/intent/follow?screen_name=CachesToCaches"></a>
+    <a class="social-icon light-border facebook" href="https://www.facebook.com/CachesToCaches"></a>
+    <a class="social-icon light-border googleplus" href="https://www.google.com/+Cachestocaches_c2c" rel="publisher"></a>
+    <a class="social-icon light-border github" href="https://github.com/CachesToCaches"></a>
+    <a class="social-icon light-border rss-feed" href="/feed"></a>
+  </div>
+
+  <br/>
+  <div class="center-text"><a href="http://gjstein.com">designed and maintained by<br/>Gregory J Stein</a></div>
+
+      
+      
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <!-- Sidebar / Table of Contents -->
+    <script src="/static/styles/js/jquery.tableofcontents.g.min.js"></script>
+    <script src="/static/styles/js/sticky-nav.js"></script>
+    <script src="/static/styles/js/bootstrap-scrollspy.min.js"></script>
+    <script>
+    $(function(){$("#toc").tableOfContents(null,{
+      startLevel: 2, depth: 1});
+      $('body').scrollspy({
+        target: '#nav-sidebar',
+        offset: 20});
+    });
+    </script>
+    
+    <!-- Code Highlighting : highlight.js -->
+    
+
+<!-- <link rel="stylesheet" href="/static/highlight/styles/c2c.css"> -->
+<script src="/static/highlight/highlight.pack.js"></script>
+<script>hljs.configure({languages:[]});hljs.initHighlightingOnLoad();</script>
+<script src="/static/styles/js/anchor-scroll.js"></script>
+
+
+    <!-- Equation Rendering : mathjax -->
+    <script type="text/x-mathjax-config">
+     MathJax.Hub.Config({
+       jax: ["input/TeX","output/CommonHTML"],
+       tex2jax: { inlineMath: [["$","$"]] },
+       CommonHTML: {
+         linebreaks: { automatic: true, width: "container" }
+       }
+     });
+    </script>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML" type="text/javascript"></script>
+
+    
+  <script>
+  (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+          function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+          e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+          e.src='//www.google-analytics.com/analytics.js';
+          r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+  ga('create','UA-60578350-2','auto');ga('send','pageview');
+  </script>
+
+  </body>
+</html>

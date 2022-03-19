@@ -1,0 +1,511 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>DeepMind&#x27;s AlphaZero and The Real World</title>
+    <meta name="description" content="Using DeepMind&#x27;s AlphaZero AI to solve real problems will require a change in the way computers represent and think about the world. In this post, we discuss how abstract models of the world can be used for better AI decision making and discuss recent work of ours that proposes such a model for the task of navigation.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    
+
+<link rel="apple-touch-icon" sizes="57x57" href="/static/c2c_icons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/static/c2c_icons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/static/c2c_icons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/static/c2c_icons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/static/c2c_icons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/static/c2c_icons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/static/c2c_icons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/static/c2c_icons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/c2c_icons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-194x194.png" sizes="194x194">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/static/c2c_icons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/static/c2c_icons/manifest.json">
+<link rel="mask-icon" href="/static/c2c_icons/safari-pinned-tab.svg" color="#773333">
+<link rel="shortcut icon" href="/static/c2c_icons/favicon.ico">
+<meta name="msapplication-TileColor" content="#773333">
+<meta name="msapplication-TileImage" content="/static/c2c_icons/mstile-144x144.png">
+<meta name="msapplication-config" content="/static/c2c_icons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+    <!-- 3rd March 2022 07:41 -->
+    <!-- Fonts -->    
+    <link href='https://fonts.googleapis.com/css?family=Unica+One' rel='stylesheet' type='text/css'>
+    <script src="https://use.typekit.net/qeu2zlf.js"></script>
+    <script>try{Typekit.load({ async: false });}catch(e){}</script>
+    <noscript>
+      <!-- Fallback fonts (if no JS) -->
+      <link href='http://fonts.googleapis.com/css?family=Dosis:400|Anonymous+Pro' rel='stylesheet' type='text/css'>
+    </noscript>
+
+    <!-- Styles / Scripts -->
+    
+    <link rel="stylesheet" href="/static/styles/css/cachestocaches.min.css"/>
+    <script src="/static/styles/js/modernizr-2.8.3.min.js"></script>
+
+    
+
+  
+  
+  
+  <meta name="twitter:card"
+          content="summary_large_image" />
+  <meta prefix="og: http://ogp.me/ns#"
+          name="twitter:title"
+          property="og:title"
+          content="DeepMind&#x27;s AlphaZero and The Real World" />
+  <meta name="twitter:site"
+          content="@CachesToCaches">
+  <meta prefix="og: http://ogp.me/ns#"
+          property="og:type"
+          content="website" />
+  
+  
+    <meta prefix="og: http://ogp.me/ns#"
+            name="twitter:image:src"
+            property="og:image"
+            content="http://cachestocaches.com/static/logos/c2c_logo_card_render.jpg" />
+  
+  
+  <meta prefix="og: http://ogp.me/ns#"
+          name="twitter:description"
+          property="og:description"
+          content="Using DeepMind&#x27;s AlphaZero AI to solve real problems will require a change in the way computers represent and think about the world. In this post, we discuss how abstract models of the world can be used for better AI decision making and discuss recent work of ours that proposes such a model for the task of navigation." />
+  <meta prefix="og: http://ogp.me/ns#"
+          property="og:url"
+          content="http://cachestocaches.com/2018/12/toward-real-world-alphazero/" />
+
+  </head>
+
+  <body
+      itemscope
+      itemtype="http://schema.org/WebPage"
+      data-spy="scroll"
+      data-target="#side-nav">
+    
+    <nav class="sidebar">
+      <div class="content">
+        
+  <div><a href="/"><img src="/static/logos/c2c_logo_2.png" class="img-responsive center-block" style="width:240px;"/></a></div>
+  <br/>
+  <div class="center-text narrow-font">
+    <span><a href="/">home</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/archive/">archive</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/contributors/">about</a></span>
+  </div>
+  <div class="social-icon-container">
+    <a class="social-icon light-border twitter" href="https://twitter.com/intent/follow?screen_name=CachesToCaches"></a>
+    <a class="social-icon light-border facebook" href="https://www.facebook.com/CachesToCaches"></a>
+    <a class="social-icon light-border googleplus" href="https://www.google.com/+Cachestocaches_c2c" rel="publisher"></a>
+    <a class="social-icon light-border github" href="https://github.com/CachesToCaches"></a>
+    <a class="social-icon light-border rss-feed" href="/feed"></a>
+  </div>
+
+  <img class="bottom-art" src="/static/art/c2c_triangles.svg"></img>
+  <div class="center-text floating-description"><a href="http://gjstein.com">designed and maintained by<br/>Gregory J Stein</a></div>
+
+        <br/>
+        
+  <div class="title"><a href="#">DeepMind&#x27;s AlphaZero and The Real World</a></div>
+  <hr/>
+  <div id="nav-sidebar">
+    <ul class="nav" id="toc"></ul>
+  </div>
+  <hr/>
+  
+    <br/>
+    <div class="title">
+      <div><small>part 4 of</small></div>
+      <a href="/series/ai-perspectives/" class="nav-title">AI Perspectives</a>
+    </div>
+    <hr/>
+    <div class="description">Reflections on the progress, promise, and impact of AI.</div>
+    <hr/>
+  
+
+      </div>
+    </nav>
+    <nav class="header">
+      
+  <div class="content">
+  <span class="heading-font"><a href="/">Caches to Caches</a> | </span><span><a href="/">home</a></span><span class="center-dot"></span><span><a href="/archive/">archive</a></span><span class="center-dot"></span><span><a href="/contributors/">about</a></span>
+  </div>
+
+    </nav>
+    <div class="page"
+         itemsope
+         itemtype="http://schema.org/Blog">
+      <div class="content-top">
+        
+  <div class="unit-line-height">
+  
+  <!-- Series Details -->
+
+  <!-- Post Image -->
+    <div class="marginnote invisible-sm post-detail">
+      <div>
+      
+        <p><div class="unit-line-height"><small class="heading-font">
+          Part 4 of
+        </small></div>
+        <div><a class="series heading-font" href="/series/ai-perspectives/">AI Perspectives</a></div>
+        </p>
+      
+
+        <p><div class="date heading-font">Sun 16 Dec 2018</div>
+          <a href="/contributors/#gregory-j-stein"><span class="author" itemprop="name">Gregory J Stein</span></a>
+          
+        </p>
+
+        
+          <p><div class="heading-font">Category</div>
+            <a class="category" href="/category/machine-learning/">
+              Machine Learning
+            </a>
+          </p>
+        
+
+        
+          <p><div class="heading-font">Tags</div>
+            
+              <a class="tag" href="/tag/editorial/">Editorial</a>
+            
+              <a class="tag" href="/tag/algorithms/">Algorithms</a>
+            
+              <a class="tag" href="/tag/deep-learning/">Deep Learning</a>
+            
+          </p>
+        
+      </div>
+    </div>
+
+    
+      <h1 class="title">
+        <div>
+          <span itemprop="name">DeepMind&#x27;s AlphaZero and The Real World</span>
+        </div>
+      </h1>
+    
+
+    
+
+
+    <div class="note visible-sm post-detail">
+      <div>
+
+      <div>
+        <span class="date heading-font">Sun 16 Dec 2018</span>
+          <a href="/contributors/#gregory-j-stein"><span class="author" itemprop="name">Gregory J Stein</span></a>
+          
+      </div>
+
+        
+          <div>
+          <span class="heading-font">Category</span>
+            <a class="category" href="/category/machine-learning/">
+              Machine Learning
+            </a>
+          </div>
+        
+
+        
+          <div><span class="heading-font">Tags</span>
+            
+              <a class="tag" href="/tag/editorial/">Editorial</a>
+            
+              <a class="tag" href="/tag/algorithms/">Algorithms</a>
+            
+              <a class="tag" href="/tag/deep-learning/">Deep Learning</a>
+            
+          </div>
+        
+
+
+        
+        <div style="height: 10px"></div>
+            <div><span class="unit-line-height"><span class="heading-font">
+              Part 4 of
+            </span></span>
+            <span><a class="series heading-font" href="/series/ai-perspectives/">AI Perspectives</a></span>
+            </div>
+          
+      </div>
+    </div>
+
+
+</div>
+
+
+      </div>
+      <div class="content">
+        
+  
+  <div class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <!-- Post Title -->
+  
+  
+
+  <!-- Post Content -->
+  
+    <div class="justify word-break" itemprop="articleBody">
+      
+        <p>AlphaZero is incredible. If you have yet to read <a href="https://deepmind.com/blog/alphazero-shedding-new-light-grand-games-chess-shogi-and-go/">DeepMind's blog post</a> about their recent paper in Science detailing the <em>ins and outs</em> of their legendary game-playing AI, I recommend you do so. In it, DeepMind's scientists describe an intelligent system capable of playing the games of Go, Chess, and Shogi at superhuman levels. Even legendary chess Grandmaster <a href="http://www.kasparov.com">Garry Kasparov</a> says the moves selected by the system demonstrate a "<a href="http://science.sciencemag.org/content/362/6419/1087">superior understanding</a>" of the games. Even more remarkable is that AlphaZero, a successor to the well-known AlphaGo and AlphaGo Zero, is trained entirely via <em>self-play</em> — it was able to learn good strategies without any meaningful human input.</p>
+<p>So do these results imply that <a href="https://openai.com/about/">Artificial General Intelligence</a> is soon-to-be a solved problem? Hardly. There is a massive difference between an artificially intelligent agent capable of playing chess and a robot that can solve practical real-world tasks, like exploring a building its never seen before to find someone's office. AlphaZero's intelligence derives from its ability to make predictions about how a game is likely to unfold: it learns to predict which moves are better than others and uses this information to think a few moves ahead. As it learns to make increasingly accurate predictions, AlphaZero gets better at rejecting "bad moves" and is able to simulate deeper into the future. But the real world is almost immeasurably complex, and, to act in the real world, a system like AlphaZero must decide between a nearly infinite set of possible actions at every instant in time. Overcoming this limitation is not merely a matter of throwing more computational power at the problem:</p>
+<blockquote>
+Using AlphaZero to solve real problems will require a change in the way computers represent and think about the world.
+</blockquote>
+
+<p>Yet despite the complexity inherent in the real world, humans are still capable of making predictions about how the world behaves and using this information to make decisions. To understand how, we consider how humans learn to play games.</p>
+<p></p>
+<h2>Human Decision Making and Structured Knowledge</h2>
+<p>Humans are actually pretty good at playing games like Chess and Go, which is why outperforming humans at these games have historically marked milestones for progress in AI. Like AlphaZero, humans develop an intuition for how they expect the game to evolve. Expert human players use this intuition to prefer likely moves and configurations of the world and to inform better decision making.</p>
+<p><div class="quote-wrapper"><note class="marginnote quote-caption invisible-sm"><div class="heading-font">Philip E. Ross </div><div><a href="https://wimse.fsu.edu/media/expert-mind.pdf">The Expert Mind</a></div>
+<div><em>Scientific American</em></div>
+<div>August 2006</div></note><div class=quote><p>The conclusion that experts rely more on structured knowledge than on analysis is supported by a rare case study of an initially weak chess player, identified only by the initials D.H., who over the course of nine years rose to become one of Canada’s leading masters by 1987. Neil Charness, professor of psychology at Florida State University, showed that despite the increase in the player’s strength, he analyzed chess positions no more extensively than he had earlier, relying instead on a vastly improved knowledge of chess positions and associated strategies.</p><note class="quote-caption visible-sm"><div class="heading-font">Philip E. Ross </div><div><a href="https://wimse.fsu.edu/media/expert-mind.pdf">The Expert Mind</a></div>
+<div><em>Scientific American</em></div>
+<div>August 2006</div></note></div></div></p>
+<p>The game of Chess is <a href="https://www.chess.com/article/view/how-to-evaluate-a-position">often analyzed in terms of abstract board positions</a> and Chess openings/endgames are also frequently taught as groups of moves, as in the <a href="https://en.wikipedia.org/wiki/King_and_pawn_versus_king_endgame#Rule_of_the_square">Rule of the Square</a>. Rather than thinking of individual moves, people are capable of thinking in terms of <em>sequences of moves</em>, which allows them to think about the board deeper into the future, once the sequence is executed. Expert players learn to develop an <em>abstract</em> representation of the board, in which fine-grained details may be ignored. <span class="sidenote note no-word-break invisible-sm">It could be argued that AlphaZero is also capable of recognizing abstract patterns, since it too is capable of making predictions about who is likely to win. However, AlphaZero is structured such that it must explicitly construct future states of the board when imagining the future and cannot learn to plan completely in the abstract. </span>Imagining the impact of moves and move sequences becomes a question of how the overall structure of the board will change, rather than the precise positions of each of the pieces.
+<p class="note no-word-break visible-sm">It could be argued that AlphaZero is also capable of recognizing abstract patterns, since it too is capable of making predictions about who is likely to win. However, AlphaZero is structured such that it must explicitly construct future states of the board when imagining the future and cannot learn to plan completely in the abstract. </p></p>
+<p>How does this ability to think in the abstract translate to decision-making in the real world? Humans do this all the time. As I write this, I am at my computer desk in my apartment. If the fire alarm were to go off, indicating that I should leave the building, my instinct is to head towards my apartment door and go down the hall to the stairs, which will then bring me outside. By contrast, a robot might start planning one step at a time, expending enormous computational effort to decide whether walking should begin with the left or right foot, a decision has little bearing on the overall solution.</p>
+<p>For a robot, the planning problem becomes even more complicated when it finds itself in an unfamiliar building. The robot can no longer compute a precise plan, since planning a collision-free trajectory is effectively impossible when the locations of all the obstacles are unknown. Humans are capable of overcoming the computational issues that hold back machines because we think in the abstract. I know that bathrooms are likely to be dead ends, while hallways usually are not. If my goal is to leave the building, entering a bathroom is probably unwise.</p>
+<p>So how can we encourage a system like AlphaZero to think in terms of these human-like abstract actions?</p>
+<h2>Abstract Actions and AlphaZero</h2>
+<p>Understanding how to marry abstract decision-making and AlphaZero requires looking at how AlphaZero works. To make decisions, AlphaZero needs to be able to forward simulate the game: it knows exactly what the board will look like after it makes a move, and what the game will look like after the opponent makes their move, and so on.</p>
+<p><div><note class="marginnote img-caption invisible-sm"><p>This schematic shows how the Monte Carlo Tree Search procedure for the game of Go, upon which AlphaZero and its predecessors are based. The AI uses learning to estimate the best moves and imagines future states of the board by playing against itself. [Image from the <a href="https://www.nature.com/articles/nature24270">AlphaGo Zero Nature paper</a>.]</p></note><img src="/media/photologue/photos/cache/alphago-zero-tree-search_display.png" class="img-responsive center-block" title="AlphaGo Zero Tree Search Procedure" style="max-height:257px"/><note class="img-caption visible-sm"><p>This schematic shows how the Monte Carlo Tree Search procedure for the game of Go, upon which AlphaZero and its predecessors are based. The AI uses learning to estimate the best moves and imagines future states of the board by playing against itself. [Image from the <a href="https://www.nature.com/articles/nature24270">AlphaGo Zero Nature paper</a>.]</p></note></div></p>
+<p>For games like Chess and Go, expanding this tree of moves is trivial. In the real world, however, this same process is extremely difficult, even for an AI. If you don't believe me, take a look at some of the recent progress in <a href="https://arxiv.org/pdf/1710.11252.pdf">video frame prediction</a>, which aims to predict the most likely next few frames of a video. The results are often <em>pretty reasonable</em>, but are often oddly pixelated and are (for now) easily distinguishable from real video. In this problem, the machine learning algorithm has a pretty tough time making predictions more than a few frames into the future. Imagine instead that the robot were to try to predict the likelihood of <em>every possible future video frame</em> for hundreds of frames into the future. The problem is so complex that even generating the data we would need to train such an algorithm is hopelessly difficult.</p>
+<p>If we instead use an abstract model of the world, imagining the future becomes much easier. I no longer care <em>exactly</em> what the world looks like, but instead try to make predictions about the <em>types of things</em> that can happen. In the context of my <em>building exit problem</em>, I should not have to imagine what color tile a bathroom has or precisely how large it is to understand that if I enter a bathroom while trying to leave a building, I will likely have to turn around and exit it again first.</p>
+<p>Framed this way, abstractions allow us to represent the world as if it were a chess board: the <em>moves</em> correspond to physically moving between rooms or hallways or leaving the building. Equipped with an abstract model of the world, a system like AlphaZero can learn to predict how the world will evolve in terms of these abstract concepts. <span class="sidenote note no-word-break invisible-sm">There are still practical challenges associated with using abstractions during planning that have thus far limited AI, like AlphaZero, from using them in general. I discuss these later. </span>Using this abstract model of the world to make decisions is therefore relatively straightforward for a system like AlphaZero: the number of actions (and subsequent outcomes) is vastly reduced, allowing us to use familiar strategies for decision-making.
+<p class="note no-word-break visible-sm">There are still practical challenges associated with using abstractions during planning that have thus far limited AI, like AlphaZero, from using them in general. I discuss these later. </p></p>
+<h2>Navigation in Unknown Environments</h2>
+<p>In fact <em>using</em> abstract models for planning is often much simpler then <em>creating</em> abstract models. So where do abstract models come from?<span class="sidenote note no-word-break invisible-sm"><em>Disclaimer</em>: This section contains work my colleagues and I have done. While our work does not realize an <em>AlphaZero for the real world</em>, we present ideas that are useful for understanding how one might construct such a system. </span>
+<p class="note no-word-break visible-sm"><em>Disclaimer</em>: This section contains work my colleagues and I have done. While our work does not realize an <em>AlphaZero for the real world</em>, we present ideas that are useful for understanding how one might construct such a system. </p></p>
+<p>To begin to answer this question, we can limit the scope of our inquiry to a simpler problem: navigation in an unknown environment. Imagine that a robot is placed in the middle of a university building and capable of detecting the local geometry of the environment: i.e. walls and obstacles. The robot's (albeit simple) goal is to reach a point that's roughly 100 meters away in a part of the building it cannot see.</p>
+<p>When faced with this task, what does a simple algorithm do? Most robots avoid the difficulties associated with making predictions about the unknown part of the building by ignoring it. The robot plans as if all unknown space is free space. Naturally, this assumption is a poor one. A robot using this strategy to navigate constantly enters people's offices in an effort to reach the goal only to "discover" that many of these were dead ends. It often needs to retrace its steps and return to the hallway before it can make further progress towards the goal. This video shows a simulated robot doing just that:</p>
+<p><div><note class="marginnote img-caption invisible-sm"><p>This video shows a simulated robot navigating through a university building. As it travels it (rather frustratingly) enters many offices and classrooms on the way to the goal at the bottom right, since it lacks the ability to understand that they are likely dead-ends.</p></note><img src="/media/post_files/ezgif-5-7110fdacc77f.gif" class="img-responsive center-block " title="LSP: Naive Algorithm" style="max-height:500px"/><note class="img-caption visible-sm"><p>This video shows a simulated robot navigating through a university building. As it travels it (rather frustratingly) enters many offices and classrooms on the way to the goal at the bottom right, since it lacks the ability to understand that they are likely dead-ends.</p></note></div></p>
+<p>Instead of planning like this, we would like to develop an abstract representation of the world so that the robot can make better decisions. As the robot builds its map of the world, boundaries between free space and unknown space appear whenever part of the map is occluded by obstacles or walls. We use each one of these boundaries, or <em>frontiers</em>, to represent an abstract action: an action consists of the robot traveling to the selected boundary and exploring the unknown space beyond it in an effort to reach the goal. In our model, there are two possible "outcomes" from executing an action: (1) we reach the goal and planning terminates, or (2) we fail to reach the goal and must select a different action.</p>
+<p>Using machine learning, we estimate the likelihood that each boundary leads to the goal, which allows us to better estimate how expensive each move will be. Deciding which action to take involves a tree search procedure similar to that of AlphaZero, we simulate trying each action and its possible outcomes in sequence and select the action that has the lowest expected cost. On a toy example, the procedure looks something like this:</p>
+<p><div><note class="marginnote img-caption invisible-sm"><p>This schematic shows one branch of the tree of abstract actions and possible outcomes. Each time the robot tries to reach the goal and fails, it must select a different action. We use learning to estimate the probability an action will reach the goal.</p></note><img src="/media/post_files/frontier_planning_algorithm_horiz_semi_transparent.png" class="img-responsive center-block no-shadow" title="lsp-toy-example-diagram-t" style="max-height:500px"/><note class="img-caption visible-sm"><p>This schematic shows one branch of the tree of abstract actions and possible outcomes. Each time the robot tries to reach the goal and fails, it must select a different action. We use learning to estimate the probability an action will reach the goal.</p></note></div></p>
+<p>This procedure allows us to use our abstract model of the world for planning. Using our procedure, in combination with the learned probability that each boundary leads to the goal, our simulated robot reaches the goal much more quickly than in the example above:</p>
+<p><div><note class="marginnote img-caption invisible-sm"><p>Our algorithm uses learning to estimate the likelihood of possible outcomes upon trying an abstract action. The simulated robot can predict that most offices and classrooms are dead ends, and knows to avoid most rooms on its way to the goal.</p></note><img src="/media/post_files/ezgif-5-e84e597b375f.gif" class="img-responsive center-block " title="LSP: Learned Algorithm" style="max-height:500px"/><note class="img-caption visible-sm"><p>Our algorithm uses learning to estimate the likelihood of possible outcomes upon trying an abstract action. The simulated robot can predict that most offices and classrooms are dead ends, and knows to avoid most rooms on its way to the goal.</p></note></div></p>
+<h2>Challenges</h2>
+<p>As we try to deploy robots and AI systems to solve complex, real-world problems, it has become increasingly clear that our machine learning algorithms can benefit from being designed so that they mirror the structure of the problem they are tasked to solve. Humans are extremely good at using structure to solve problems:</p>
+<p><div class="quote-wrapper"><note class="marginnote quote-caption invisible-sm"><div class="heading-font">Battaglia et al. </div><div><a href="https://arxiv.org/abs/1806.01261">Relational inductive bias, deep learning, and graph networks</a></div>
+<div>October 2018</div>
+<div>[inline references ommitted]</div></note><div class=quote><p>Humans’ capacity for combinatorial generalization depends critically on our cognitive mechanisms for representing structure and reasoning about relations. We represent complex systems as compositions of entities and their interactions, such as judging whether a haphazard stack of objects is stable. We use hierarchies to abstract away from fine-grained differences, and capture more general commonalities between representations and behaviors, such as parts of an object, objects in a scene, neighborhoods in a town, and towns in a country. We solve novel problems by composing familiar skills and routines […] When learning, we either fit new knowledge into our existing structured representations, or adjust the structure itself to better accommodate (and make use of) the new and the old.</p><note class="quote-caption visible-sm"><div class="heading-font">Battaglia et al. </div><div><a href="https://arxiv.org/abs/1806.01261">Relational inductive bias, deep learning, and graph networks</a></div>
+<div>October 2018</div>
+<div>[inline references ommitted]</div></note></div></div></p>
+<p>In the previous section, we developed an abstract model of the world specifically tailored to solving a single problem. While our model — which uses boundaries between free space and the unknown to define abstract actions — is effective for the task of navigation, it would certainly be useless if the robot were instead commanded to <em>clean the dishes</em>. It remains an open question how to construct an artificial agent that can "adjust the structure itself to better accommodate" new data or tasks.</p>
+<p>While our work is certainly a practical step towards realizing an <em>AlphaZero for the real world</em>, we still have a lot to learn. Where do good abstractions come from? What makes one abstraction better than another? How can abstractions be learned?</p>
+<p>As always, I welcome discussion in the comments below or <a href="https://news.ycombinator.com/item?id=18699539">on Hacker News</a>. Feel free to ask questions, share your thoughts, or let me know of some research you would like to share.</p>
+<h2>References</h2>
+<ul>
+<li id="Stein2018subgoal">Gregory J. Stein, Christopher Bradley & Nicholas Roy, Learning over Subgoals for Efficient Navigation of Structured, Unknown Environments, <i>in: Conference on Robot Learning (CoRL)</i>, 2018.</li>
+<li id="ross2006expert">Philip E. Ross, The Expert Mind, <i>Scientific American</i>, 2006.</li>
+<li id="silver2017alphagozero">David Silver et al., Mastering the game of Go without human knowledge, <i>Nature</i>, 2017.</li>
+<li id="babaeizadeh2018stochastic">Mohammad Babaeizadeh, Chelsea Finn, Dumitru Erhan, Roy H. Campbell & Sergey Levine, Stochastic Variational Video Prediction, <i>in: International Conference on Learning Representations</i>, 2018.</li>
+<li id="Silver2018alphazero">David Silver et al., A general reinforcement learning algorithm that masters Chess, Shogi, and Go through self-play, <i>Science</i>, 2018.</li>
+<li id="battaglia2018relational">Peter W. Battaglia et al., Relational inductive biases, deep learning, and graph networks, <i>arXiv preprint arXiv:1806.01261</i>, 2018.</li>
+</ul>
+
+<p>I would also like to extend my thanks to my coauthor Chris Bradley and the members of the <a href="https://groups.csail.mit.edu/rrg/">Robust Robotics Group at MIT</a>, who provided constructive feedback on this article.</p>
+      
+    </div>
+  
+
+  <!-- Post Footer -->
+  
+
+  <!-- Additional Metadata -->
+  <meta itemprop="description" content="Using DeepMind&#x27;s AlphaZero AI to solve real problems will require a change in the way computers represent and think about the world. In this post, we discuss how abstract models of the world can be used for better AI decision making and discuss recent work of ours that proposes such a model for the task of navigation.">
+
+</div>
+
+
+      </div>
+      <div class="content-bottom">
+        
+
+  <hr/>
+  <p><blockquote>
+    Liked this post? Subscribe to our <a class="post-link" href="/feed">RSS feed</a> or add your email to our newsletter:
+
+    <!-- Begin MailChimp Signup Form -->
+    <link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+    <div id="mc_embed_signup">
+      <form action="https://cachestocaches.us15.list-manage.com/subscribe/post?u=f290745e370ad37f53ed7c7ac&amp;id=b7922d14de" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+        <div id="mc_embed_signup_scroll">
+	  
+	  <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+          <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+          <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_f290745e370ad37f53ed7c7ac_b7922d14de" tabindex="-1" value=""></div>
+          <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+        </div>
+      </form>
+    </div>
+
+  </blockquote></p>
+
+  <!--End mc_embed_signup-->
+  <hr/>
+
+
+  <!-- All posts in series -->
+  
+    <div class="post-list">
+      <div class="heading-font">all posts in series</div>
+      <h3><a href="/series/ai-perspectives/" class="nav-title">AI Perspectives</a></h3>
+      <div class="small-line-height">Reflections on the progress, promise, and impact of AI.</div>
+      <ul class="small-post-list">
+        
+          <li ><a class="small-title" href="/2018/7/bias-and-ai/">1 <span class="center-dot"></span> Bias in AI Happens When We Optimize the Wrong Thing</a>
+            <div class="small-detail">Bias is a pervasive problem in AI. Only by discouraging machine learning systems from exploiting a certain bias can we expect such a system to avoid doing so.</div></li>
+        
+          <li ><a class="small-title" href="/2018/9/ai-translation-more-language/">2 <span class="center-dot"></span> For AI, translation is about more than language</a>
+            <div class="small-detail">Translation is about expressing the same underlying information in different ways, and modern machine learning is making incredibly rapid progress in this space.</div></li>
+        
+          <li ><a class="small-title" href="/2018/9/guidelines-practical-ai/">3 <span class="center-dot"></span> Practical Guidelines for Getting Started with Machine Learning</a>
+            <div class="small-detail">The potential advantages of AI are many, and using machine learning to accelerate your business may outweigh potential pitfalls. If you are looking to use machine learning tools, here are a few guidelines you should keep in mind.</div></li>
+        
+          <li class="selected"><a class="small-title" href="/2018/12/toward-real-world-alphazero/">4 <span class="center-dot"></span> DeepMind&#x27;s AlphaZero and The Real World</a>
+            <div class="small-detail">Using DeepMind&#x27;s AlphaZero AI to solve real problems will require a change in the way computers represent and think about the world. In this post, we discuss how abstract models of the world can be used for better AI decision making and discuss recent work of ours that proposes such a model for the task of navigation.</div></li>
+        
+          <li ><a class="small-title" href="/2019/1/staggering-amounts-data/">5 <span class="center-dot"></span> Massive Datasets and Generalization in ML</a>
+            <div class="small-detail">Big, publically available datasets are great. Yet many practitioners who seek to use models pretrained on this data need to ask themselves how informative the data is likely to be for their purposes. Dataset bias and task specificity are important factors to keep in mind.</div></li>
+        
+          <li ><a class="small-title" href="/2019/1/proxy-metrics-are-everywhere-machine-lea/">6 <span class="center-dot"></span> Proxy metrics are everywhere in Machine Learning</a>
+            <div class="small-detail">Many machine learning systems are optimized using metrics that don&#x27;t perfectly match the stated goals of the system. These so-called &quot;proxy metrics&quot; are incredibly useful, but must be used with caution.</div></li>
+        
+          <li ><a class="small-title" href="/2019/5/neural-network-structure-and-no-free-lun/">7 <span class="center-dot"></span> No Free Lunch and Neural Network Architecture</a>
+            <div class="small-detail">Machine learning must always balance flexibility and prior assumptions about the data. In neural networks, the network architecture codifies these prior assumptions, yet the precise relationship between them is opaque. Deep learning solutions are therefore difficult to build without a lot of trial and error, and neural nets are far from an out-of-the-box solution for most applications.</div></li>
+        
+          <li ><a class="small-title" href="/2019/8/efficiency-artificial-neural-networks-ve/">8 <span class="center-dot"></span> On the efficiency of Artificial Neural Networks versus the Brain</a>
+            <div class="small-detail">Recent ire from the media has focused on the high-power consumption of artificial neural nets (ANNs), yet popular discussion frequently conflates training and testing. Here, I aim to clarify the ways in which conversations involving the relative efficiency of ANNs and the human brain often miss the mark.</div></li>
+        
+          <li ><a class="small-title" href="/2019/12/my-state-of-the-field/">9 <span class="center-dot"></span> Machine Learning &amp; Robotics: My (biased) 2019 State of the Field</a>
+            <div class="small-detail">My thoughts on the past year of progress in Robotics and Machine Learning.</div></li>
+        
+          <li ><a class="small-title" href="/2020/3/valley-of-ai-trust/">10 <span class="center-dot"></span> The Valley of AI Trust</a>
+            <div class="small-detail">Particularly for safety-critical applications or the automation of tasks that can directly impact quality of life, we must be careful to avoid the valley of AI trust—the dip in overall safety caused by premature adoption of automation.</div></li>
+        
+      </ul>
+    </div>
+    <hr/>
+  
+
+  <div>
+  <div class="social-icon-container visible-xs">
+    <a class="social-icon twitter"
+         href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fcachestocaches.com%2F2018%2F12%2Ftoward-real-world-alphazero%2F&text=Great%20post%20at"></a><a class="social-icon facebook"
+         href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fcachestocaches.com%2F2018%2F12%2Ftoward-real-world-alphazero%2F"></a><a class="social-icon googleplus"
+         href="https://plus.google.com/share?url=http%3A%2F%2Fcachestocaches.com%2F2018%2F12%2Ftoward-real-world-alphazero%2F"></a><a class="social-icon linkedin"
+         href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fcachestocaches.com%2F2018%2F12%2Ftoward-real-world-alphazero%2F&title=Caches%20To%20Caches&source=http%3A//cachestocaches.com"></a><a class="social-icon rss-feed"
+         href="/feed"></a>
+  </div>
+</div>
+
+
+  <hr/>
+
+  <script type="text/javascript">
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = 'cachestocaches';
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+ function createCallback() {
+     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+   };
+</script>
+<a class="heading-font" id="disqus_thread" style="cursor:pointer;"onclick="createCallback();return false;"><h4 class="constrain-width">+ Show Comments From Disqus</h4></a>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="content">
+      
+  <div><a href="/"><img src="/static/logos/c2c_logo_2.png" class="img-responsive center-block" style="width:240px;"/></a></div>
+  <br/>
+  <div class="center-text narrow-font">
+    <span><a href="/">home</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/archive/">archive</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/contributors/">about</a></span>
+  </div>
+  <div class="social-icon-container">
+    <a class="social-icon light-border twitter" href="https://twitter.com/intent/follow?screen_name=CachesToCaches"></a>
+    <a class="social-icon light-border facebook" href="https://www.facebook.com/CachesToCaches"></a>
+    <a class="social-icon light-border googleplus" href="https://www.google.com/+Cachestocaches_c2c" rel="publisher"></a>
+    <a class="social-icon light-border github" href="https://github.com/CachesToCaches"></a>
+    <a class="social-icon light-border rss-feed" href="/feed"></a>
+  </div>
+
+  <br/>
+  <div class="center-text"><a href="http://gjstein.com">designed and maintained by<br/>Gregory J Stein</a></div>
+
+      
+      
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <!-- Sidebar / Table of Contents -->
+    <script src="/static/styles/js/jquery.tableofcontents.g.min.js"></script>
+    <script src="/static/styles/js/sticky-nav.js"></script>
+    <script src="/static/styles/js/bootstrap-scrollspy.min.js"></script>
+    <script>
+    $(function(){$("#toc").tableOfContents(null,{
+      startLevel: 2, depth: 1});
+      $('body').scrollspy({
+        target: '#nav-sidebar',
+        offset: 20});
+    });
+    </script>
+    
+    <!-- Code Highlighting : highlight.js -->
+    
+
+<!-- <link rel="stylesheet" href="/static/highlight/styles/c2c.css"> -->
+<script src="/static/highlight/highlight.pack.js"></script>
+<script>hljs.configure({languages:[]});hljs.initHighlightingOnLoad();</script>
+<script src="/static/styles/js/anchor-scroll.js"></script>
+
+
+    <!-- Equation Rendering : mathjax -->
+    <script type="text/x-mathjax-config">
+     MathJax.Hub.Config({
+       jax: ["input/TeX","output/CommonHTML"],
+       tex2jax: { inlineMath: [["$","$"]] },
+       CommonHTML: {
+         linebreaks: { automatic: true, width: "container" }
+       }
+     });
+    </script>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML" type="text/javascript"></script>
+
+    
+  <script>
+  (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+          function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+          e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+          e.src='//www.google-analytics.com/analytics.js';
+          r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+  ga('create','UA-60578350-2','auto');ga('send','pageview');
+  </script>
+
+  </body>
+</html>

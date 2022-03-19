@@ -1,0 +1,466 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Massive Datasets and Generalization in ML</title>
+    <meta name="description" content="Big, publically available datasets are great. Yet many practitioners who seek to use models pretrained on this data need to ask themselves how informative the data is likely to be for their purposes. Dataset bias and task specificity are important factors to keep in mind.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    
+
+<link rel="apple-touch-icon" sizes="57x57" href="/static/c2c_icons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/static/c2c_icons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/static/c2c_icons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/static/c2c_icons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/static/c2c_icons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/static/c2c_icons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/static/c2c_icons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/static/c2c_icons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/c2c_icons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-194x194.png" sizes="194x194">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/static/c2c_icons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/static/c2c_icons/manifest.json">
+<link rel="mask-icon" href="/static/c2c_icons/safari-pinned-tab.svg" color="#773333">
+<link rel="shortcut icon" href="/static/c2c_icons/favicon.ico">
+<meta name="msapplication-TileColor" content="#773333">
+<meta name="msapplication-TileImage" content="/static/c2c_icons/mstile-144x144.png">
+<meta name="msapplication-config" content="/static/c2c_icons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+    <!-- 3rd March 2022 07:41 -->
+    <!-- Fonts -->    
+    <link href='https://fonts.googleapis.com/css?family=Unica+One' rel='stylesheet' type='text/css'>
+    <script src="https://use.typekit.net/qeu2zlf.js"></script>
+    <script>try{Typekit.load({ async: false });}catch(e){}</script>
+    <noscript>
+      <!-- Fallback fonts (if no JS) -->
+      <link href='http://fonts.googleapis.com/css?family=Dosis:400|Anonymous+Pro' rel='stylesheet' type='text/css'>
+    </noscript>
+
+    <!-- Styles / Scripts -->
+    
+    <link rel="stylesheet" href="/static/styles/css/cachestocaches.min.css"/>
+    <script src="/static/styles/js/modernizr-2.8.3.min.js"></script>
+
+    
+
+  
+  
+  
+  <meta name="twitter:card"
+          content="summary_large_image" />
+  <meta prefix="og: http://ogp.me/ns#"
+          name="twitter:title"
+          property="og:title"
+          content="Massive Datasets and Generalization in ML" />
+  <meta name="twitter:site"
+          content="@CachesToCaches">
+  <meta prefix="og: http://ogp.me/ns#"
+          property="og:type"
+          content="website" />
+  
+  
+    <meta prefix="og: http://ogp.me/ns#"
+            name="twitter:image:src"
+            property="og:image"
+            content="http://cachestocaches.com/static/logos/c2c_logo_card_render.jpg" />
+  
+  
+  <meta prefix="og: http://ogp.me/ns#"
+          name="twitter:description"
+          property="og:description"
+          content="Big, publically available datasets are great. Yet many practitioners who seek to use models pretrained on this data need to ask themselves how informative the data is likely to be for their purposes. Dataset bias and task specificity are important factors to keep in mind." />
+  <meta prefix="og: http://ogp.me/ns#"
+          property="og:url"
+          content="http://cachestocaches.com/2019/1/staggering-amounts-data/" />
+
+  </head>
+
+  <body
+      itemscope
+      itemtype="http://schema.org/WebPage"
+      data-spy="scroll"
+      data-target="#side-nav">
+    
+    <nav class="sidebar">
+      <div class="content">
+        
+  <div><a href="/"><img src="/static/logos/c2c_logo_2.png" class="img-responsive center-block" style="width:240px;"/></a></div>
+  <br/>
+  <div class="center-text narrow-font">
+    <span><a href="/">home</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/archive/">archive</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/contributors/">about</a></span>
+  </div>
+  <div class="social-icon-container">
+    <a class="social-icon light-border twitter" href="https://twitter.com/intent/follow?screen_name=CachesToCaches"></a>
+    <a class="social-icon light-border facebook" href="https://www.facebook.com/CachesToCaches"></a>
+    <a class="social-icon light-border googleplus" href="https://www.google.com/+Cachestocaches_c2c" rel="publisher"></a>
+    <a class="social-icon light-border github" href="https://github.com/CachesToCaches"></a>
+    <a class="social-icon light-border rss-feed" href="/feed"></a>
+  </div>
+
+  <img class="bottom-art" src="/static/art/c2c_triangles.svg"></img>
+  <div class="center-text floating-description"><a href="http://gjstein.com">designed and maintained by<br/>Gregory J Stein</a></div>
+
+        <br/>
+        
+  <div class="title"><a href="#">Massive Datasets and Generalization in ML</a></div>
+  <hr/>
+  <div id="nav-sidebar">
+    <ul class="nav" id="toc"></ul>
+  </div>
+  <hr/>
+  
+    <br/>
+    <div class="title">
+      <div><small>part 5 of</small></div>
+      <a href="/series/ai-perspectives/" class="nav-title">AI Perspectives</a>
+    </div>
+    <hr/>
+    <div class="description">Reflections on the progress, promise, and impact of AI.</div>
+    <hr/>
+  
+
+      </div>
+    </nav>
+    <nav class="header">
+      
+  <div class="content">
+  <span class="heading-font"><a href="/">Caches to Caches</a> | </span><span><a href="/">home</a></span><span class="center-dot"></span><span><a href="/archive/">archive</a></span><span class="center-dot"></span><span><a href="/contributors/">about</a></span>
+  </div>
+
+    </nav>
+    <div class="page"
+         itemsope
+         itemtype="http://schema.org/Blog">
+      <div class="content-top">
+        
+  <div class="unit-line-height">
+  
+  <!-- Series Details -->
+
+  <!-- Post Image -->
+    <div class="marginnote invisible-sm post-detail">
+      <div>
+      
+        <p><div class="unit-line-height"><small class="heading-font">
+          Part 5 of
+        </small></div>
+        <div><a class="series heading-font" href="/series/ai-perspectives/">AI Perspectives</a></div>
+        </p>
+      
+
+        <p><div class="date heading-font">Wed 9 Jan 2019</div>
+          <a href="/contributors/#gregory-j-stein"><span class="author" itemprop="name">Gregory J Stein</span></a>
+          
+        </p>
+
+        
+
+        
+          <p><div class="heading-font">Tags</div>
+            
+              <a class="tag" href="/tag/editorial/">Editorial</a>
+            
+              <a class="tag" href="/tag/deep-learning/">Deep Learning</a>
+            
+          </p>
+        
+      </div>
+    </div>
+
+    
+      <h1 class="title">
+        <div>
+          <span itemprop="name">Massive Datasets and Generalization in ML</span>
+        </div>
+      </h1>
+    
+
+    
+
+
+    <div class="note visible-sm post-detail">
+      <div>
+
+      <div>
+        <span class="date heading-font">Wed 9 Jan 2019</span>
+          <a href="/contributors/#gregory-j-stein"><span class="author" itemprop="name">Gregory J Stein</span></a>
+          
+      </div>
+
+        
+
+        
+          <div><span class="heading-font">Tags</span>
+            
+              <a class="tag" href="/tag/editorial/">Editorial</a>
+            
+              <a class="tag" href="/tag/deep-learning/">Deep Learning</a>
+            
+          </div>
+        
+
+
+        
+        <div style="height: 10px"></div>
+            <div><span class="unit-line-height"><span class="heading-font">
+              Part 5 of
+            </span></span>
+            <span><a class="series heading-font" href="/series/ai-perspectives/">AI Perspectives</a></span>
+            </div>
+          
+      </div>
+    </div>
+
+
+</div>
+
+
+      </div>
+      <div class="content">
+        
+  
+  <div class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <!-- Post Title -->
+  
+  
+
+  <!-- Post Content -->
+  
+    <div class="justify word-break" itemprop="articleBody">
+      
+        <p><strong>Summary</strong>: <em>Big, publically available datasets are great. Yet many practitioners who seek to use models pretrained on outside data need to ask themselves how informative the data is likely to be for their purposes. "Dataset bias" and "task specificity" are important factors to keep in mind.</em></p>
+<p>As I read deep learning papers these days, I am occasionally struck by the staggering amount of data some researchers are using for their experiments. While I typically work to <a href="http://www.cachestocaches.com/2018/12/toward-real-world-alphazero/">develop representations</a> that allow for good performance with less data, some scientists are racing full steam ahead in the opposite direction.</p>
+<p>It was only a few years ago that we thought the <a href="http://image-net.org/challenges/LSVRC/2012/">ImageNet 2012 dataset</a>, with 1.2 million labeled images, was quite large. Only six years later, <a href="https://arxiv.org/pdf/1805.00932.pdf">researchers from Facebook AI Research (FAIR)</a> have dwarfed ImageNet 2012 with a <em>3-billion-image</em> dataset comprised of hashtag-labeled images from Instagram. Google's <a href="https://research.google.com/youtube8m/">YouTube-8M</a> dataset, geared towards <em>large-scale video understanding</em>, consists of audio/visual features extracted from 350,000 hours of video. Simulation tools have also been growing to incredible sizes; <a href="https://interiornet.org">InteriorNet</a> is a simulation environment consisting of 22 million 3D interior environments, hand-designed by over a thousand interior designers. And let's not forget about OpenAI either, whose multiplayer-game-playing AI is trained using a massive cluster of computers so that it can play <a href="https://blog.openai.com/openai-five/">180 years of games against itself every day</a>.</p>
+<p></p>
+<p>The list goes on.</p>
+<p>In a <a href="https://blog.openai.com/ai-and-compute/">blog post</a> from May 2018, researchers from OpenAI have estimated that the amount of computation being used in the largest AI research experiments, like AlphaGo and Neural Architecture Search, is doubling every 3.5 months, and I suspect data usage is no different. Whenever machine learning performance starts to saturate, researchers develop a bigger or more complex model that is capable of consuming more data. For certain tasks, we may never completely saturate.</p>
+<p>So to what extent is all this data useful? For most other domains, particularly those requiring real-world data, the aim is to collect data that will be useful for training other tasks<span class="sidenote note no-word-break invisible-sm">In addition to simple generalization, <a href="http://ruder.io/transfer-learning/">Transfer Learning</a> is also often done, in which a secondary, usually smaller, dataset to <em>fine-tune</em> the already-trained machine learning model. Generalization and transfer learning are distinct, but related. I discuss them here rather interchangeably. </span>: i.e. that models trained on these massive datasets will transfer (or generalize) well to similar tasks and other datasets. For tasks involving video games, the test and training environments are by-definition identical and data is rather easy to generate without human intervention, and so more data is clearly beneficial. Yet for the real world, large datasets provided by big tech companies or used for machine learning benchmark competitions are rarely identical to the data your algorithm will see in the wild.
+<p class="note no-word-break visible-sm">In addition to simple generalization, <a href="http://ruder.io/transfer-learning/">Transfer Learning</a> is also often done, in which a secondary, usually smaller, dataset to <em>fine-tune</em> the already-trained machine learning model. Generalization and transfer learning are distinct, but related. I discuss them here rather interchangeably. </p></p>
+<blockquote>
+As the performance of our models have increased in recent years, questions regarding the quality and the specificity of the datasets we use for pretraining have become similarly more important.
+</blockquote>
+
+<p>When faced with a task to automate, you might hope that data on a related task is <em>good enough</em> for the task at hand: e.g. detecting dune-buggies with an object detection neural network trained to detect cars. So how well should we expect a particular model trained on a particular dataset to generalize or transfer to your task? At least for the forseable future, the gold standard answer is <em>try it and see how well it works</em>. Yet, even so, there are a few factors one can keep in mind when using an off-the-shelf dataset.</p>
+<p>One of these factors is <em>dataset bias</em>. Since bias must typically be evaluated with respect to the specific task, it is unlikely that any publically available dataset is truly unbiased for your needs. <span class="sidenote note no-word-break invisible-sm">Dataset bias has become an even more important concern as we see more AI algorithms "in the wild", impacting the lives of non-researchers in potentially problematic ways. I will not dive deep on this topic here, but I highly recommend you watch <a href="https://www.youtube.com/watch?v=fMym_BKWQzk">Kate Crawford's NIPS 2017 Keynote: The Trouble with Bias</a>. </span>For example, if you are hoping to train a generic <em>car detector</em>, any dataset older than a few years may be less effective on more recent vehicles. Data bias is notoriously difficult to quantify, yet for some types of data, like images, human evaluation is possible. In a 2011 paper <a href="http://people.csail.mit.edu/torralba/publications/datasets_cvpr11.pdf">Unbiased Look at Dataset Bias</a> computer vision researchers Antonio Torralba (MIT) and Alexei A. Efros (CMU) introduced <em>The Dataset Test</em> in which participants (and, later, computer vision algorithms) are asked to identify from which dataset images of cars are drawn from; both the humans and the algorithms performed much better than random chance on most datasets.
+<p class="note no-word-break visible-sm">Dataset bias has become an even more important concern as we see more AI algorithms "in the wild", impacting the lives of non-researchers in potentially problematic ways. I will not dive deep on this topic here, but I highly recommend you watch <a href="https://www.youtube.com/watch?v=fMym_BKWQzk">Kate Crawford's NIPS 2017 Keynote: The Trouble with Bias</a>. </p></p>
+<p><div><note class="marginnote img-caption invisible-sm"><p>This figure, from <a href="http://people.csail.mit.edu/torralba/publications/datasets_cvpr11.pdf">Unbiased Look at Dataset Bias</a> shows the "most distinguishing" images of cars from five popular image classification datasets. Visual inspection reveals that the types of <em>car images</em> in each dataset can be rather different from one another, resulting in a type of <em>dataset bias</em>.</p></note><img src="/media/photologue/photos/cache/dataset_bias_car_examples_display.png" class="img-responsive center-block" title="Dataset Bias: Car Examples" style="max-height:665px"/><note class="img-caption visible-sm"><p>This figure, from <a href="http://people.csail.mit.edu/torralba/publications/datasets_cvpr11.pdf">Unbiased Look at Dataset Bias</a> shows the "most distinguishing" images of cars from five popular image classification datasets. Visual inspection reveals that the types of <em>car images</em> in each dataset can be rather different from one another, resulting in a type of <em>dataset bias</em>.</p></note></div></p>
+<p>Even models trained on ImageNet are biased towards a certain type of image collection and labeling methodology which may not totally reflect the types of images that you will see in production. Fortunately, <a href="https://arxiv.org/pdf/1805.08974.pdf">recent work</a> from researchers at Google Brain suggests that there is a positive correlation between performance on ImageNet and transfer learning ability to most other image classification tasks. There were, however a few caveats:</p>
+<p><div class="quote-wrapper"><note class="marginnote quote-caption invisible-sm"><div class="heading-font">Simon Kornblith, Jonathon Shlens, and Quoc V. Le </div><div><a href="https://arxiv.org/pdf/1805.08974.pdf">Do Better ImageNet Models Transfer Better?</a>, 2018</div></note><div class=quote><p>Additionally, we find that, on two small fine-grained image classification datasets, pretraining on ImageNet provides minimal benefits, indicating the learned features from ImageNet do not transfer well to fine-grained tasks. Together, our results show that ImageNet architectures generalize well across datasets, but ImageNet features are less general than previously suggested.</p><note class="quote-caption visible-sm"><div class="heading-font">Simon Kornblith, Jonathon Shlens, and Quoc V. Le </div><div><a href="https://arxiv.org/pdf/1805.08974.pdf">Do Better ImageNet Models Transfer Better?</a>, 2018</div></note></div></div></p>
+<p>This brings me to the other factor to keep in mind when using pretrained models: <em>task specificity</em>. Even models pretrained on a rather general dataset like ImageNet may not perform much better than randomly initialized systems when the task is rather specific. Even for rather general tasks, learned features for one task are not necessarily useful for another. This was a point of note in the <a href="https://arxiv.org/pdf/1805.00932.pdf">Limits of Weakly Supervised Pretraining</a> paper from FAIR. The researchers discovered that optimizing their pretraining to better predict whole-image labels had a tradeoff during fine-tuning for object localization tasks. In fact, it is entirely possible that the structure of the model itself is not very well-suited to your new task. Some recent work entitled <a href="https://arxiv.org/pdf/1806.00451.pdf">Do CIFAR-10 Classifiers Generalize to CIFAR-10?</a> has shown that we are starting to overfit our model architectures to the test data for a popular image classification benchmark.</p>
+<p>Perhaps unsurprisingly, having <em>the right data</em> is the most straightforward way to ensure that your machine learning system reaches peak performance on your task. Even as the size of public datasets continues to grow, for many applications, there is often no substitute for collecting and annotating your own data.</p>
+<p>As always, I welcome discussion in the comments below or <a href="https://news.ycombinator.com/item?id=18872281">on Hacker News</a>. Feel free to ask questions, or let me know of some research I might be interested in.</p>
+<h3>References</h3>
+<ul>
+<li id="Mahajan2018pretrain">Dhruv Mahajan, Ross Girshick, Vignesh Ramanathan, Kaiming He, Manohar Paluri, Yixuan Li, Ashwin Bharambe & Laurensi van der Maaten, Exploring the Limits of Weakly Supervised Pretraining, <i>in: European Conference on Computer Vision (ECCV)</i>, 2018.</li>
+<li id="InteriorNet18">Wenbin Li, Sajad Saeedi, John McCormac, Ronald Clark, Dimos Tzoumanikas, Qing Ye, Yuzhong Huang, Rui Tang & Stefan Leutenegger, InteriorNet: Mega-scale Multi-sensor Photo-realistic Indoor Scenes Dataset, <i>in: British Machine Vision Conference (BMVC)</i>, 2018.</li>
+<li id="openai2018compute">Dario Amodei & Danny Hernandez, AI and Compute, 2018. <a href="https://blog.openai.com/ai-and-compute/">Blog post link</a></li>
+<li id="torralba2011unbiased">Antonio Torralba & Alexei A Efros, Unbiased Look at Dataset Bias, <i>in: Computer Vision and Pattern Recognition (CVPR)</i>, 2011.</li>
+<li id="kornblith2018better">Simon Kornblith, Jonathon Shlens & Quoc V Le, Do Better ImageNet Models Transfer Better?, <i>arXiv preprint arXiv:1805.08974</i>, 2018.</li>
+<li id="recht2018cifargeneralize">Benjamin Recht, Rebecca Roelofs, Ludwig Schmidt & Vaishaal Shankar, Do CIFAR-10 Classifiers Generalize to CIFAR-10?, <i>arXiv preprint arXiv:1806.00451</i>, 2018.</li>
+</ul>
+      
+    </div>
+  
+
+  <!-- Post Footer -->
+  
+
+  <!-- Additional Metadata -->
+  <meta itemprop="description" content="Big, publically available datasets are great. Yet many practitioners who seek to use models pretrained on this data need to ask themselves how informative the data is likely to be for their purposes. Dataset bias and task specificity are important factors to keep in mind.">
+
+</div>
+
+
+      </div>
+      <div class="content-bottom">
+        
+
+  <hr/>
+  <p><blockquote>
+    Liked this post? Subscribe to our <a class="post-link" href="/feed">RSS feed</a> or add your email to our newsletter:
+
+    <!-- Begin MailChimp Signup Form -->
+    <link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+    <div id="mc_embed_signup">
+      <form action="https://cachestocaches.us15.list-manage.com/subscribe/post?u=f290745e370ad37f53ed7c7ac&amp;id=b7922d14de" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+        <div id="mc_embed_signup_scroll">
+	  
+	  <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+          <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+          <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_f290745e370ad37f53ed7c7ac_b7922d14de" tabindex="-1" value=""></div>
+          <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+        </div>
+      </form>
+    </div>
+
+  </blockquote></p>
+
+  <!--End mc_embed_signup-->
+  <hr/>
+
+
+  <!-- All posts in series -->
+  
+    <div class="post-list">
+      <div class="heading-font">all posts in series</div>
+      <h3><a href="/series/ai-perspectives/" class="nav-title">AI Perspectives</a></h3>
+      <div class="small-line-height">Reflections on the progress, promise, and impact of AI.</div>
+      <ul class="small-post-list">
+        
+          <li ><a class="small-title" href="/2018/7/bias-and-ai/">1 <span class="center-dot"></span> Bias in AI Happens When We Optimize the Wrong Thing</a>
+            <div class="small-detail">Bias is a pervasive problem in AI. Only by discouraging machine learning systems from exploiting a certain bias can we expect such a system to avoid doing so.</div></li>
+        
+          <li ><a class="small-title" href="/2018/9/ai-translation-more-language/">2 <span class="center-dot"></span> For AI, translation is about more than language</a>
+            <div class="small-detail">Translation is about expressing the same underlying information in different ways, and modern machine learning is making incredibly rapid progress in this space.</div></li>
+        
+          <li ><a class="small-title" href="/2018/9/guidelines-practical-ai/">3 <span class="center-dot"></span> Practical Guidelines for Getting Started with Machine Learning</a>
+            <div class="small-detail">The potential advantages of AI are many, and using machine learning to accelerate your business may outweigh potential pitfalls. If you are looking to use machine learning tools, here are a few guidelines you should keep in mind.</div></li>
+        
+          <li ><a class="small-title" href="/2018/12/toward-real-world-alphazero/">4 <span class="center-dot"></span> DeepMind&#x27;s AlphaZero and The Real World</a>
+            <div class="small-detail">Using DeepMind&#x27;s AlphaZero AI to solve real problems will require a change in the way computers represent and think about the world. In this post, we discuss how abstract models of the world can be used for better AI decision making and discuss recent work of ours that proposes such a model for the task of navigation.</div></li>
+        
+          <li class="selected"><a class="small-title" href="/2019/1/staggering-amounts-data/">5 <span class="center-dot"></span> Massive Datasets and Generalization in ML</a>
+            <div class="small-detail">Big, publically available datasets are great. Yet many practitioners who seek to use models pretrained on this data need to ask themselves how informative the data is likely to be for their purposes. Dataset bias and task specificity are important factors to keep in mind.</div></li>
+        
+          <li ><a class="small-title" href="/2019/1/proxy-metrics-are-everywhere-machine-lea/">6 <span class="center-dot"></span> Proxy metrics are everywhere in Machine Learning</a>
+            <div class="small-detail">Many machine learning systems are optimized using metrics that don&#x27;t perfectly match the stated goals of the system. These so-called &quot;proxy metrics&quot; are incredibly useful, but must be used with caution.</div></li>
+        
+          <li ><a class="small-title" href="/2019/5/neural-network-structure-and-no-free-lun/">7 <span class="center-dot"></span> No Free Lunch and Neural Network Architecture</a>
+            <div class="small-detail">Machine learning must always balance flexibility and prior assumptions about the data. In neural networks, the network architecture codifies these prior assumptions, yet the precise relationship between them is opaque. Deep learning solutions are therefore difficult to build without a lot of trial and error, and neural nets are far from an out-of-the-box solution for most applications.</div></li>
+        
+          <li ><a class="small-title" href="/2019/8/efficiency-artificial-neural-networks-ve/">8 <span class="center-dot"></span> On the efficiency of Artificial Neural Networks versus the Brain</a>
+            <div class="small-detail">Recent ire from the media has focused on the high-power consumption of artificial neural nets (ANNs), yet popular discussion frequently conflates training and testing. Here, I aim to clarify the ways in which conversations involving the relative efficiency of ANNs and the human brain often miss the mark.</div></li>
+        
+          <li ><a class="small-title" href="/2019/12/my-state-of-the-field/">9 <span class="center-dot"></span> Machine Learning &amp; Robotics: My (biased) 2019 State of the Field</a>
+            <div class="small-detail">My thoughts on the past year of progress in Robotics and Machine Learning.</div></li>
+        
+          <li ><a class="small-title" href="/2020/3/valley-of-ai-trust/">10 <span class="center-dot"></span> The Valley of AI Trust</a>
+            <div class="small-detail">Particularly for safety-critical applications or the automation of tasks that can directly impact quality of life, we must be careful to avoid the valley of AI trust—the dip in overall safety caused by premature adoption of automation.</div></li>
+        
+      </ul>
+    </div>
+    <hr/>
+  
+
+  <div>
+  <div class="social-icon-container visible-xs">
+    <a class="social-icon hacker-news"
+           href="https://news.ycombinator.com/item?id=18872281"></a><a class="social-icon twitter"
+         href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fcachestocaches.com%2F2019%2F1%2Fstaggering-amounts-data%2F&text=Great%20post%20at"></a><a class="social-icon facebook"
+         href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fcachestocaches.com%2F2019%2F1%2Fstaggering-amounts-data%2F"></a><a class="social-icon googleplus"
+         href="https://plus.google.com/share?url=http%3A%2F%2Fcachestocaches.com%2F2019%2F1%2Fstaggering-amounts-data%2F"></a><a class="social-icon linkedin"
+         href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fcachestocaches.com%2F2019%2F1%2Fstaggering-amounts-data%2F&title=Caches%20To%20Caches&source=http%3A//cachestocaches.com"></a><a class="social-icon rss-feed"
+         href="/feed"></a>
+  </div>
+</div>
+
+
+  <hr/>
+
+  <script type="text/javascript">
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = 'cachestocaches';
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+ function createCallback() {
+     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+   };
+</script>
+<a class="heading-font" id="disqus_thread" style="cursor:pointer;"onclick="createCallback();return false;"><h4 class="constrain-width">+ Show Comments From Disqus</h4></a>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="content">
+      
+  <div><a href="/"><img src="/static/logos/c2c_logo_2.png" class="img-responsive center-block" style="width:240px;"/></a></div>
+  <br/>
+  <div class="center-text narrow-font">
+    <span><a href="/">home</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/archive/">archive</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/contributors/">about</a></span>
+  </div>
+  <div class="social-icon-container">
+    <a class="social-icon light-border twitter" href="https://twitter.com/intent/follow?screen_name=CachesToCaches"></a>
+    <a class="social-icon light-border facebook" href="https://www.facebook.com/CachesToCaches"></a>
+    <a class="social-icon light-border googleplus" href="https://www.google.com/+Cachestocaches_c2c" rel="publisher"></a>
+    <a class="social-icon light-border github" href="https://github.com/CachesToCaches"></a>
+    <a class="social-icon light-border rss-feed" href="/feed"></a>
+  </div>
+
+  <br/>
+  <div class="center-text"><a href="http://gjstein.com">designed and maintained by<br/>Gregory J Stein</a></div>
+
+      
+      
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <!-- Sidebar / Table of Contents -->
+    <script src="/static/styles/js/jquery.tableofcontents.g.min.js"></script>
+    <script src="/static/styles/js/sticky-nav.js"></script>
+    <script src="/static/styles/js/bootstrap-scrollspy.min.js"></script>
+    <script>
+    $(function(){$("#toc").tableOfContents(null,{
+      startLevel: 2, depth: 1});
+      $('body').scrollspy({
+        target: '#nav-sidebar',
+        offset: 20});
+    });
+    </script>
+    
+    <!-- Code Highlighting : highlight.js -->
+    
+
+<!-- <link rel="stylesheet" href="/static/highlight/styles/c2c.css"> -->
+<script src="/static/highlight/highlight.pack.js"></script>
+<script>hljs.configure({languages:[]});hljs.initHighlightingOnLoad();</script>
+<script src="/static/styles/js/anchor-scroll.js"></script>
+
+
+    <!-- Equation Rendering : mathjax -->
+    <script type="text/x-mathjax-config">
+     MathJax.Hub.Config({
+       jax: ["input/TeX","output/CommonHTML"],
+       tex2jax: { inlineMath: [["$","$"]] },
+       CommonHTML: {
+         linebreaks: { automatic: true, width: "container" }
+       }
+     });
+    </script>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML" type="text/javascript"></script>
+
+    
+  <script>
+  (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+          function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+          e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+          e.src='//www.google-analytics.com/analytics.js';
+          r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+  ga('create','UA-60578350-2','auto');ga('send','pageview');
+  </script>
+
+  </body>
+</html>

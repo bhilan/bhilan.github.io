@@ -1,0 +1,474 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Proxy metrics are everywhere in Machine Learning</title>
+    <meta name="description" content="Many machine learning systems are optimized using metrics that don&#x27;t perfectly match the stated goals of the system. These so-called &quot;proxy metrics&quot; are incredibly useful, but must be used with caution.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    
+
+<link rel="apple-touch-icon" sizes="57x57" href="/static/c2c_icons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/static/c2c_icons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/static/c2c_icons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/static/c2c_icons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/static/c2c_icons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/static/c2c_icons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/static/c2c_icons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/static/c2c_icons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/c2c_icons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-194x194.png" sizes="194x194">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/static/c2c_icons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/static/c2c_icons/manifest.json">
+<link rel="mask-icon" href="/static/c2c_icons/safari-pinned-tab.svg" color="#773333">
+<link rel="shortcut icon" href="/static/c2c_icons/favicon.ico">
+<meta name="msapplication-TileColor" content="#773333">
+<meta name="msapplication-TileImage" content="/static/c2c_icons/mstile-144x144.png">
+<meta name="msapplication-config" content="/static/c2c_icons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+    <!-- 3rd March 2022 07:41 -->
+    <!-- Fonts -->    
+    <link href='https://fonts.googleapis.com/css?family=Unica+One' rel='stylesheet' type='text/css'>
+    <script src="https://use.typekit.net/qeu2zlf.js"></script>
+    <script>try{Typekit.load({ async: false });}catch(e){}</script>
+    <noscript>
+      <!-- Fallback fonts (if no JS) -->
+      <link href='http://fonts.googleapis.com/css?family=Dosis:400|Anonymous+Pro' rel='stylesheet' type='text/css'>
+    </noscript>
+
+    <!-- Styles / Scripts -->
+    
+    <link rel="stylesheet" href="/static/styles/css/cachestocaches.min.css"/>
+    <script src="/static/styles/js/modernizr-2.8.3.min.js"></script>
+
+    
+
+  
+  
+  
+  <meta name="twitter:card"
+          content="summary_large_image" />
+  <meta prefix="og: http://ogp.me/ns#"
+          name="twitter:title"
+          property="og:title"
+          content="Proxy metrics are everywhere in Machine Learning" />
+  <meta name="twitter:site"
+          content="@CachesToCaches">
+  <meta prefix="og: http://ogp.me/ns#"
+          property="og:type"
+          content="website" />
+  
+  
+    <meta prefix="og: http://ogp.me/ns#"
+            name="twitter:image:src"
+            property="og:image"
+            content="http://cachestocaches.com/static/logos/c2c_logo_card_render.jpg" />
+  
+  
+  <meta prefix="og: http://ogp.me/ns#"
+          name="twitter:description"
+          property="og:description"
+          content="Many machine learning systems are optimized using metrics that don&#x27;t perfectly match the stated goals of the system. These so-called &quot;proxy metrics&quot; are incredibly useful, but must be used with caution." />
+  <meta prefix="og: http://ogp.me/ns#"
+          property="og:url"
+          content="http://cachestocaches.com/2019/1/proxy-metrics-are-everywhere-machine-lea/" />
+
+  </head>
+
+  <body
+      itemscope
+      itemtype="http://schema.org/WebPage"
+      data-spy="scroll"
+      data-target="#side-nav">
+    
+    <nav class="sidebar">
+      <div class="content">
+        
+  <div><a href="/"><img src="/static/logos/c2c_logo_2.png" class="img-responsive center-block" style="width:240px;"/></a></div>
+  <br/>
+  <div class="center-text narrow-font">
+    <span><a href="/">home</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/archive/">archive</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/contributors/">about</a></span>
+  </div>
+  <div class="social-icon-container">
+    <a class="social-icon light-border twitter" href="https://twitter.com/intent/follow?screen_name=CachesToCaches"></a>
+    <a class="social-icon light-border facebook" href="https://www.facebook.com/CachesToCaches"></a>
+    <a class="social-icon light-border googleplus" href="https://www.google.com/+Cachestocaches_c2c" rel="publisher"></a>
+    <a class="social-icon light-border github" href="https://github.com/CachesToCaches"></a>
+    <a class="social-icon light-border rss-feed" href="/feed"></a>
+  </div>
+
+  <img class="bottom-art" src="/static/art/c2c_triangles.svg"></img>
+  <div class="center-text floating-description"><a href="http://gjstein.com">designed and maintained by<br/>Gregory J Stein</a></div>
+
+        <br/>
+        
+  <div class="title"><a href="#">Proxy metrics are everywhere in Machine Learning</a></div>
+  <hr/>
+  <div id="nav-sidebar">
+    <ul class="nav" id="toc"></ul>
+  </div>
+  <hr/>
+  
+    <br/>
+    <div class="title">
+      <div><small>part 6 of</small></div>
+      <a href="/series/ai-perspectives/" class="nav-title">AI Perspectives</a>
+    </div>
+    <hr/>
+    <div class="description">Reflections on the progress, promise, and impact of AI.</div>
+    <hr/>
+  
+
+      </div>
+    </nav>
+    <nav class="header">
+      
+  <div class="content">
+  <span class="heading-font"><a href="/">Caches to Caches</a> | </span><span><a href="/">home</a></span><span class="center-dot"></span><span><a href="/archive/">archive</a></span><span class="center-dot"></span><span><a href="/contributors/">about</a></span>
+  </div>
+
+    </nav>
+    <div class="page"
+         itemsope
+         itemtype="http://schema.org/Blog">
+      <div class="content-top">
+        
+  <div class="unit-line-height">
+  
+  <!-- Series Details -->
+
+  <!-- Post Image -->
+    <div class="marginnote invisible-sm post-detail">
+      <div>
+      
+        <p><div class="unit-line-height"><small class="heading-font">
+          Part 6 of
+        </small></div>
+        <div><a class="series heading-font" href="/series/ai-perspectives/">AI Perspectives</a></div>
+        </p>
+      
+
+        <p><div class="date heading-font">Fri 25 Jan 2019</div>
+          <a href="/contributors/#gregory-j-stein"><span class="author" itemprop="name">Gregory J Stein</span></a>
+          
+        </p>
+
+        
+          <p><div class="heading-font">Category</div>
+            <a class="category" href="/category/machine-learning/">
+              Machine Learning
+            </a>
+          </p>
+        
+
+        
+          <p><div class="heading-font">Tags</div>
+            
+              <a class="tag" href="/tag/deep-learning/">Deep Learning</a>
+            
+          </p>
+        
+      </div>
+    </div>
+
+    
+      <h1 class="title">
+        <div>
+          <span itemprop="name">Proxy metrics are everywhere in Machine Learning</span>
+        </div>
+      </h1>
+    
+
+    
+
+
+    <div class="note visible-sm post-detail">
+      <div>
+
+      <div>
+        <span class="date heading-font">Fri 25 Jan 2019</span>
+          <a href="/contributors/#gregory-j-stein"><span class="author" itemprop="name">Gregory J Stein</span></a>
+          
+      </div>
+
+        
+          <div>
+          <span class="heading-font">Category</span>
+            <a class="category" href="/category/machine-learning/">
+              Machine Learning
+            </a>
+          </div>
+        
+
+        
+          <div><span class="heading-font">Tags</span>
+            
+              <a class="tag" href="/tag/deep-learning/">Deep Learning</a>
+            
+          </div>
+        
+
+
+        
+        <div style="height: 10px"></div>
+            <div><span class="unit-line-height"><span class="heading-font">
+              Part 6 of
+            </span></span>
+            <span><a class="series heading-font" href="/series/ai-perspectives/">AI Perspectives</a></span>
+            </div>
+          
+      </div>
+    </div>
+
+
+</div>
+
+
+      </div>
+      <div class="content">
+        
+  
+  <div class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <!-- Post Title -->
+  
+  
+
+  <!-- Post Content -->
+  
+    <div class="justify word-break" itemprop="articleBody">
+      
+        <p><strong>Summary</strong>: <em>Many machine learning systems are optimized using metrics that don't perfectly match the stated goals of the system. These so-called "proxy metrics" are incredibly useful, but must be used with caution.</em></p>
+<p>The use of so-called <em>proxy metrics</em> to solve real-world machine learning problems happens with perhaps surprising regularity.<span class="sidenote note no-word-break invisible-sm">I have <a href="http://www.cachestocaches.com/2018/7/bias-and-ai/">written before</a> about the repercussions of optimizing a metric that doesn't perfectly align with the stated goal of the system. Here, I touch upon <em>why</em> the use of such metrics is actually quite common. </span> The choice to solve an alternative metric, in which the optimization target is different from the actual metric of interest, is often a conscious one. Such metrics have proven incredibly useful for the machine learning community — when used wisely, proxy metrics can be used to accomplish tasks that are otherwise extremely difficult. Here, I discuss a number of common scenarios in which I see machine learning practitioners using these <em>proxy metrics</em> and how this approach can sometimes result in surprising behaviors and problems.
+<p class="note no-word-break visible-sm">I have <a href="http://www.cachestocaches.com/2018/7/bias-and-ai/">written before</a> about the repercussions of optimizing a metric that doesn't perfectly align with the stated goal of the system. Here, I touch upon <em>why</em> the use of such metrics is actually quite common. </p></p>
+<p></p>
+<hr/>
+
+<p>One place in which proxy metrics appear is <strong>hidden in general-purpose or off-the-shelf tools</strong> like object detectors or semantic segmentation systems: the metric used to train these tools may not match the metric. A neural network trained on ImageNet, for instance, is designed to equally penalize incorrect detections across its thousand object categories. As such, it may not be a particularly good choice for a machine learning system whose only job is to differentiate between different breeds of dog. A more custom-tailored metric may be appropriate, yet retraining the algorithm for specific use cases may be prohibitively expensive or difficult for some tasks. Owing to the difficulty associated with retraining word embedding networks, the natural language processing community frequently uses unmodified off-the-shelf tools for research.</p>
+<p>Sometimes the system can be cleverly engineered in such a way that <strong>learning can only perform well at optimizing the proxy metric if it succeeds at understanding the target concept</strong>. One fascinating example of this is <a href="https://github.com/mrharicot/monodepth">MonoDepth</a>, which aims to train a neural network to predict depth given a monocular image. The catch? The training data does not include any explicit depth information. Instead, the system is trained on <em>left</em> and <em>right</em> image pairs captured from a stereo camera. The algorithm succeeds if it is capable of figuring out what the <em>left</em> image should look like given only the <em>right</em> image (and vice versa). <span class="sidenote note no-word-break invisible-sm">Note that MonoDepth has an interesting failure mode because of its choice of metric: the depth of windows and other transparent or reflective surfaces will be incorrect. This is an expected consequence of their approach, but may cause problems if avoiding windows is a critical part of your algorithm. </span>The only way to do this is to understand how far objects are, since the 3D geometry is essential for reconstructing the scene from a different perspective. So, by optimizing away errors in the reconstructed image by iterating over predicted depth, the algorithm discovers how far each obstacle must be.
+<p class="note no-word-break visible-sm">Note that MonoDepth has an interesting failure mode because of its choice of metric: the depth of windows and other transparent or reflective surfaces will be incorrect. This is an expected consequence of their approach, but may cause problems if avoiding windows is a critical part of your algorithm. </p></p>
+<p>In some cases, <strong>the metric you care about may be hard to optimize directly</strong>. Consider, for example, a scenario in which a robot is instructed to <em>clean a bedroom</em> as efficiently as possible. Solving this problem exactly involves using onboard sensors to detect all <em>messy</em> objects and then take actions to put them in their place. However, if the perception system occasionally misses objects, the set of actions the robot needs to take will also change, which makes direct optimization of the perception system difficult. Object detection systems for robot perception are often trained in isolation because of the difficulties inherent in jointly optimizing the perception system and the actions the robot should take as a function of the noisy perception.</p>
+<p>Finally, it is often the case that the <strong>it isn't obvious how to mathematically specify the actual objective</strong>. This is one of the biggest challenges in many machine learning contexts: not knowing how to express the thing you want to improve to get the behavior you would like to see. This is a common problem in the reinforcement learning community, in which the behavior of an AI agent is determined by a user-specified reward function. Here is a particularly interesting example highlighted a <a href="https://arxiv.org/pdf/1803.03453.pdf">recent survey paper on surprising behavior in "digital evolution"</a>:</p>
+<p><div class="quote-wrapper"><note class="marginnote quote-caption invisible-sm"><div class="heading-font">Joel Lehman et al </div><div><a href="https://arxiv.org/pdf/1803.03453.pdf">The Surprising Creativity of Digital Evolution</a></div>
+<div>August 2018</div></note><div class=quote><p>In a seminal work from 1994, Karl Sims evolved 3D virtual creatures that could discover walking, swimming, and jumping behaviors in simulated physical environments. The creatures’ bodies were made of connected blocks, and their “brains” were simple computational neural networks that generated varying torque at their joints based on perceptions from their limbs, enabling realistic-looking motion. The morphology and control systems were evolved simultaneously, allowing a wide range of possible bodies and locomotion strategies. Indeed, these ‘creatures’ remain among the most iconic products of digital evolution.</p>
+<p>However, when Sims initially attempted to evolve locomotion behaviors, things did not go smoothly. In a simulated land environment with gravity and friction, a creature’s fitness was measured as its average ground velocity during its lifetime of ten simulated seconds. Instead of inventing clever limbs or snake-like motions that could push them along (as was hoped for), the creatures evolved to become tall and rigid. When simulated, they would fall over, harnessing their initial potential energy to achieve high velocity. Some even performed somersaults to extend their horizontal velocity. A video of this behavior can be seen here: <a href="https://goo.gl/pnYbVh">https://goo.gl/pnYbVh</a>. To prevent this exploit, it was necessary to allocate time at the beginning of each simulation to relax the potential energy inherent in the creature’s initial stance before motion was rewarded.</p><note class="quote-caption visible-sm"><div class="heading-font">Joel Lehman et al </div><div><a href="https://arxiv.org/pdf/1803.03453.pdf">The Surprising Creativity of Digital Evolution</a></div>
+<div>August 2018</div></note></div></div></p>
+<p>Which brings me to my final point:</p>
+<blockquote>
+Whenever you are optimizing a proxy metric, you open yourself up to potentially surprising errors.
+</blockquote>
+
+<p>Some <a href="http://proceedings.mlr.press/v87/stein18a.html">research I recently presented at CoRL</a> involved training a neural-network-based classifier to predict dead ends while exploring building-like environments. The problem of intelligent decision making in unknown environments is notoriously difficult, so we instead decided to introduce a classifier to predict where dead-ends would appear in the unknown portions of the environment. The classifier would be used as part of a larger system that could navigate through unknown environments as humans do — by learning to recognize that offices and bathrooms are far less likely to lead to faraway goals than hallways.</p>
+<p>Many classification problems are trained using a <em>symmetric loss</em>, in which the penalty of incorrectly labeling an example is independent of the type of example. What was not obvious to us during the first stages of development was that this was not the case for our problem. The misclassification penalty depends on the trajectory of interest: erroneously exploring an office takes much less time than mistakenly ignoring the only hallway leading to the goal. We corrected our training metric to capture this asymmetry, and the final system performed quite well.</p>
+<p>Fortunately, it was immediately obvious in our case that something wasn't working as we expected. For other problem domains, the issues may be more subtle. As designers of machine learning systems, we need to be careful that our choice of metric does not cause unintended consequences or biases in production.</p>
+<p>As always, I welcome discussion in the comments below. Feel free to ask questions, share your thoughts, or let me know of some research you would like to share.</p>
+<h3>References</h3>
+<ul>
+<li id="Stein2018subgoal">Gregory J. Stein, Christopher Bradley & Nicholas Roy, Learning over Subgoals for Efficient Navigation of Structured, Unknown Environments, <i>in: Conference on Robot Learning (CoRL)</i>, 2018.</li>
+<li id="godard2017monodepth">Cl\'ement Godard, Oisin Mac Aodha & Gabriel J. Brostow, Unsupervised Monocular Depth Estimation with Left-Right Consistency, <i>in: Computer Vision and Pattern Recognition (CVPR)</i>, 2017.</li>
+<li id="lehman2018surprising">Joel Lehman et al., The Surprising Creativity of Digital Evolution: A Collection of Anecdotes from the Evolutionary Computation and Artificial Life Research Communities, <i>arXiv preprint arXiv:1803.03453</i>, 2018.</li>
+</ul>
+      
+    </div>
+  
+
+  <!-- Post Footer -->
+  
+
+  <!-- Additional Metadata -->
+  <meta itemprop="description" content="Many machine learning systems are optimized using metrics that don&#x27;t perfectly match the stated goals of the system. These so-called &quot;proxy metrics&quot; are incredibly useful, but must be used with caution.">
+
+</div>
+
+
+      </div>
+      <div class="content-bottom">
+        
+
+  <hr/>
+  <p><blockquote>
+    Liked this post? Subscribe to our <a class="post-link" href="/feed">RSS feed</a> or add your email to our newsletter:
+
+    <!-- Begin MailChimp Signup Form -->
+    <link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+    <div id="mc_embed_signup">
+      <form action="https://cachestocaches.us15.list-manage.com/subscribe/post?u=f290745e370ad37f53ed7c7ac&amp;id=b7922d14de" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+        <div id="mc_embed_signup_scroll">
+	  
+	  <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+          <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+          <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_f290745e370ad37f53ed7c7ac_b7922d14de" tabindex="-1" value=""></div>
+          <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+        </div>
+      </form>
+    </div>
+
+  </blockquote></p>
+
+  <!--End mc_embed_signup-->
+  <hr/>
+
+
+  <!-- All posts in series -->
+  
+    <div class="post-list">
+      <div class="heading-font">all posts in series</div>
+      <h3><a href="/series/ai-perspectives/" class="nav-title">AI Perspectives</a></h3>
+      <div class="small-line-height">Reflections on the progress, promise, and impact of AI.</div>
+      <ul class="small-post-list">
+        
+          <li ><a class="small-title" href="/2018/7/bias-and-ai/">1 <span class="center-dot"></span> Bias in AI Happens When We Optimize the Wrong Thing</a>
+            <div class="small-detail">Bias is a pervasive problem in AI. Only by discouraging machine learning systems from exploiting a certain bias can we expect such a system to avoid doing so.</div></li>
+        
+          <li ><a class="small-title" href="/2018/9/ai-translation-more-language/">2 <span class="center-dot"></span> For AI, translation is about more than language</a>
+            <div class="small-detail">Translation is about expressing the same underlying information in different ways, and modern machine learning is making incredibly rapid progress in this space.</div></li>
+        
+          <li ><a class="small-title" href="/2018/9/guidelines-practical-ai/">3 <span class="center-dot"></span> Practical Guidelines for Getting Started with Machine Learning</a>
+            <div class="small-detail">The potential advantages of AI are many, and using machine learning to accelerate your business may outweigh potential pitfalls. If you are looking to use machine learning tools, here are a few guidelines you should keep in mind.</div></li>
+        
+          <li ><a class="small-title" href="/2018/12/toward-real-world-alphazero/">4 <span class="center-dot"></span> DeepMind&#x27;s AlphaZero and The Real World</a>
+            <div class="small-detail">Using DeepMind&#x27;s AlphaZero AI to solve real problems will require a change in the way computers represent and think about the world. In this post, we discuss how abstract models of the world can be used for better AI decision making and discuss recent work of ours that proposes such a model for the task of navigation.</div></li>
+        
+          <li ><a class="small-title" href="/2019/1/staggering-amounts-data/">5 <span class="center-dot"></span> Massive Datasets and Generalization in ML</a>
+            <div class="small-detail">Big, publically available datasets are great. Yet many practitioners who seek to use models pretrained on this data need to ask themselves how informative the data is likely to be for their purposes. Dataset bias and task specificity are important factors to keep in mind.</div></li>
+        
+          <li class="selected"><a class="small-title" href="/2019/1/proxy-metrics-are-everywhere-machine-lea/">6 <span class="center-dot"></span> Proxy metrics are everywhere in Machine Learning</a>
+            <div class="small-detail">Many machine learning systems are optimized using metrics that don&#x27;t perfectly match the stated goals of the system. These so-called &quot;proxy metrics&quot; are incredibly useful, but must be used with caution.</div></li>
+        
+          <li ><a class="small-title" href="/2019/5/neural-network-structure-and-no-free-lun/">7 <span class="center-dot"></span> No Free Lunch and Neural Network Architecture</a>
+            <div class="small-detail">Machine learning must always balance flexibility and prior assumptions about the data. In neural networks, the network architecture codifies these prior assumptions, yet the precise relationship between them is opaque. Deep learning solutions are therefore difficult to build without a lot of trial and error, and neural nets are far from an out-of-the-box solution for most applications.</div></li>
+        
+          <li ><a class="small-title" href="/2019/8/efficiency-artificial-neural-networks-ve/">8 <span class="center-dot"></span> On the efficiency of Artificial Neural Networks versus the Brain</a>
+            <div class="small-detail">Recent ire from the media has focused on the high-power consumption of artificial neural nets (ANNs), yet popular discussion frequently conflates training and testing. Here, I aim to clarify the ways in which conversations involving the relative efficiency of ANNs and the human brain often miss the mark.</div></li>
+        
+          <li ><a class="small-title" href="/2019/12/my-state-of-the-field/">9 <span class="center-dot"></span> Machine Learning &amp; Robotics: My (biased) 2019 State of the Field</a>
+            <div class="small-detail">My thoughts on the past year of progress in Robotics and Machine Learning.</div></li>
+        
+          <li ><a class="small-title" href="/2020/3/valley-of-ai-trust/">10 <span class="center-dot"></span> The Valley of AI Trust</a>
+            <div class="small-detail">Particularly for safety-critical applications or the automation of tasks that can directly impact quality of life, we must be careful to avoid the valley of AI trust—the dip in overall safety caused by premature adoption of automation.</div></li>
+        
+      </ul>
+    </div>
+    <hr/>
+  
+
+  <div>
+  <div class="social-icon-container visible-xs">
+    <a class="social-icon twitter"
+         href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fcachestocaches.com%2F2019%2F1%2Fproxy-metrics-are-everywhere-machine-lea%2F&text=Great%20post%20at"></a><a class="social-icon facebook"
+         href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fcachestocaches.com%2F2019%2F1%2Fproxy-metrics-are-everywhere-machine-lea%2F"></a><a class="social-icon googleplus"
+         href="https://plus.google.com/share?url=http%3A%2F%2Fcachestocaches.com%2F2019%2F1%2Fproxy-metrics-are-everywhere-machine-lea%2F"></a><a class="social-icon linkedin"
+         href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fcachestocaches.com%2F2019%2F1%2Fproxy-metrics-are-everywhere-machine-lea%2F&title=Caches%20To%20Caches&source=http%3A//cachestocaches.com"></a><a class="social-icon rss-feed"
+         href="/feed"></a>
+  </div>
+</div>
+
+
+  <hr/>
+
+  <script type="text/javascript">
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = 'cachestocaches';
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+ function createCallback() {
+     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+   };
+</script>
+<a class="heading-font" id="disqus_thread" style="cursor:pointer;"onclick="createCallback();return false;"><h4 class="constrain-width">+ Show Comments From Disqus</h4></a>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="content">
+      
+  <div><a href="/"><img src="/static/logos/c2c_logo_2.png" class="img-responsive center-block" style="width:240px;"/></a></div>
+  <br/>
+  <div class="center-text narrow-font">
+    <span><a href="/">home</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/archive/">archive</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/contributors/">about</a></span>
+  </div>
+  <div class="social-icon-container">
+    <a class="social-icon light-border twitter" href="https://twitter.com/intent/follow?screen_name=CachesToCaches"></a>
+    <a class="social-icon light-border facebook" href="https://www.facebook.com/CachesToCaches"></a>
+    <a class="social-icon light-border googleplus" href="https://www.google.com/+Cachestocaches_c2c" rel="publisher"></a>
+    <a class="social-icon light-border github" href="https://github.com/CachesToCaches"></a>
+    <a class="social-icon light-border rss-feed" href="/feed"></a>
+  </div>
+
+  <br/>
+  <div class="center-text"><a href="http://gjstein.com">designed and maintained by<br/>Gregory J Stein</a></div>
+
+      
+      
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <!-- Sidebar / Table of Contents -->
+    <script src="/static/styles/js/jquery.tableofcontents.g.min.js"></script>
+    <script src="/static/styles/js/sticky-nav.js"></script>
+    <script src="/static/styles/js/bootstrap-scrollspy.min.js"></script>
+    <script>
+    $(function(){$("#toc").tableOfContents(null,{
+      startLevel: 2, depth: 1});
+      $('body').scrollspy({
+        target: '#nav-sidebar',
+        offset: 20});
+    });
+    </script>
+    
+    <!-- Code Highlighting : highlight.js -->
+    
+
+<!-- <link rel="stylesheet" href="/static/highlight/styles/c2c.css"> -->
+<script src="/static/highlight/highlight.pack.js"></script>
+<script>hljs.configure({languages:[]});hljs.initHighlightingOnLoad();</script>
+<script src="/static/styles/js/anchor-scroll.js"></script>
+
+
+    <!-- Equation Rendering : mathjax -->
+    <script type="text/x-mathjax-config">
+     MathJax.Hub.Config({
+       jax: ["input/TeX","output/CommonHTML"],
+       tex2jax: { inlineMath: [["$","$"]] },
+       CommonHTML: {
+         linebreaks: { automatic: true, width: "container" }
+       }
+     });
+    </script>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML" type="text/javascript"></script>
+
+    
+  <script>
+  (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+          function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+          e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+          e.src='//www.google-analytics.com/analytics.js';
+          r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+  ga('create','UA-60578350-2','auto');ga('send','pageview');
+  </script>
+
+  </body>
+</html>

@@ -1,0 +1,471 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Getting Started with Use-Package</title>
+    <meta name="description" content="Jump-start emacs with use-package and never manually install another package again">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    
+
+<link rel="apple-touch-icon" sizes="57x57" href="/static/c2c_icons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/static/c2c_icons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/static/c2c_icons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/static/c2c_icons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/static/c2c_icons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/static/c2c_icons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/static/c2c_icons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/static/c2c_icons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/c2c_icons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-194x194.png" sizes="194x194">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/static/c2c_icons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/static/c2c_icons/manifest.json">
+<link rel="mask-icon" href="/static/c2c_icons/safari-pinned-tab.svg" color="#773333">
+<link rel="shortcut icon" href="/static/c2c_icons/favicon.ico">
+<meta name="msapplication-TileColor" content="#773333">
+<meta name="msapplication-TileImage" content="/static/c2c_icons/mstile-144x144.png">
+<meta name="msapplication-config" content="/static/c2c_icons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+    <!-- 3rd March 2022 07:41 -->
+    <!-- Fonts -->    
+    <link href='https://fonts.googleapis.com/css?family=Unica+One' rel='stylesheet' type='text/css'>
+    <script src="https://use.typekit.net/qeu2zlf.js"></script>
+    <script>try{Typekit.load({ async: false });}catch(e){}</script>
+    <noscript>
+      <!-- Fallback fonts (if no JS) -->
+      <link href='http://fonts.googleapis.com/css?family=Dosis:400|Anonymous+Pro' rel='stylesheet' type='text/css'>
+    </noscript>
+
+    <!-- Styles / Scripts -->
+    
+    <link rel="stylesheet" href="/static/styles/css/cachestocaches.min.css"/>
+    <script src="/static/styles/js/modernizr-2.8.3.min.js"></script>
+
+    
+
+  
+  
+  
+  <meta name="twitter:card"
+          content="summary_large_image" />
+  <meta prefix="og: http://ogp.me/ns#"
+          name="twitter:title"
+          property="og:title"
+          content="Getting Started with Use-Package" />
+  <meta name="twitter:site"
+          content="@CachesToCaches">
+  <meta prefix="og: http://ogp.me/ns#"
+          property="og:type"
+          content="website" />
+  
+  
+    <meta prefix="og: http://ogp.me/ns#"
+            name="twitter:image:src"
+            property="og:image"
+            content="http://cachestocaches.com/media/photologue/photos/cache/use-package-cover_display.png" />
+    <meta name="thumbnail"
+            content="http://cachestocaches.com/media/photologue/photos/cache/use-package-cover_thumbnail.png" />
+  
+  
+  <meta prefix="og: http://ogp.me/ns#"
+          name="twitter:description"
+          property="og:description"
+          content="Jump-start emacs with use-package and never manually install another package again" />
+  <meta prefix="og: http://ogp.me/ns#"
+          property="og:url"
+          content="http://cachestocaches.com/2015/8/getting-started-use-package/" />
+
+  </head>
+
+  <body
+      itemscope
+      itemtype="http://schema.org/WebPage"
+      data-spy="scroll"
+      data-target="#side-nav">
+    
+    <nav class="sidebar">
+      <div class="content">
+        
+  <div><a href="/"><img src="/static/logos/c2c_logo_2.png" class="img-responsive center-block" style="width:240px;"/></a></div>
+  <br/>
+  <div class="center-text narrow-font">
+    <span><a href="/">home</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/archive/">archive</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/contributors/">about</a></span>
+  </div>
+  <div class="social-icon-container">
+    <a class="social-icon light-border twitter" href="https://twitter.com/intent/follow?screen_name=CachesToCaches"></a>
+    <a class="social-icon light-border facebook" href="https://www.facebook.com/CachesToCaches"></a>
+    <a class="social-icon light-border googleplus" href="https://www.google.com/+Cachestocaches_c2c" rel="publisher"></a>
+    <a class="social-icon light-border github" href="https://github.com/CachesToCaches"></a>
+    <a class="social-icon light-border rss-feed" href="/feed"></a>
+  </div>
+
+  <img class="bottom-art" src="/static/art/c2c_triangles.svg"></img>
+  <div class="center-text floating-description"><a href="http://gjstein.com">designed and maintained by<br/>Gregory J Stein</a></div>
+
+        <br/>
+        
+  <div class="title"><a href="#">Getting Started with Use-Package</a></div>
+  <hr/>
+  <div id="nav-sidebar">
+    <ul class="nav" id="toc"></ul>
+  </div>
+  <hr/>
+  
+    <br/>
+    <div class="title">
+      <div><small>part 1 of</small></div>
+      <a href="/series/emacs-productivity/" class="nav-title">Emacs For Productivity</a>
+    </div>
+    <hr/>
+    <div class="description">A collection of tips and guides for using Emacs to master your life.</div>
+    <hr/>
+  
+
+      </div>
+    </nav>
+    <nav class="header">
+      
+  <div class="content">
+  <span class="heading-font"><a href="/">Caches to Caches</a> | </span><span><a href="/">home</a></span><span class="center-dot"></span><span><a href="/archive/">archive</a></span><span class="center-dot"></span><span><a href="/contributors/">about</a></span>
+  </div>
+
+    </nav>
+    <div class="page"
+         itemsope
+         itemtype="http://schema.org/Blog">
+      <div class="content-top">
+        
+  <div class="unit-line-height">
+  
+  <!-- Series Details -->
+
+  <!-- Post Image -->
+    <div class="marginnote invisible-sm post-detail">
+      <div>
+      
+        <p><div class="unit-line-height"><small class="heading-font">
+          Part 1 of
+        </small></div>
+        <div><a class="series heading-font" href="/series/emacs-productivity/">Emacs For Productivity</a></div>
+        </p>
+      
+
+        <p><div class="date heading-font">Mon 24 Aug 2015</div>
+          <a href="/contributors/#gregory-j-stein"><span class="author" itemprop="name">Gregory J Stein</span></a>
+          
+        </p>
+
+        
+          <p><div class="heading-font">Category</div>
+            <a class="category" href="/category/general-computing/">
+              General Computing
+            </a>
+          </p>
+        
+
+        
+          <p><div class="heading-font">Tags</div>
+            
+              <a class="tag" href="/tag/emacs/">Emacs</a>
+            
+          </p>
+        
+      </div>
+    </div>
+
+    
+      <h1 class="title">
+        <div>
+          <span itemprop="name">Getting Started with Use-Package</span>
+        </div>
+      </h1>
+    
+
+    
+
+
+    <div class="note visible-sm post-detail">
+      <div>
+
+      <div>
+        <span class="date heading-font">Mon 24 Aug 2015</span>
+          <a href="/contributors/#gregory-j-stein"><span class="author" itemprop="name">Gregory J Stein</span></a>
+          
+      </div>
+
+        
+          <div>
+          <span class="heading-font">Category</span>
+            <a class="category" href="/category/general-computing/">
+              General Computing
+            </a>
+          </div>
+        
+
+        
+          <div><span class="heading-font">Tags</span>
+            
+              <a class="tag" href="/tag/emacs/">Emacs</a>
+            
+          </div>
+        
+
+
+        
+        <div style="height: 10px"></div>
+            <div><span class="unit-line-height"><span class="heading-font">
+              Part 1 of
+            </span></span>
+            <span><a class="series heading-font" href="/series/emacs-productivity/">Emacs For Productivity</a></span>
+            </div>
+          
+      </div>
+    </div>
+
+
+</div>
+
+
+      </div>
+      <div class="content">
+        
+  
+  <div class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <!-- Post Title -->
+  
+  
+
+  <!-- Post Content -->
+  
+    <div class="justify word-break" itemprop="articleBody">
+      
+        <p>Of all the packages I use to enhance my productivity in <a href="http://cachestocaches.com/tag/emacs/">emacs</a>, <a href="https://github.com/jwiegley/use-package">use-package</a> is perhaps the most useful. With it, I can automatically download and install other packages from the emacs package databases when it detects they're missing. Since I'm constantly switching computers, virtual machines, and operating systems, having this functionality is essential for making sure I don't miss a beat when I'm starting from scratch; I simply clone the emacs config files from <a href="https://github.com/gjstein/emacs.d">my GitHub repository</a> and open emacs and I'm almost immediately ready to go.</p>
+<p>This short guide shows how to ensure that <code>use-package</code> also automatically installs, and how to get the most out of the <code>use-package</code> features.</p>
+<p></p>
+<h2>Auto-Installing Use-Package</h2>
+<p>As I'm sure you may have realized by now, <code>use-package</code> is unable to install itself, which means that I do need a small bit of code which can pull the package from MELPA, an emacs package repository, and install it.  Include the following code at the top of your <code>init.el</code> file:</p>
+<p><div class="listing-caption visible-sm">Install Use-Package <code class="code-language">Lisp</code></div><div class="sidenote listing-caption invisible-sm"><div>Install Use-Package</div><div class="unit-line-height"><code class="code-language">Lisp</code></div></div><pre><code class="lang-lisp pre-scrollable">(require 'package)
+(setq package-enable-at-startup nil)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
+(package-initialize)
+
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(eval-when-compile
+  (require 'use-package))
+(require 'diminish)
+(require 'bind-key)
+</code></pre></p>
+<p>You can also find this code <a href="https://github.com/CachesToCaches/getting_started_with_use_package/blob/master/init-use-package.el">here on our GitHub</a>. I won't go into the details, though much of the code should be self-explanatory.</p>
+<h2>Reducing Emacs Load Times</h2>
+<p>One of the best things about relying on <code>use-package</code> is the <code>:defer t</code> option, which will prevent the package from loading until it detects it's needed. This means that, by only loading a couple of packages at startup, opening emacs should only take a fraction of the time it used to take, assuming you loaded a great many packages which were not immediately necessary. I simply did not realize how much of an improvement this would be until, I lowered my load time from roughly four seconds to under one second, and could begin editing files from the command line using emacs without skipping a beat<span class="sidenote note no-word-break invisible-sm">More details on how to use this can be found on the <a href="https://github.com/jwiegley/use-package">Use-Package GitHub page</a>. </span>.
+<p class="note no-word-break visible-sm">More details on how to use this can be found on the <a href="https://github.com/jwiegley/use-package">Use-Package GitHub page</a>. </p></p>
+<p>There is however, one potential downside to abusing this feature. Most commonly, the sorts of issues that I will run into are that I've set a package to defer loading, but nothing ever explicitly tells it to load, so that the package never runs. There are two solutions to this, which depend on your context. First, removing the <code>:defer t</code> line in the <code>use-package</code> will certainly solve the issue, but will also load the package when emacs opens, which can slow down the startup time. More generally however, this issue can be solved by including the proper <a href="http://www.emacswiki.org/emacs/ModeHooks">mode hooks</a> so that the package is loaded when the proper major/minor mode is activated.</p>
+<h2>Possible Issues</h2>
+<p>For the most part, I've never encountered a fatal issue with <code>use-package</code>. Packages often will simply install and load without error. Besides issues that can arise when <code>:defer t</code> is used without proper care, I have discovered that, on occasion, <code>use-package</code> cannot find the package, returning something like <code>File error: http://XXXXXX.el, Not Found</code> when emacs is opening, even though the package clearly exists on MELPA. After some trial-and-error, I found that the solution to this is to manually run the following command and then restart emacs:</p>
+<pre><code>M-x package-refresh-contents
+</code></pre>
+<p>While not particularly elegant, this solution is only necessary once in a while, so I haven't put in the effort to replace it with anything more clever.</p>
+<p>In addition, I rely on <a href="https://www.gnu.org/software/auctex/">AucTeX</a> for my LaTeX document editing, however, simply including <code>(use-package auctex :ensure t)</code> in an emacs configuration file does not work. This is because, once installed, <code>auctex</code> overrides the <code>tex</code> package. This means that, in order to get <code>auctex</code> working, one must include:</p>
+<pre><code>(use-package tex :ensure auctex)
+</code></pre>
+<h2>Examples and Further Reading</h2>
+<p>The best place to start learning more of the features of <code>use-package</code> is at <a href="https://github.com/jwiegley/use-package">its GitHub repository page</a>. The readme document contains some of the most basic use cases, and a couple of simple examples for configurations. However, I found the documentation to be a little sparse when I actually went to converting my own code. The best way to get started, then is by seeing the example files of others. Fortunately, my emacs configuration files, many of which rely on <code>use-package</code> can be found <a href="https://github.com/gjstein/emacs.d/tree/master/config">on my GitHub page</a>. I suggest you take a look there to get going.</p>
+      
+    </div>
+  
+
+  <!-- Post Footer -->
+  
+
+  <!-- Additional Metadata -->
+  <meta itemprop="description" content="Jump-start emacs with use-package and never manually install another package again">
+
+</div>
+
+
+      </div>
+      <div class="content-bottom">
+        
+
+  <hr/>
+  <p><blockquote>
+    Liked this post? Subscribe to our <a class="post-link" href="/feed">RSS feed</a> or add your email to our newsletter:
+
+    <!-- Begin MailChimp Signup Form -->
+    <link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+    <div id="mc_embed_signup">
+      <form action="https://cachestocaches.us15.list-manage.com/subscribe/post?u=f290745e370ad37f53ed7c7ac&amp;id=b7922d14de" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+        <div id="mc_embed_signup_scroll">
+	  
+	  <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+          <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+          <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_f290745e370ad37f53ed7c7ac_b7922d14de" tabindex="-1" value=""></div>
+          <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+        </div>
+      </form>
+    </div>
+
+  </blockquote></p>
+
+  <!--End mc_embed_signup-->
+  <hr/>
+
+
+  <!-- All posts in series -->
+  
+    <div class="post-list">
+      <div class="heading-font">all posts in series</div>
+      <h3><a href="/series/emacs-productivity/" class="nav-title">Emacs For Productivity</a></h3>
+      <div class="small-line-height">A collection of tips and guides for using Emacs to master your life.</div>
+      <ul class="small-post-list">
+        
+          <li class="selected"><a class="small-title" href="/2015/8/getting-started-use-package/">1 <span class="center-dot"></span> Getting Started with Use-Package</a>
+            <div class="small-detail">Jump-start emacs with use-package and never manually install another package again</div></li>
+        
+          <li ><a class="small-title" href="/2016/9/my-workflow-org-agenda/">2 <span class="center-dot"></span> My Workflow with Org-Agenda</a>
+            <div class="small-detail">I use Emacs&#x27; &quot;org-mode&quot; to organize my life. Here&#x27;s a snippet of how I get it all working.</div></li>
+        
+          <li ><a class="small-title" href="/2016/12/vim-within-emacs-anecdotal-guide/">3 <span class="center-dot"></span> Vim Within Emacs: An Anecdotal Guide</a>
+            <div class="small-detail">After using Emacs for 2 years, I decided to give &quot;evil-mode&quot; (Vim keybindings) a tentative try and I&#x27;m not looking back.</div></li>
+        
+          <li ><a class="small-title" href="/2017/3/complete-guide-email-emacs-using-mu-and-/">4 <span class="center-dot"></span> A Complete Guide to Email in Emacs using Mu and Mu4e</a>
+            <div class="small-detail">Most email clients are a pain. Emacs &amp; mu4e are less of a pain.</div></li>
+        
+          <li ><a class="small-title" href="/2018/6/org-literate-programming/">5 <span class="center-dot"></span> Literate Programming with Org-mode</a>
+            <div class="small-detail">I frequently use Org mode to combine code snippets and analysis in a single document, a programming paradigm known as Literate Programming. Here are a few example showing how powerful this setup can be.</div></li>
+        
+          <li ><a class="small-title" href="/2020/3/org-mode-annotated-bibliography/">6 <span class="center-dot"></span> Managing my Annotated Bibliography with Emacs&#x27; Org Mode</a>
+            <div class="small-detail">Org mode is a fantastic tool for managing references. Here&#x27;s a description of how I use it, and some additional packages, to manage my annotated bibliography.</div></li>
+        
+      </ul>
+    </div>
+    <hr/>
+  
+
+  <div>
+  <div class="social-icon-container visible-xs">
+    <a class="social-icon twitter"
+         href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fcachestocaches.com%2F2015%2F8%2Fgetting-started-use-package%2F&text=Great%20post%20at"></a><a class="social-icon facebook"
+         href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fcachestocaches.com%2F2015%2F8%2Fgetting-started-use-package%2F"></a><a class="social-icon googleplus"
+         href="https://plus.google.com/share?url=http%3A%2F%2Fcachestocaches.com%2F2015%2F8%2Fgetting-started-use-package%2F"></a><a class="social-icon linkedin"
+         href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fcachestocaches.com%2F2015%2F8%2Fgetting-started-use-package%2F&title=Caches%20To%20Caches&source=http%3A//cachestocaches.com"></a><a class="social-icon github"
+           href="https://github.com/CachesToCaches/getting_started_with_use_package/blob/master/init-use-package.el"></a><a class="social-icon rss-feed"
+         href="/feed"></a>
+  </div>
+</div>
+
+
+  <hr/>
+
+  <script type="text/javascript">
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = 'cachestocaches';
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+ function createCallback() {
+     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+   };
+</script>
+<a class="heading-font" id="disqus_thread" style="cursor:pointer;"onclick="createCallback();return false;"><h4 class="constrain-width">+ Show Comments From Disqus</h4></a>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="content">
+      
+  <div><a href="/"><img src="/static/logos/c2c_logo_2.png" class="img-responsive center-block" style="width:240px;"/></a></div>
+  <br/>
+  <div class="center-text narrow-font">
+    <span><a href="/">home</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/archive/">archive</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/contributors/">about</a></span>
+  </div>
+  <div class="social-icon-container">
+    <a class="social-icon light-border twitter" href="https://twitter.com/intent/follow?screen_name=CachesToCaches"></a>
+    <a class="social-icon light-border facebook" href="https://www.facebook.com/CachesToCaches"></a>
+    <a class="social-icon light-border googleplus" href="https://www.google.com/+Cachestocaches_c2c" rel="publisher"></a>
+    <a class="social-icon light-border github" href="https://github.com/CachesToCaches"></a>
+    <a class="social-icon light-border rss-feed" href="/feed"></a>
+  </div>
+
+  <br/>
+  <div class="center-text"><a href="http://gjstein.com">designed and maintained by<br/>Gregory J Stein</a></div>
+
+      
+      
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <!-- Sidebar / Table of Contents -->
+    <script src="/static/styles/js/jquery.tableofcontents.g.min.js"></script>
+    <script src="/static/styles/js/sticky-nav.js"></script>
+    <script src="/static/styles/js/bootstrap-scrollspy.min.js"></script>
+    <script>
+    $(function(){$("#toc").tableOfContents(null,{
+      startLevel: 2, depth: 1});
+      $('body').scrollspy({
+        target: '#nav-sidebar',
+        offset: 20});
+    });
+    </script>
+    
+    <!-- Code Highlighting : highlight.js -->
+    
+
+<!-- <link rel="stylesheet" href="/static/highlight/styles/c2c.css"> -->
+<script src="/static/highlight/highlight.pack.js"></script>
+<script>hljs.configure({languages:[]});hljs.initHighlightingOnLoad();</script>
+<script src="/static/styles/js/anchor-scroll.js"></script>
+
+
+    <!-- Equation Rendering : mathjax -->
+    <script type="text/x-mathjax-config">
+     MathJax.Hub.Config({
+       jax: ["input/TeX","output/CommonHTML"],
+       tex2jax: { inlineMath: [["$","$"]] },
+       CommonHTML: {
+         linebreaks: { automatic: true, width: "container" }
+       }
+     });
+    </script>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML" type="text/javascript"></script>
+
+    
+  <script>
+  (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+          function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+          e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+          e.src='//www.google-analytics.com/analytics.js';
+          r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+  ga('create','UA-60578350-2','auto');ga('send','pageview');
+  </script>
+
+  </body>
+</html>

@@ -1,0 +1,508 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Machine Learning &amp; Robotics: My (biased) 2019 State of the Field</title>
+    <meta name="description" content="My thoughts on the past year of progress in Robotics and Machine Learning.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    
+
+<link rel="apple-touch-icon" sizes="57x57" href="/static/c2c_icons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/static/c2c_icons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/static/c2c_icons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/static/c2c_icons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/static/c2c_icons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/static/c2c_icons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/static/c2c_icons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/static/c2c_icons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/c2c_icons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-194x194.png" sizes="194x194">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/static/c2c_icons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/static/c2c_icons/manifest.json">
+<link rel="mask-icon" href="/static/c2c_icons/safari-pinned-tab.svg" color="#773333">
+<link rel="shortcut icon" href="/static/c2c_icons/favicon.ico">
+<meta name="msapplication-TileColor" content="#773333">
+<meta name="msapplication-TileImage" content="/static/c2c_icons/mstile-144x144.png">
+<meta name="msapplication-config" content="/static/c2c_icons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+    <!-- 3rd March 2022 07:41 -->
+    <!-- Fonts -->    
+    <link href='https://fonts.googleapis.com/css?family=Unica+One' rel='stylesheet' type='text/css'>
+    <script src="https://use.typekit.net/qeu2zlf.js"></script>
+    <script>try{Typekit.load({ async: false });}catch(e){}</script>
+    <noscript>
+      <!-- Fallback fonts (if no JS) -->
+      <link href='http://fonts.googleapis.com/css?family=Dosis:400|Anonymous+Pro' rel='stylesheet' type='text/css'>
+    </noscript>
+
+    <!-- Styles / Scripts -->
+    
+    <link rel="stylesheet" href="/static/styles/css/cachestocaches.min.css"/>
+    <script src="/static/styles/js/modernizr-2.8.3.min.js"></script>
+
+    
+
+  
+  
+  
+  <meta name="twitter:card"
+          content="summary_large_image" />
+  <meta prefix="og: http://ogp.me/ns#"
+          name="twitter:title"
+          property="og:title"
+          content="Machine Learning &amp; Robotics: My (biased) 2019 State of the Field" />
+  <meta name="twitter:site"
+          content="@CachesToCaches">
+  <meta prefix="og: http://ogp.me/ns#"
+          property="og:type"
+          content="website" />
+  
+  
+    <meta prefix="og: http://ogp.me/ns#"
+            name="twitter:image:src"
+            property="og:image"
+            content="http://cachestocaches.com/static/logos/c2c_logo_card_render.jpg" />
+  
+  
+  <meta prefix="og: http://ogp.me/ns#"
+          name="twitter:description"
+          property="og:description"
+          content="My thoughts on the past year of progress in Robotics and Machine Learning." />
+  <meta prefix="og: http://ogp.me/ns#"
+          property="og:url"
+          content="http://cachestocaches.com/2019/12/my-state-of-the-field/" />
+
+  </head>
+
+  <body
+      itemscope
+      itemtype="http://schema.org/WebPage"
+      data-spy="scroll"
+      data-target="#side-nav">
+    
+    <nav class="sidebar">
+      <div class="content">
+        
+  <div><a href="/"><img src="/static/logos/c2c_logo_2.png" class="img-responsive center-block" style="width:240px;"/></a></div>
+  <br/>
+  <div class="center-text narrow-font">
+    <span><a href="/">home</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/archive/">archive</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/contributors/">about</a></span>
+  </div>
+  <div class="social-icon-container">
+    <a class="social-icon light-border twitter" href="https://twitter.com/intent/follow?screen_name=CachesToCaches"></a>
+    <a class="social-icon light-border facebook" href="https://www.facebook.com/CachesToCaches"></a>
+    <a class="social-icon light-border googleplus" href="https://www.google.com/+Cachestocaches_c2c" rel="publisher"></a>
+    <a class="social-icon light-border github" href="https://github.com/CachesToCaches"></a>
+    <a class="social-icon light-border rss-feed" href="/feed"></a>
+  </div>
+
+  <img class="bottom-art" src="/static/art/c2c_triangles.svg"></img>
+  <div class="center-text floating-description"><a href="http://gjstein.com">designed and maintained by<br/>Gregory J Stein</a></div>
+
+        <br/>
+        
+  <div class="title"><a href="#">Machine Learning &amp; Robotics: My (biased) 2019 State of the Field</a></div>
+  <hr/>
+  <div id="nav-sidebar">
+    <ul class="nav" id="toc"></ul>
+  </div>
+  <hr/>
+  
+    <br/>
+    <div class="title">
+      <div><small>part 9 of</small></div>
+      <a href="/series/ai-perspectives/" class="nav-title">AI Perspectives</a>
+    </div>
+    <hr/>
+    <div class="description">Reflections on the progress, promise, and impact of AI.</div>
+    <hr/>
+  
+
+      </div>
+    </nav>
+    <nav class="header">
+      
+  <div class="content">
+  <span class="heading-font"><a href="/">Caches to Caches</a> | </span><span><a href="/">home</a></span><span class="center-dot"></span><span><a href="/archive/">archive</a></span><span class="center-dot"></span><span><a href="/contributors/">about</a></span>
+  </div>
+
+    </nav>
+    <div class="page"
+         itemsope
+         itemtype="http://schema.org/Blog">
+      <div class="content-top">
+        
+  <div class="unit-line-height">
+  
+  <!-- Series Details -->
+
+  <!-- Post Image -->
+    <div class="marginnote invisible-sm post-detail">
+      <div>
+      
+        <p><div class="unit-line-height"><small class="heading-font">
+          Part 9 of
+        </small></div>
+        <div><a class="series heading-font" href="/series/ai-perspectives/">AI Perspectives</a></div>
+        </p>
+      
+
+        <p><div class="date heading-font">Mon 30 Dec 2019</div>
+          <a href="/contributors/#gregory-j-stein"><span class="author" itemprop="name">Gregory J Stein</span></a>
+          
+        </p>
+
+        
+
+        
+          <p><div class="heading-font">Tags</div>
+            
+              <a class="tag" href="/tag/editorial/">Editorial</a>
+            
+              <a class="tag" href="/tag/deep-learning/">Deep Learning</a>
+            
+          </p>
+        
+      </div>
+    </div>
+
+    
+      <h1 class="title">
+        <div>
+          <span itemprop="name">Machine Learning &amp; Robotics: My (biased) 2019 State of the Field</span>
+        </div>
+      </h1>
+    
+
+    
+
+
+    <div class="note visible-sm post-detail">
+      <div>
+
+      <div>
+        <span class="date heading-font">Mon 30 Dec 2019</span>
+          <a href="/contributors/#gregory-j-stein"><span class="author" itemprop="name">Gregory J Stein</span></a>
+          
+      </div>
+
+        
+
+        
+          <div><span class="heading-font">Tags</span>
+            
+              <a class="tag" href="/tag/editorial/">Editorial</a>
+            
+              <a class="tag" href="/tag/deep-learning/">Deep Learning</a>
+            
+          </div>
+        
+
+
+        
+        <div style="height: 10px"></div>
+            <div><span class="unit-line-height"><span class="heading-font">
+              Part 9 of
+            </span></span>
+            <span><a class="series heading-font" href="/series/ai-perspectives/">AI Perspectives</a></span>
+            </div>
+          
+      </div>
+    </div>
+
+
+</div>
+
+
+      </div>
+      <div class="content">
+        
+  
+  <div class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <!-- Post Title -->
+  
+  
+
+  <!-- Post Content -->
+  
+    <div class="justify word-break" itemprop="articleBody">
+      
+        <p>At the end of every year, I like to take a look back at the different trends or papers that inspired me the most. As a researcher in the field, I find it can be quite productive to take a deeper look at where I think the research community has made surprising progress or to identify areas where, perhaps unexpectedly, we did not advance.</p>
+<p>Here, I hope to give my perspective on the state of the field. This post will no doubt be a biased sample of what I think is progress in the field. Not only is covering <em>everything</em> effectively impossible<span class="sidenote note no-word-break invisible-sm">As <a href="https://www2019.thewebconf.org/media/Deep_Learning_for_Solving_Important_Problems.pdf">Jeff Dean</a> points out, there are roughly 100 machine learning papers posted to the Machine Learning ArXiv <em>per day</em>! </span>, but my views on what may constitute <em>progress</em> may differ from yours. Hopefully all of you reading will glean something from this post, or see a paper you hadn't heard about. Better yet, feel free to disagree: I'd love to discuss my thoughts further and hear alternate perspectives in the comments below or on <a href="https://news.ycombinator.com/item?id=21915991">Hacker News</a>.
+<p class="note no-word-break visible-sm">As <a href="https://www2019.thewebconf.org/media/Deep_Learning_for_Solving_Important_Problems.pdf">Jeff Dean</a> points out, there are roughly 100 machine learning papers posted to the Machine Learning ArXiv <em>per day</em>! </p></p>
+<p></p>
+<h2>From AlphaZero to MuZero</h2>
+<p>AlphaZero was <a href="http://www.cachestocaches.com/2017/12/favorite-deep-learning-2017/#most-impressive-googles-go-playing-ai-learns-from-">one of my favorite papers from 2017</a>. DeepMind's world-class Chess- and Go-playing AI got a serious upgrade this year in the form of <a href="https://deepmind.com/research/publications/Mastering-Atari-Go-Chess-and-Shogi-by-Planning-with-a-Learned-Model">MuZero</a>, which added Atari Games to its roster of super-human-performing tasks. Atari had previously been out of reach for AlphaZero because the observation space is incredibly large, making it difficult for AlphaZero to build a tree of actions and the outcomes that result. In Go, predicting the outcome of an action is easy, since the board follows a set of rules about what it will look like after taking an action. For Atari, however, predicting the outcome of an action in principle requires predicting what the next frame will look like. This very high-dimensional state space and hard-to-define observation model creates challenges when the system tries to estimate the impact of its actions a mere few frames into the future.</p>
+<p>MuZero circumvents this problem by learning a latent (low-dimensional) representation of the state space, including the current frame, and then <em>plans in that learned space</em>. With this shift, taking an action moves around in this compact latent space, allowing the agent to imagine the impact of many different actions and evaluate the tradeoffs that may occur, a hallmark feature of the Monte-Carlo Tree Search (MCTS) algorithm upon which both AlphaZero and MuZero are based<span class="sidenote note no-word-break invisible-sm">Another honorable mention in this space is Facebook AI's <a href="https://ai.facebook.com/blog/building-ai-that-can-master-complex-cooperative-games-with-hidden-information/">Hanabi playing AI</a>, in which the system needed to play a cooperative, partially observable card game. </span>. This approach <em>feels</em> much more like what I might expect from a truly intelligent decision-making system: the ability to weigh different options and to do so without the need to predict precisely what the world will look like upon selecting each. Of course, the complication here is how they simultaneously learn this latent space while also learning to plan in it, but I'll refer you to <a href="https://arxiv.org/abs/1911.08265">their paper</a> for more details.
+<p class="note no-word-break visible-sm">Another honorable mention in this space is Facebook AI's <a href="https://ai.facebook.com/blog/building-ai-that-can-master-complex-cooperative-games-with-hidden-information/">Hanabi playing AI</a>, in which the system needed to play a cooperative, partially observable card game. </p></p>
+<p>What really struck me about this work is how it composes individual ideas into a larger working system. This paper is as much of a systems paper as any machine learning work I've seen, but beyond the dirty tricks that perennially characterize neural network training, the ideas presented in MuZero help answer deep questions about how one might build AI for increasingly complex problems. We are, as a community, making progress towards composing individual ideas to create more powerful decision-making systems. Both AlphaZero and MuZero make progress in this direction, recognizing that the structure of the MCTS tree-building (to simulate the impact of selecting different actions) coupled with the ability to predict the future goodness of each action would result in more powerful learning systems. MuZero's addition of a learned compact representation (effectively a <em>model</em> of the system's dynamics) in which actions and subsequent observations can be simulated for the purposes of planning, gives me hope that such systems may one day be able to tackle real-world robotics problems<span class="sidenote note no-word-break invisible-sm">See <a href="http://www.cachestocaches.com/2018/12/toward-real-world-alphazero/">this post of mine</a> for a discussion of what's still missing for AlphaZero and MuZero to approach real-world problems </span>. As we strive to make increasingly intelligent AI, this work moves us in the direction of better understanding what ideas and tools are likely to bring about that reality.
+<p class="note no-word-break visible-sm">See <a href="http://www.cachestocaches.com/2018/12/toward-real-world-alphazero/">this post of mine</a> for a discussion of what's still missing for AlphaZero and MuZero to approach real-world problems </p></p>
+<p>Great work (as always) from the folks at DeepMind!</p>
+<h2>Representation Learning (Long Live Symbolic AI)</h2>
+<p>Perhaps the area of progress I am most excited to see is in the space of <em>Representation Learning</em>. I'm a big fan of old-school classical planning and so-called <em>symbolic AI</em>, in which agents interface with the world by thinking about <em>symbols</em>, like objects or people. Humans do this all the time, but in translating our capacity to robotic or artificially intelligent agents, we often have to specify <em>what</em> objects or other predicates we want the agent to reason about. But a question that has largely eluded precise answers is <em>Where do symbols come from?</em> and more generally: How should we go about representing the world so that the robot can make quick and effective decisions when solving complex, real-world problems?</p>
+<p>Some recent work has started to make real progress towards being able to learn such representations from data, enabling learned systems to infer objects on their own or to build a "relation graph" of objects and places that they can use to interact with a never-before-seen location. This research is yet young, but I am eager to see it progress, since I am largely convinced that progress towards more capable robotics will require deeper understanding and significant advances in this space. A couple of papers I've found particularly interesting include:</p>
+<ul>
+<li><strong><a href="https://arxiv.org/pdf/1910.12827.pdf">Entity Abstraction in Visual Model-Based Reinforcement Learning</a></strong> <span class="sidenote note no-word-break invisible-sm">Here is an example from the Entity Abstraction paper, showing how this process can be used to make predictions about the future: <img src="/media/photologue/photos/cache/entity-abstraction-result_display.png" class="img-responsive center-block" title="Entity Abstraction Example" style="max-height:565px"/> </span>This paper is one of a handful of works recently trying to structure the learning problem in a way such that the system <em>learns</em> what objects are and can then forward simulate the behavior of those objects using a learned model of their dynamics. From the paper: "OP3 enforces the <em>entity abstraction</em>, factorizing the latent state into local entity states, each of which are symmetrically processed with the same function that takes in a generic entity as an argument." This line of work is in its infancy, but I look forward to seeing how the community will continue to investigate using novel structures for learning that encourage the system to tease out entities of interest that can then be used in subsequent planning pipelines.
+<p class="note no-word-break visible-sm">Here is an example from the Entity Abstraction paper, showing how this process can be used to make predictions about the future: <img src="/media/photologue/photos/cache/entity-abstraction-result_display.png" class="img-responsive center-block" title="Entity Abstraction Example" style="max-height:565px"/> </p></li>
+<li><strong><a href="https://arxiv.org/pdf/1909.04306.pdf">Bayesian Relational Memory for Semantic Visual Navigation</a></strong> This paper involves building a <a href="https://web.eecs.umich.edu/~kuipers/papers/Kuipers-NZ-08.pdf">topological map</a> online as an agent navigates in search of a semantic goal—e.g., find the kitchen. As it navigates, it periodically identifies new rooms and adds them to its growing <em>relation graph</em> when it becomes sufficiently confident. Everything here is done from vision, meaning that the system has to deal with considerable uncertainty and high-dimensional inputs. This paper has some similar ideas to an influential paper from ICLR 2018: <a href="https://arxiv.org/abs/1803.00653">Semi-parametric Topological Memory for Navigation</a>, which required a prior demonstration of the environment to build its map.</li>
+</ul>
+<p>I look forward to seeing how the community will continue to blur the lines between model-based and model-free techniques in the next couple of years. More generally, I'd like to see more progress at the intersection of symbolic AI and more "modern" deep learning approaches to tackle problems of interest to the robotics community—e.g., vision-based map-building, planning under uncertainty, and life-long learning.</p>
+<h2>Supervised Computer Vision Research Cools (somewhat)</h2>
+<p>That's not to say that work in this space isn't important, but since <a href="https://research.fb.com/publications/mask-r-cnn/">Mask-RCNN</a> from Facebook Research made waves in early 2018, I haven't been particularly inspired by research in this space. Progress on tasks like <a href="http://www.cachestocaches.com/2018/9/ai-translation-more-language/">semantic segmentation</a> or object detection have matured considerably. The <a href="http://www.image-net.org/challenges/LSVRC/">ImageNet challenge</a> for object detection has largely faded into the background as only companies (who often have superior datasets or financial resources) really bother to try to top the leaderboard in related competitions.</p>
+<p>But this isn't a bad thing! In fact, it's a particularly good time to be a robotics researcher, since the community has reached a point at which we have eeked as much performance as we can out of the datasets we have available to us and have started to focus more on widespread adoption of these tools and the "convenience features" associated with that process. There are now a variety of new techniques being applied to train these systems more quickly and, more importantly, to make them faster and more efficient without compromising accuracy. As someone who is interested in real-world and often real-time use of these technologies—particularly on resource-constrained systems like smartphones and small autonomous robots—I find I am particularly interested in this line of research, which will enable more widespread adoption of these tools and the capabilities they enable.</p>
+<p>Of note has been some cool work on <em>network distillation</em>, in which optimization techniques are used after training to remove portions of a neural network that have little bearing on overall performance (and therefore do little more than increase the amount of computation). Though it has not yet seen widespread practical impact, the <a href="https://arxiv.org/abs/1803.03635">The Lottery Ticket Hypothesis</a> paper has some fascinating ideas about how to initialize and train small neural networks that circumvent the need for pruning. <a href="https://github.com/he-y/Awesome-Pruning#2019">This "Awesome" GitHub page</a> has as complete a list as I've seen on different approaches to network pruning. A related technology of interest is <em>network compilation</em> in which hardware-specific functions are used to further accelerate evaluation; the <a href="http://fastdepth.mit.edu">FastDepth</a> paper is a good example of using a combination of these techniques on the task of monocular depth estimation.</p>
+<h2>Maturing Technologies</h2>
+<p>Though new techniques and domains can be exciting, I am at least as interested in seeing what technologies start to slow down. Many areas of research become most interesting when they cross the point at which most of the low-hanging fruit has been picked, leading to investigations into deeper questions as the <em>real challenges</em> stymieing the field become clear. As someone who does research at the intersect of robotics and machine learning, I find that it is often at this point that the technologies become sufficiently robust that one might trust them to inform decision-making on actual hardware.</p>
+<h3>Graph Neural Networks</h3>
+<p>I am a <strong>huge</strong> fan of Graph Neural Networks. Ever since the paper <a href="https://arxiv.org/abs/1806.01261">Relational inductive biases, deep learning, and graph networks</a> came out, I have been thinking deeply about how to integrate GNN's as a learning backend for my own work. The general idea is quite elegant: build a graph in which the nodes correspond to individual entities—objects, regions of space, semantic locations—and connect them to one another according to their ability to impact each other. In short, the idea was to impose as much structure on the problem of interest where you could most easily define it and then let deep neural networks take care of learning the relationships between entities according to that structure (similar in concept to some of the work I discussed above in Representation Learning).</p>
+<p>Graphical models have been used in AI for decades, but the problem of how to process high-dimensional observations created a bottleneck that, for a time, only hand-crafted features seemed to be able to overcome. But with GNN's, high-dimensional inputs became a feature rather than a bug, and last year we saw an explosion of tools for using GNN's for accomplishing interesting tasks that have proven challenging for other learning representations, like <a href="https://arxiv.org/pdf/1704.01212">Quantum Chemistry</a>.</p>
+<p>This year, as <a href="https://github.com/deepmind/graph_nets">tools for building and using Graph Nets</a> matured, researchers started to apply GNNs to their own problems, leading to some interesting work at the intersection of machine learning and robotics (a place I tend to call home).<span class="sidenote note no-word-break invisible-sm">If you are interested in playing around with Graph Neural Networks, I would recommend you take the plunge via a <a href="https://colab.research.google.com/">Collaboratory Notebook</a> provided by DeepMind in which you can play around with a bunch of demos. </span> I am particularly interested in robots capable of making good navigation decisions (especially when they only have incomplete knowledge about their surroundings) and a few papers—particularly <a href="https://www.researchgate.net/profile/Fanfei_Chen/publication/335610894_Autonomous_Exploration_Under_Uncertainty_via_Graph_Convolutional_Networks/links/5d6ff2a0299bf1cb80883dfa/Autonomous-Exploration-Under-Uncertainty-via-Graph-Convolutional-Networks.pdf">Autonomous Exploration Under Uncertainty via Graph Convolutional Networks</a> and <em>Where are the Keys?</em> by Niko Sünderhauf—have proven quite thought-provoking.
+<p class="note no-word-break visible-sm">If you are interested in playing around with Graph Neural Networks, I would recommend you take the plunge via a <a href="https://colab.research.google.com/">Collaboratory Notebook</a> provided by DeepMind in which you can play around with a bunch of demos. </p></p>
+<h3>Explainable &amp; Interpretable AI</h3>
+<p>As excited as I am by the promise of deep learning and approaches to representation learning, the systems that result from these techniques are often opaque, a problematic property as such systems are increasingly human-facing.<span class="sidenote note no-word-break invisible-sm">Relatedly: though it came out in 2018, I read the book <em><a href="https://virginia-eubanks.com/books/">Automating Inequality</a></em> this past year and think that it should be required reading for all AI researchers so that we might think more critically about how the decisions we make (often unilaterally) have downstream consequences when these systems are deployed in real-world settings. </span> Fortunately, there has been increased attention and progress in the space of Explainable and Interpretable AI and, in general, working towards AI that humans might be comfortable trusting and co-existing with.
+<p class="note no-word-break visible-sm">Relatedly: though it came out in 2018, I read the book <em><a href="https://virginia-eubanks.com/books/">Automating Inequality</a></em> this past year and think that it should be required reading for all AI researchers so that we might think more critically about how the decisions we make (often unilaterally) have downstream consequences when these systems are deployed in real-world settings. </p></p>
+<p>One of the more interesting papers in the vein of <em>interpretable AI</em> that caught my eye recently is <a href="https://arxiv.org/pdf/1806.10574.pdf">This Looks Like That: Deep Learning for Interpretable Image Recognition</a> by Chaofan Chen and Oscar Li from Cynthia Rudin's lab at Duke. In the paper, the authors set up an image classification pipeline that works by identifying which regions of the current image match similar regions in other images and matching the classification between the two. The classification is therefore more interpretable than that of other competitive techniques since it, by design, provides a direct comparison to similar images and features from the training set. Here is an image from the paper showing how the system classified an image of a <em>clay colored sparrow</em>:</p>
+<p><div><note class="marginnote img-caption invisible-sm"><p>An example of how image classification is done in the paper <a href="https://arxiv.org/abs/1806.10574">This Looks Like That</a>.</p></note><img src="/media/photologue/photos/cache/rudin-this-looks-like-that-example_display.png" class="img-responsive center-block" title="This Looks Like That: Classification Example" style="max-height:280px"/><note class="img-caption visible-sm"><p>An example of how image classification is done in the paper <a href="https://arxiv.org/abs/1806.10574">This Looks Like That</a>.</p></note></div></p>
+<p>Cynthia Rudin this year also published her well-known work: <a href="https://arxiv.org/pdf/1811.10154.pdf">Stop Explaining Black Box Machine Learning Models for High Stakes Decisions and Use Interpretable Models Instead</a>. In it, she argues that we should stop "explaining" (posthoc) decisions made by black-box models, and should instead be building models that are interpretable by construction. While I don't know that I necessarily agree that this should be cause to immediately stop using black-box models, she makes some well-reasoned points in her paper. In particular, her voice is of critical importance to a field dominated by the development of black-box models.</p>
+<p>There has also been some good work this past year, like <a href="https://arxiv.org/pdf/1901.06560.pdf">Explaining Explanations to Society</a> (by some friends and colleagues of mine, Leilani H. Gilpin and Cecilia Testart et al.), that focus on broader questions associated with understanding what types of explanations are most useful for society and how we might overcome the limitations of existing Deep Learning systems to extract such outputs.</p>
+<p>In short, one of my biggest takeaways from 2019 is that researchers in particular should be conscious about how we develop models and try to build systems that are interpretable-by-design whenever possible. I am interested in such applications of <a href="http://www.cachestocaches.com/2018/12/toward-real-world-alphazero/#navigation-in-unknown-environments">recent work of mine</a> and hope that an increasing portion of the community makes the design of such systems a priority.</p>
+<h3>Continued Growth of Simulation Tools and Progress in Sim-to-Real</h3>
+<p>Simulation is an incredibly useful tool, since data is cheap and effectively infinite, if not particularly diverse. Last year (2018) saw an explosion of simulated tools, many of them providing <em>photorealistic images</em> from simulated real-world environments and aimed at being directly useful for enabling real-world capabilities; these environments included <a href="https://interiornet.org">InteriorNet: Mega-scale Multi-sensor Photo-realistic Indoor Scenes Dataset</a> and the fantastic <a href="http://gibsonenv.stanford.edu">GibsonEnv</a>, which includes "572 full buildings composed of 1447 floors covering a total area of 211k [square meters]". <span class="sidenote note no-word-break invisible-sm">There's also been continued interest in using video games as platforms for studying AI. Most recently <em>Facebook has open sourced CraftAssist</em>: "a platform for studying collaborative AI bots in Minecraft". </span> This year has seen continued growth in this space, including a <a href="http://svl.stanford.edu/gibson2/">new, interactive Gibson Environment</a> and <a href="https://ai.facebook.com/blog/open-sourcing-ai-habitat-an-simulation-platform-for-embodied-ai-research/">Facebook's gorgeous AI Habitat</a> environment:
+<p class="note no-word-break visible-sm">There's also been continued interest in using video games as platforms for studying AI. Most recently <em>Facebook has open sourced CraftAssist</em>: "a platform for studying collaborative AI bots in Minecraft". </p></p>
+<p><div><note class="marginnote img-caption invisible-sm"><p>These images are taken from <a href="https://arxiv.org/pdf/1904.01201.pdf">Facebook's technical report</a> on their AI Habitat photorealistic simulated environment that was open-sourced this year. The images really do look incredible.</p></note><img src="/media/photologue/photos/cache/ai-habitat-example-images_display.png" class="img-responsive center-block" title="Example images from Facebook's AI Habitat" style="max-height:220px"/><note class="img-caption visible-sm"><p>These images are taken from <a href="https://arxiv.org/pdf/1904.01201.pdf">Facebook's technical report</a> on their AI Habitat photorealistic simulated environment that was open-sourced this year. The images really do look incredible.</p></note></div></p>
+<p>There are an ever-increasing number of technologies for using simulation tools to enable good performance in the real world. Admittedly, I've never been totally sold on the promise of <em>domain randomization</em>, in which elements of a simulated scene (texture, lighting, color, etc.) are randomly changed so that the learning algorithm learns to ignore those often irrelevant details. For many robotics applications, specific textures and lighting may actually matter for planning, and domain-specific techniques may be more appropriate and randomization, like <a href="https://towardsdatascience.com/when-conventional-wisdom-fails-revisiting-data-augmentation-for-self-driving-cars-4831998c5509">some data augmentation procedures</a>, may introduce problems of its own. That being said, recent efforts—including <a href="https://arxiv.org/pdf/1812.07252.pdf">Sim-to-Real via Sim-to-Sim</a>—and the widespread use of these techniques to improve performance throughout various subfields this past year are starting to convince me of its general utility. OpenAI also used domain randomization over both visual appearance <em>and physics</em> to <a href="https://openai.com/blog/solving-rubiks-cube/">learn to manipulate a Rubik's Cube</a>, thus proving their robot hand more dextrous than I am.<span class="sidenote note no-word-break invisible-sm">Also, the 2019 RSS conference had a <a href="https://sim2real.github.io">full day workshop</a> devoted to "Closing the Reality Gap in Sim2Real Transfer for Robotic Manipulation" that's worth looking at if you're interested. </span> Beyond <em>randomization</em>, domain <em>adaptation</em> procedures, which actively transfer knowledge between domains, have also seen some progress in the last year. I am particularly interested in work like <a href="https://arxiv.org/pdf/1810.05687.pdf">Closing the Sim-to-Real Loop: Adapting Simulation Randomization with Real World Experience</a>, in which a handful of real-world rollouts allow an RL agent to adapt its experience from simulation.
+<p class="note no-word-break visible-sm">Also, the 2019 RSS conference had a <a href="https://sim2real.github.io">full day workshop</a> devoted to "Closing the Reality Gap in Sim2Real Transfer for Robotic Manipulation" that's worth looking at if you're interested. </p></p>
+<h2>Bittersweet Lessons</h2>
+<p>No discussion of AI in 2019 would be complete without a mention of the debate surrounding "<a href="http://incompleteideas.net/IncIdeas/BitterLesson.html">The Bitter Lesson</a>". In March, Rich Sutton (a famous and well-respected researcher in AI) published a post to his website in which he talks about how, repeatedly over the course of AI's history and his career, model-based methods—in which rigid structure is hand-designed by humans—have been overtaken by model-free methods, like Deep Learning. He cites as one example of this "SIFT" features for object detection: though they were the state-of-the-art for 20 years, Deep Learning has blown all of those results out of the water. He goes on:</p>
+<p><div class="quote-wrapper"><note class="marginnote quote-caption invisible-sm"><div class="heading-font">Rich Sutton </div><div><a href="http://incompleteideas.net/IncIdeas/BitterLesson.html">The Bitter Lesson</a></div>
+<div>March 13, 2019</div></note><div class=quote><p>This is a big lesson. As a field, we still have not thoroughly learned it, as we are continuing to make the same kind of mistakes. To see this, and to effectively resist it, we have to understand the appeal of these mistakes. We have to learn the bitter lesson that building in how we think we think does not work in the long run. The bitter lesson is based on the historical observations that 1) AI researchers have often tried to build knowledge into their agents, 2) this always helps in the short term, and is personally satisfying to the researcher, but 3) in the long run it plateaus and even inhibits further progress, and 4) breakthrough progress eventually arrives by an opposing approach based on scaling computation by search and learning. The eventual success is tinged with bitterness, and often incompletely digested, because it is success over a favored, human-centric approach.</p>
+<p>One thing that should be learned from the bitter lesson is the great power of general purpose methods, of methods that continue to scale with increased computation even as the available computation becomes very great. The two methods that seem to scale arbitrarily in this way are search and learning.</p><note class="quote-caption visible-sm"><div class="heading-font">Rich Sutton </div><div><a href="http://incompleteideas.net/IncIdeas/BitterLesson.html">The Bitter Lesson</a></div>
+<div>March 13, 2019</div></note></div></div></p>
+<p>His perspective spawned much debate in the AI research community, and some incredibly engaging rebuttals from the likes of <a href="https://rodneybrooks.com/a-better-lesson/">Rodney Brooks</a> and <a href="https://staff.fnwi.uva.nl/m.welling/wp-content/uploads/Model-versus-Data-AI-1.pdf">Max Welling</a>. My take? There are always prior assumptions baked into our learning algorithms and we are only just scratching the surface of understanding how our data and learning representations translate into an ability to generalize. This is one of the reasons I am so excited by <em>representation learning</em> and by research at the intersection of deep learning and classical planning techniques. Only through being explicit about how we encode an agent's ability to reuse its knowledge can we hope to achieve trustworthy generalization on complex, multi-sequence planning tasks. We should expect AI to exhibit <em>combinatorial generalization</em>, as humans do, in which we can achieve effective generalization without the need for exponentially growing datasets.</p>
+<h2>Conclusion</h2>
+<p>With as much progress as there was in 2019, there are yet areas ripe for growth in the coming years. I'd like to see more applications to <em>Partially Observable Domains</em>, which require that an agent have a deep understanding of its environment so that it may make predictions about the future (this is something I'm actively working on). I'm also interested in seeing more progress in so-called <em>long-lived AI</em>: systems that continue to learn and grow as they spend more time interacting with their surroundings. For now, many systems that interact with the world have a tough time handling noise in an elegant way and, except for the simplest of applications, most learned models will break down as the number of sensor observations grows.</p>
+<p>As I mentioned earlier, I welcome discussion: let me know if there's anything you thought I missed or feel strongly about. Feel free to drop me a line or comment on this review in the comments below or on <a href="https://news.ycombinator.com/item?id=21915991">Hacker News</a>.</p>
+<p>Wishing you all health and happiness in 2020!</p>
+<h2>References</h2>
+<ul>
+<li id="Silver2018alphazero">David Silver et al., A general reinforcement learning algorithm that masters Chess, Shogi, and Go through self-play, <i>Science</i>, 2018.</li>
+<li id="schrittwieser2019muzero">Julian Schrittwieser, Ioannis Antonoglou, Thomas Hubert, Karen Simonyan, Laurent Sifre, Simon Schmitt, Arthur Guez, Edward Lockhart, Demis Hassabis, Thore Graepel, Timothy Lillicrap & David Silver, Mastering Atari, Go, Chess and Shogi by Planning with a Learned Model, <i>in: Advances in Neural Information Processing Systems (NeurIPS)</i>, 2019.</li>
+<li id="frankle2018lottery">Jonathan Frankle & Michael Carbin, The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks, <i>in: International Conference on Learning Representations</i>, 2019.</li>
+<li id="wofk2019fastdepth">Diana Wofk, Fangchang Ma, Tien-Ju Yang, Sertac Karaman & Vivienne Sze, FastDepth: Fast Monocular Depth Estimation on Embedded Systems, <i>in: International Conference on Robotics and Automation (ICRA)</i>, 2019.</li>
+<li id="wu2019bayesian">Yi Wu, Yuxin Wu, Aviv Tamar, Stuart Russell, Georgia Gkioxari & Yuandong Tian, Bayesian Relational Memory for Semantic Visual Navigation, <i>in: International Conference on Computer Vision (ICCV)</i>, 2019.</li>
+<li id="veerapaneni2019entity">Rishi Veerapaneni, John D. Co-Reyes, Michael Chang, Michael Janner, Chelsea Finn, Jiajun Wu, Joshua B. Tenenbaum & Sergey Levine, Entity Abstraction in Visual Model-Based Reinforcement Learning, <i>in: Conference on Robot Learning (CoRL)</i>, 2019.</li>
+<li id="battaglia2018relational">Peter W. Battaglia et al., Relational inductive biases, deep learning, and graph networks, <i>arXiv preprint arXiv:1806.01261</i>, 2018.</li>
+<li id="chen2019gnnexplore">Fanfei Chen, Jinkun Wang, Tixiao Shan & Brendan Englot, Autonomous Exploration Under Uncertainty via Graph Convolutional Networks, <i>in: International Symposium on Robotics Research (ISRR)</i>, 2019.</li>
+<li id="eubanks2018automatinginequality">Virginia Eubanks, Automating Inequality: How High-Tech Tools Profile, Police, and Punish the Poor, 2018.</li>
+<li id="chen2019thisthat">Chaofan Chen, Oscar Li, Alina Barnett, Jonathan Su & Cynthia Rudin, This Looks Like That: Deep Learning for Interpretable Image Recognition, <i>in: Neural Information Processing Systems (NeurIPS)</i>, 2019.</li>
+<li id="xiagibson2019">Fei Xia et al., Gibson Env V2: Embodied Simulation Environments for Interactive Navigation, 2019.</li>
+<li id="james2019simtosim">Stephen James, Paul Wohlhart, Mrinal Kalakrishnan, Dmitry Kalashnikov, Alex Irpan, Julian Ibarz, Sergey Levine, Raia Hadsell & Konstantinos Bousmalis, Sim-to-Real via Sim-to-Sim: Data-efficient Robotic Grasping via Randomized-to-Canonical Adaptation Networks, <i>in: Conference on Computer Vision and Pattern Recognition (CVPR)</i>, 2019.</li>
+<li id="openai2019rubikscube">OpenAI et al., Solving Rubik's Cube with a Robot Hand, <i>arXiv preprint arXiv:1910.07113</i>, 2019.</li>
+</ul>
+      
+    </div>
+  
+
+  <!-- Post Footer -->
+  
+
+  <!-- Additional Metadata -->
+  <meta itemprop="description" content="My thoughts on the past year of progress in Robotics and Machine Learning.">
+
+</div>
+
+
+      </div>
+      <div class="content-bottom">
+        
+
+  <hr/>
+  <p><blockquote>
+    Liked this post? Subscribe to our <a class="post-link" href="/feed">RSS feed</a> or add your email to our newsletter:
+
+    <!-- Begin MailChimp Signup Form -->
+    <link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+    <div id="mc_embed_signup">
+      <form action="https://cachestocaches.us15.list-manage.com/subscribe/post?u=f290745e370ad37f53ed7c7ac&amp;id=b7922d14de" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+        <div id="mc_embed_signup_scroll">
+	  
+	  <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+          <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+          <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_f290745e370ad37f53ed7c7ac_b7922d14de" tabindex="-1" value=""></div>
+          <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+        </div>
+      </form>
+    </div>
+
+  </blockquote></p>
+
+  <!--End mc_embed_signup-->
+  <hr/>
+
+
+  <!-- All posts in series -->
+  
+    <div class="post-list">
+      <div class="heading-font">all posts in series</div>
+      <h3><a href="/series/ai-perspectives/" class="nav-title">AI Perspectives</a></h3>
+      <div class="small-line-height">Reflections on the progress, promise, and impact of AI.</div>
+      <ul class="small-post-list">
+        
+          <li ><a class="small-title" href="/2018/7/bias-and-ai/">1 <span class="center-dot"></span> Bias in AI Happens When We Optimize the Wrong Thing</a>
+            <div class="small-detail">Bias is a pervasive problem in AI. Only by discouraging machine learning systems from exploiting a certain bias can we expect such a system to avoid doing so.</div></li>
+        
+          <li ><a class="small-title" href="/2018/9/ai-translation-more-language/">2 <span class="center-dot"></span> For AI, translation is about more than language</a>
+            <div class="small-detail">Translation is about expressing the same underlying information in different ways, and modern machine learning is making incredibly rapid progress in this space.</div></li>
+        
+          <li ><a class="small-title" href="/2018/9/guidelines-practical-ai/">3 <span class="center-dot"></span> Practical Guidelines for Getting Started with Machine Learning</a>
+            <div class="small-detail">The potential advantages of AI are many, and using machine learning to accelerate your business may outweigh potential pitfalls. If you are looking to use machine learning tools, here are a few guidelines you should keep in mind.</div></li>
+        
+          <li ><a class="small-title" href="/2018/12/toward-real-world-alphazero/">4 <span class="center-dot"></span> DeepMind&#x27;s AlphaZero and The Real World</a>
+            <div class="small-detail">Using DeepMind&#x27;s AlphaZero AI to solve real problems will require a change in the way computers represent and think about the world. In this post, we discuss how abstract models of the world can be used for better AI decision making and discuss recent work of ours that proposes such a model for the task of navigation.</div></li>
+        
+          <li ><a class="small-title" href="/2019/1/staggering-amounts-data/">5 <span class="center-dot"></span> Massive Datasets and Generalization in ML</a>
+            <div class="small-detail">Big, publically available datasets are great. Yet many practitioners who seek to use models pretrained on this data need to ask themselves how informative the data is likely to be for their purposes. Dataset bias and task specificity are important factors to keep in mind.</div></li>
+        
+          <li ><a class="small-title" href="/2019/1/proxy-metrics-are-everywhere-machine-lea/">6 <span class="center-dot"></span> Proxy metrics are everywhere in Machine Learning</a>
+            <div class="small-detail">Many machine learning systems are optimized using metrics that don&#x27;t perfectly match the stated goals of the system. These so-called &quot;proxy metrics&quot; are incredibly useful, but must be used with caution.</div></li>
+        
+          <li ><a class="small-title" href="/2019/5/neural-network-structure-and-no-free-lun/">7 <span class="center-dot"></span> No Free Lunch and Neural Network Architecture</a>
+            <div class="small-detail">Machine learning must always balance flexibility and prior assumptions about the data. In neural networks, the network architecture codifies these prior assumptions, yet the precise relationship between them is opaque. Deep learning solutions are therefore difficult to build without a lot of trial and error, and neural nets are far from an out-of-the-box solution for most applications.</div></li>
+        
+          <li ><a class="small-title" href="/2019/8/efficiency-artificial-neural-networks-ve/">8 <span class="center-dot"></span> On the efficiency of Artificial Neural Networks versus the Brain</a>
+            <div class="small-detail">Recent ire from the media has focused on the high-power consumption of artificial neural nets (ANNs), yet popular discussion frequently conflates training and testing. Here, I aim to clarify the ways in which conversations involving the relative efficiency of ANNs and the human brain often miss the mark.</div></li>
+        
+          <li class="selected"><a class="small-title" href="/2019/12/my-state-of-the-field/">9 <span class="center-dot"></span> Machine Learning &amp; Robotics: My (biased) 2019 State of the Field</a>
+            <div class="small-detail">My thoughts on the past year of progress in Robotics and Machine Learning.</div></li>
+        
+          <li ><a class="small-title" href="/2020/3/valley-of-ai-trust/">10 <span class="center-dot"></span> The Valley of AI Trust</a>
+            <div class="small-detail">Particularly for safety-critical applications or the automation of tasks that can directly impact quality of life, we must be careful to avoid the valley of AI trust—the dip in overall safety caused by premature adoption of automation.</div></li>
+        
+      </ul>
+    </div>
+    <hr/>
+  
+
+  <div>
+  <div class="social-icon-container visible-xs">
+    <a class="social-icon hacker-news"
+           href="https://news.ycombinator.com/item?id=21915991"></a><a class="social-icon twitter"
+         href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fcachestocaches.com%2F2019%2F12%2Fmy-state-of-the-field%2F&text=Great%20post%20at"></a><a class="social-icon facebook"
+         href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fcachestocaches.com%2F2019%2F12%2Fmy-state-of-the-field%2F"></a><a class="social-icon googleplus"
+         href="https://plus.google.com/share?url=http%3A%2F%2Fcachestocaches.com%2F2019%2F12%2Fmy-state-of-the-field%2F"></a><a class="social-icon linkedin"
+         href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fcachestocaches.com%2F2019%2F12%2Fmy-state-of-the-field%2F&title=Caches%20To%20Caches&source=http%3A//cachestocaches.com"></a><a class="social-icon rss-feed"
+         href="/feed"></a>
+  </div>
+</div>
+
+
+  <hr/>
+
+  <script type="text/javascript">
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = 'cachestocaches';
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+ function createCallback() {
+     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+   };
+</script>
+<a class="heading-font" id="disqus_thread" style="cursor:pointer;"onclick="createCallback();return false;"><h4 class="constrain-width">+ Show Comments From Disqus</h4></a>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="content">
+      
+  <div><a href="/"><img src="/static/logos/c2c_logo_2.png" class="img-responsive center-block" style="width:240px;"/></a></div>
+  <br/>
+  <div class="center-text narrow-font">
+    <span><a href="/">home</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/archive/">archive</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/contributors/">about</a></span>
+  </div>
+  <div class="social-icon-container">
+    <a class="social-icon light-border twitter" href="https://twitter.com/intent/follow?screen_name=CachesToCaches"></a>
+    <a class="social-icon light-border facebook" href="https://www.facebook.com/CachesToCaches"></a>
+    <a class="social-icon light-border googleplus" href="https://www.google.com/+Cachestocaches_c2c" rel="publisher"></a>
+    <a class="social-icon light-border github" href="https://github.com/CachesToCaches"></a>
+    <a class="social-icon light-border rss-feed" href="/feed"></a>
+  </div>
+
+  <br/>
+  <div class="center-text"><a href="http://gjstein.com">designed and maintained by<br/>Gregory J Stein</a></div>
+
+      
+      
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <!-- Sidebar / Table of Contents -->
+    <script src="/static/styles/js/jquery.tableofcontents.g.min.js"></script>
+    <script src="/static/styles/js/sticky-nav.js"></script>
+    <script src="/static/styles/js/bootstrap-scrollspy.min.js"></script>
+    <script>
+    $(function(){$("#toc").tableOfContents(null,{
+      startLevel: 2, depth: 1});
+      $('body').scrollspy({
+        target: '#nav-sidebar',
+        offset: 20});
+    });
+    </script>
+    
+    <!-- Code Highlighting : highlight.js -->
+    
+
+<!-- <link rel="stylesheet" href="/static/highlight/styles/c2c.css"> -->
+<script src="/static/highlight/highlight.pack.js"></script>
+<script>hljs.configure({languages:[]});hljs.initHighlightingOnLoad();</script>
+<script src="/static/styles/js/anchor-scroll.js"></script>
+
+
+    <!-- Equation Rendering : mathjax -->
+    <script type="text/x-mathjax-config">
+     MathJax.Hub.Config({
+       jax: ["input/TeX","output/CommonHTML"],
+       tex2jax: { inlineMath: [["$","$"]] },
+       CommonHTML: {
+         linebreaks: { automatic: true, width: "container" }
+       }
+     });
+    </script>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML" type="text/javascript"></script>
+
+    
+  <script>
+  (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+          function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+          e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+          e.src='//www.google-analytics.com/analytics.js';
+          r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+  ga('create','UA-60578350-2','auto');ga('send','pageview');
+  </script>
+
+  </body>
+</html>

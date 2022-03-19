@@ -1,0 +1,469 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>No Free Lunch and Neural Network Architecture</title>
+    <meta name="description" content="Machine learning must always balance flexibility and prior assumptions about the data. In neural networks, the network architecture codifies these prior assumptions, yet the precise relationship between them is opaque. Deep learning solutions are therefore difficult to build without a lot of trial and error, and neural nets are far from an out-of-the-box solution for most applications.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    
+
+<link rel="apple-touch-icon" sizes="57x57" href="/static/c2c_icons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/static/c2c_icons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/static/c2c_icons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/static/c2c_icons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/static/c2c_icons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/static/c2c_icons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/static/c2c_icons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/static/c2c_icons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/c2c_icons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-194x194.png" sizes="194x194">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/static/c2c_icons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/static/c2c_icons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/static/c2c_icons/manifest.json">
+<link rel="mask-icon" href="/static/c2c_icons/safari-pinned-tab.svg" color="#773333">
+<link rel="shortcut icon" href="/static/c2c_icons/favicon.ico">
+<meta name="msapplication-TileColor" content="#773333">
+<meta name="msapplication-TileImage" content="/static/c2c_icons/mstile-144x144.png">
+<meta name="msapplication-config" content="/static/c2c_icons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+    <!-- 3rd March 2022 07:41 -->
+    <!-- Fonts -->    
+    <link href='https://fonts.googleapis.com/css?family=Unica+One' rel='stylesheet' type='text/css'>
+    <script src="https://use.typekit.net/qeu2zlf.js"></script>
+    <script>try{Typekit.load({ async: false });}catch(e){}</script>
+    <noscript>
+      <!-- Fallback fonts (if no JS) -->
+      <link href='http://fonts.googleapis.com/css?family=Dosis:400|Anonymous+Pro' rel='stylesheet' type='text/css'>
+    </noscript>
+
+    <!-- Styles / Scripts -->
+    
+    <link rel="stylesheet" href="/static/styles/css/cachestocaches.min.css"/>
+    <script src="/static/styles/js/modernizr-2.8.3.min.js"></script>
+
+    
+
+  
+  
+  
+  <meta name="twitter:card"
+          content="summary_large_image" />
+  <meta prefix="og: http://ogp.me/ns#"
+          name="twitter:title"
+          property="og:title"
+          content="No Free Lunch and Neural Network Architecture" />
+  <meta name="twitter:site"
+          content="@CachesToCaches">
+  <meta prefix="og: http://ogp.me/ns#"
+          property="og:type"
+          content="website" />
+  
+  
+    <meta prefix="og: http://ogp.me/ns#"
+            name="twitter:image:src"
+            property="og:image"
+            content="http://cachestocaches.com/static/logos/c2c_logo_card_render.jpg" />
+  
+  
+  <meta prefix="og: http://ogp.me/ns#"
+          name="twitter:description"
+          property="og:description"
+          content="Machine learning must always balance flexibility and prior assumptions about the data. In neural networks, the network architecture codifies these prior assumptions, yet the precise relationship between them is opaque. Deep learning solutions are therefore difficult to build without a lot of trial and error, and neural nets are far from an out-of-the-box solution for most applications." />
+  <meta prefix="og: http://ogp.me/ns#"
+          property="og:url"
+          content="http://cachestocaches.com/2019/5/neural-network-structure-and-no-free-lun/" />
+
+  </head>
+
+  <body
+      itemscope
+      itemtype="http://schema.org/WebPage"
+      data-spy="scroll"
+      data-target="#side-nav">
+    
+    <nav class="sidebar">
+      <div class="content">
+        
+  <div><a href="/"><img src="/static/logos/c2c_logo_2.png" class="img-responsive center-block" style="width:240px;"/></a></div>
+  <br/>
+  <div class="center-text narrow-font">
+    <span><a href="/">home</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/archive/">archive</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/contributors/">about</a></span>
+  </div>
+  <div class="social-icon-container">
+    <a class="social-icon light-border twitter" href="https://twitter.com/intent/follow?screen_name=CachesToCaches"></a>
+    <a class="social-icon light-border facebook" href="https://www.facebook.com/CachesToCaches"></a>
+    <a class="social-icon light-border googleplus" href="https://www.google.com/+Cachestocaches_c2c" rel="publisher"></a>
+    <a class="social-icon light-border github" href="https://github.com/CachesToCaches"></a>
+    <a class="social-icon light-border rss-feed" href="/feed"></a>
+  </div>
+
+  <img class="bottom-art" src="/static/art/c2c_triangles.svg"></img>
+  <div class="center-text floating-description"><a href="http://gjstein.com">designed and maintained by<br/>Gregory J Stein</a></div>
+
+        <br/>
+        
+  <div class="title"><a href="#">No Free Lunch and Neural Network Architecture</a></div>
+  <hr/>
+  <div id="nav-sidebar">
+    <ul class="nav" id="toc"></ul>
+  </div>
+  <hr/>
+  
+    <br/>
+    <div class="title">
+      <div><small>part 7 of</small></div>
+      <a href="/series/ai-perspectives/" class="nav-title">AI Perspectives</a>
+    </div>
+    <hr/>
+    <div class="description">Reflections on the progress, promise, and impact of AI.</div>
+    <hr/>
+  
+
+      </div>
+    </nav>
+    <nav class="header">
+      
+  <div class="content">
+  <span class="heading-font"><a href="/">Caches to Caches</a> | </span><span><a href="/">home</a></span><span class="center-dot"></span><span><a href="/archive/">archive</a></span><span class="center-dot"></span><span><a href="/contributors/">about</a></span>
+  </div>
+
+    </nav>
+    <div class="page"
+         itemsope
+         itemtype="http://schema.org/Blog">
+      <div class="content-top">
+        
+  <div class="unit-line-height">
+  
+  <!-- Series Details -->
+
+  <!-- Post Image -->
+    <div class="marginnote invisible-sm post-detail">
+      <div>
+      
+        <p><div class="unit-line-height"><small class="heading-font">
+          Part 7 of
+        </small></div>
+        <div><a class="series heading-font" href="/series/ai-perspectives/">AI Perspectives</a></div>
+        </p>
+      
+
+        <p><div class="date heading-font">Fri 24 May 2019</div>
+          <a href="/contributors/#gregory-j-stein"><span class="author" itemprop="name">Gregory J Stein</span></a>
+          
+        </p>
+
+        
+          <p><div class="heading-font">Category</div>
+            <a class="category" href="/category/machine-learning/">
+              Machine Learning
+            </a>
+          </p>
+        
+
+        
+          <p><div class="heading-font">Tags</div>
+            
+              <a class="tag" href="/tag/algorithms/">Algorithms</a>
+            
+              <a class="tag" href="/tag/deep-learning/">Deep Learning</a>
+            
+          </p>
+        
+      </div>
+    </div>
+
+    
+      <h1 class="title">
+        <div>
+          <span itemprop="name">No Free Lunch and Neural Network Architecture</span>
+        </div>
+      </h1>
+    
+
+    
+
+
+    <div class="note visible-sm post-detail">
+      <div>
+
+      <div>
+        <span class="date heading-font">Fri 24 May 2019</span>
+          <a href="/contributors/#gregory-j-stein"><span class="author" itemprop="name">Gregory J Stein</span></a>
+          
+      </div>
+
+        
+          <div>
+          <span class="heading-font">Category</span>
+            <a class="category" href="/category/machine-learning/">
+              Machine Learning
+            </a>
+          </div>
+        
+
+        
+          <div><span class="heading-font">Tags</span>
+            
+              <a class="tag" href="/tag/algorithms/">Algorithms</a>
+            
+              <a class="tag" href="/tag/deep-learning/">Deep Learning</a>
+            
+          </div>
+        
+
+
+        
+        <div style="height: 10px"></div>
+            <div><span class="unit-line-height"><span class="heading-font">
+              Part 7 of
+            </span></span>
+            <span><a class="series heading-font" href="/series/ai-perspectives/">AI Perspectives</a></span>
+            </div>
+          
+      </div>
+    </div>
+
+
+</div>
+
+
+      </div>
+      <div class="content">
+        
+  
+  <div class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <!-- Post Title -->
+  
+  
+
+  <!-- Post Content -->
+  
+    <div class="justify word-break" itemprop="articleBody">
+      
+        <p><strong>Summary</strong>: <em>Machine learning must always balance flexibility and prior assumptions about the data. In neural networks, the network architecture codifies these prior assumptions, yet the precise relationship between them is opaque. Deep learning solutions are therefore difficult to build without a lot of trial and error, and neural nets are far from an out-of-the-box solution for most applications.</em></p>
+<p>Since I entered the machine learning community, I have frequently found myself engaging in conversation with researchers or <em>startup-types</em> from other communities about how they can get the most out of their data and, more often than not, we end up taking about neural networks. I get it: the allure is strong. The ability of a neural network to learn complex patterns from massive amounts of data has enabled computers to challenge (and even outperform) humans on general tasks like object detection and games like Go. But reading about the successes of these newer machine learning techniques rarely makes clear one important point:</p>
+<blockquote>
+Nothing is ever free.
+</blockquote>
+
+<p>When training a neural network — or any machine learning system — a tradeoff is always made between flexibility in the sorts of things the system can learn and the amount of data necessary to train these systems. Yet in practice, the precise nature of this tradeoff is opaque. That a neural network is capable of learning complex concepts — like what an object looks like from a bunch of images — means that training it effectively requires a large amount of data to convincingly rule-out other interpretations of the data and reject the impact of noise.<span class="sidenote note no-word-break invisible-sm">Noise takes many forms. In the case of object detection, noise might include the color of the object: I should be able to identify that a car is a car regardless of its color. </span> On the face of it, this statement is perhaps obvious: of course it requires more work/data/effort to extract meaning out of more complex problems. Yet, perhaps counterintuitive to the thinking of many machine learning outsiders, the way in which these systems are designed and the relationship between the many complex hyperparameters that define them has a profound impact on how well the system performs.
+<p class="note no-word-break visible-sm">Noise takes many forms. In the case of object detection, noise might include the color of the object: I should be able to identify that a car is a car regardless of its color. </p></p>
+<p></p>
+<p>On its own, data cannot provide all the answers. The goal of <em>learning</em> is to extract more general meaning from a limited amount of data, discovering properties about the data that allow new data to be understood. Generalizing to unseen data requires making a decision, whether explicitly or implicitly, about the nature of the data beyond what is provided in the dataset. Consider a very simple dataset consisting of 10 points evenly spaced along the x-axis:</p>
+<p><img src="/media/post_files/example_data.svg" class="img-responsive center-block no-shadow" title="Example: Noisy Data" style="max-height:220px"/></p>
+<p>Suppose your goal was to fit a curve to this data, what might you do? Well, from inspection, the "curve" looks pretty much like a line, so you fit a line to the points and hand off the resulting fit to another system. But what if you were to collect more data and you discover that, instead of falling close to a line (left), the new data has a rather dramatic periodic component (right):</p>
+<p><img src="/media/post_files/example_more_data.svg" class="img-responsive center-block no-shadow" title="Example: More Noisy Data" style="max-height:220px"/></p>
+<p>You might (justifiably) claim that more data is necessary, and insist that a separate test set be provided so that you can choose between these different hypotheses<span class="sidenote note no-word-break invisible-sm">Of course, having <em>test data</em> in addition to the training dataset is essential, and would mitigate the risk of a dramatic surprise. </span>. But at what point should you stop? Collecting data ad infinitum in order to rule out <em>all</em> possible hypothesis is impractical, so the learning algorithm <em>must</em> impose some assumptions about the structure of the data to be effective. Prior knowledge of the structure of the data is often essential to good machine learning performance: if you know that the data is linear with some noise added to it, you would know that fitting more complex curves is unnecessary. But if the underlying structure of the data is a mystery, as is often the case for very high-dimensional learning algorithms like a neural network, this problem is impossible to avoid.
+<p class="note no-word-break visible-sm">Of course, having <em>test data</em> in addition to the training dataset is essential, and would mitigate the risk of a dramatic surprise. </p></p>
+<p>Neural networks are vastly more complex and opaque than linear curve-fitting, exacerbating the challenges associated with constraining the space of possible solutions. The parameters that define a neural network — including the <em>number of layers</em> and the <em>learning rate</em> — do bias the system towards producing certain types of output, but often <em>precisely how</em> those parameters are related to the structure of the data is unclear. Unfortunately, detailed inspection of the performance of the network is largely impossible, owing to the complexity of the system being trained; most modern deep learning systems have <em>millions of free parameters</em> and no longer are a few coefficients enough to understand how the system performs<span class="sidenote note no-word-break invisible-sm">There are methods for neural network inspection, but they remain an area of active research. </span>.
+<p class="note no-word-break visible-sm">There are methods for neural network inspection, but they remain an area of active research. </p></p>
+<p>Relatedly, <em>prior knowledge</em> takes a markedly different form for more complex types of data, like images. For the dataset above, it was pretty clear from quick inspection of the data that a <em>linear model</em> was probably the right representation for the learning problem. If instead your dataset is billions of stock photos and your objective is to identify which of these contain household pets, it is not even clear how one should go about turning intuition into mathematical operations. In fact, this is ultimately the draw of such systems — the utility of neural network models is their ability to learn otherwise impossible-to-write-down features in the data.</p>
+<p>Broadly, there is some well-validated intuition about the differences between <em>vastly different</em> neural network structures. Convolutional Neural Networks (CNNs), for example, are often used for image data, since the primary mode of their operation processes local patches of texture rather than the entire image all at once; this dramatically reduces the number of free parameters, and greatly restricts what the system can learn in a way that has proven effective for many image-based tasks. Yet whether I use six layers in my neural network instead of five, for example, is often decided by how well the system performs on the data, rather than an understanding of how that number of layers reflects the structure of the data.</p>
+<p>I conclude with a word of caution: <strong>neural networks are far from an out-of-the-box solution for most learning problems</strong> and the process required to reach near-state-of-the art performance often comes as a surprise to non-experts. The design of machine learning systems remains an active area of research, and <strong>no size fits all for neural networks</strong>. Many off-the-shelf neural networks are designed or pretrained with a number of unwritten biases or priors about the nature of the dataset. Whether or not a particular learning strategy will work on one dataset is often a judgment call until validated with experiments, making iterating over the design an intensive process that often requires "expert" intuition or guidance.</p>
+<p>As always, I welcome your thoughts in the comments below or on <a href="https://news.ycombinator.com/item?id=20005204">Hacker News</a>.</p>
+      
+    </div>
+  
+
+  <!-- Post Footer -->
+  
+
+  <!-- Additional Metadata -->
+  <meta itemprop="description" content="Machine learning must always balance flexibility and prior assumptions about the data. In neural networks, the network architecture codifies these prior assumptions, yet the precise relationship between them is opaque. Deep learning solutions are therefore difficult to build without a lot of trial and error, and neural nets are far from an out-of-the-box solution for most applications.">
+
+</div>
+
+
+      </div>
+      <div class="content-bottom">
+        
+
+  <hr/>
+  <p><blockquote>
+    Liked this post? Subscribe to our <a class="post-link" href="/feed">RSS feed</a> or add your email to our newsletter:
+
+    <!-- Begin MailChimp Signup Form -->
+    <link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+    <div id="mc_embed_signup">
+      <form action="https://cachestocaches.us15.list-manage.com/subscribe/post?u=f290745e370ad37f53ed7c7ac&amp;id=b7922d14de" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+        <div id="mc_embed_signup_scroll">
+	  
+	  <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+          <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+          <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_f290745e370ad37f53ed7c7ac_b7922d14de" tabindex="-1" value=""></div>
+          <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+        </div>
+      </form>
+    </div>
+
+  </blockquote></p>
+
+  <!--End mc_embed_signup-->
+  <hr/>
+
+
+  <!-- All posts in series -->
+  
+    <div class="post-list">
+      <div class="heading-font">all posts in series</div>
+      <h3><a href="/series/ai-perspectives/" class="nav-title">AI Perspectives</a></h3>
+      <div class="small-line-height">Reflections on the progress, promise, and impact of AI.</div>
+      <ul class="small-post-list">
+        
+          <li ><a class="small-title" href="/2018/7/bias-and-ai/">1 <span class="center-dot"></span> Bias in AI Happens When We Optimize the Wrong Thing</a>
+            <div class="small-detail">Bias is a pervasive problem in AI. Only by discouraging machine learning systems from exploiting a certain bias can we expect such a system to avoid doing so.</div></li>
+        
+          <li ><a class="small-title" href="/2018/9/ai-translation-more-language/">2 <span class="center-dot"></span> For AI, translation is about more than language</a>
+            <div class="small-detail">Translation is about expressing the same underlying information in different ways, and modern machine learning is making incredibly rapid progress in this space.</div></li>
+        
+          <li ><a class="small-title" href="/2018/9/guidelines-practical-ai/">3 <span class="center-dot"></span> Practical Guidelines for Getting Started with Machine Learning</a>
+            <div class="small-detail">The potential advantages of AI are many, and using machine learning to accelerate your business may outweigh potential pitfalls. If you are looking to use machine learning tools, here are a few guidelines you should keep in mind.</div></li>
+        
+          <li ><a class="small-title" href="/2018/12/toward-real-world-alphazero/">4 <span class="center-dot"></span> DeepMind&#x27;s AlphaZero and The Real World</a>
+            <div class="small-detail">Using DeepMind&#x27;s AlphaZero AI to solve real problems will require a change in the way computers represent and think about the world. In this post, we discuss how abstract models of the world can be used for better AI decision making and discuss recent work of ours that proposes such a model for the task of navigation.</div></li>
+        
+          <li ><a class="small-title" href="/2019/1/staggering-amounts-data/">5 <span class="center-dot"></span> Massive Datasets and Generalization in ML</a>
+            <div class="small-detail">Big, publically available datasets are great. Yet many practitioners who seek to use models pretrained on this data need to ask themselves how informative the data is likely to be for their purposes. Dataset bias and task specificity are important factors to keep in mind.</div></li>
+        
+          <li ><a class="small-title" href="/2019/1/proxy-metrics-are-everywhere-machine-lea/">6 <span class="center-dot"></span> Proxy metrics are everywhere in Machine Learning</a>
+            <div class="small-detail">Many machine learning systems are optimized using metrics that don&#x27;t perfectly match the stated goals of the system. These so-called &quot;proxy metrics&quot; are incredibly useful, but must be used with caution.</div></li>
+        
+          <li class="selected"><a class="small-title" href="/2019/5/neural-network-structure-and-no-free-lun/">7 <span class="center-dot"></span> No Free Lunch and Neural Network Architecture</a>
+            <div class="small-detail">Machine learning must always balance flexibility and prior assumptions about the data. In neural networks, the network architecture codifies these prior assumptions, yet the precise relationship between them is opaque. Deep learning solutions are therefore difficult to build without a lot of trial and error, and neural nets are far from an out-of-the-box solution for most applications.</div></li>
+        
+          <li ><a class="small-title" href="/2019/8/efficiency-artificial-neural-networks-ve/">8 <span class="center-dot"></span> On the efficiency of Artificial Neural Networks versus the Brain</a>
+            <div class="small-detail">Recent ire from the media has focused on the high-power consumption of artificial neural nets (ANNs), yet popular discussion frequently conflates training and testing. Here, I aim to clarify the ways in which conversations involving the relative efficiency of ANNs and the human brain often miss the mark.</div></li>
+        
+          <li ><a class="small-title" href="/2019/12/my-state-of-the-field/">9 <span class="center-dot"></span> Machine Learning &amp; Robotics: My (biased) 2019 State of the Field</a>
+            <div class="small-detail">My thoughts on the past year of progress in Robotics and Machine Learning.</div></li>
+        
+          <li ><a class="small-title" href="/2020/3/valley-of-ai-trust/">10 <span class="center-dot"></span> The Valley of AI Trust</a>
+            <div class="small-detail">Particularly for safety-critical applications or the automation of tasks that can directly impact quality of life, we must be careful to avoid the valley of AI trust—the dip in overall safety caused by premature adoption of automation.</div></li>
+        
+      </ul>
+    </div>
+    <hr/>
+  
+
+  <div>
+  <div class="social-icon-container visible-xs">
+    <a class="social-icon twitter"
+         href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fcachestocaches.com%2F2019%2F5%2Fneural-network-structure-and-no-free-lun%2F&text=Great%20post%20at"></a><a class="social-icon facebook"
+         href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fcachestocaches.com%2F2019%2F5%2Fneural-network-structure-and-no-free-lun%2F"></a><a class="social-icon googleplus"
+         href="https://plus.google.com/share?url=http%3A%2F%2Fcachestocaches.com%2F2019%2F5%2Fneural-network-structure-and-no-free-lun%2F"></a><a class="social-icon linkedin"
+         href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fcachestocaches.com%2F2019%2F5%2Fneural-network-structure-and-no-free-lun%2F&title=Caches%20To%20Caches&source=http%3A//cachestocaches.com"></a><a class="social-icon rss-feed"
+         href="/feed"></a>
+  </div>
+</div>
+
+
+  <hr/>
+
+  <script type="text/javascript">
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = 'cachestocaches';
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+ function createCallback() {
+     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+   };
+</script>
+<a class="heading-font" id="disqus_thread" style="cursor:pointer;"onclick="createCallback();return false;"><h4 class="constrain-width">+ Show Comments From Disqus</h4></a>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+  
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="content">
+      
+  <div><a href="/"><img src="/static/logos/c2c_logo_2.png" class="img-responsive center-block" style="width:240px;"/></a></div>
+  <br/>
+  <div class="center-text narrow-font">
+    <span><a href="/">home</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/archive/">archive</a></span>
+    <span class="center-dot"></span>
+    <span><a href="/contributors/">about</a></span>
+  </div>
+  <div class="social-icon-container">
+    <a class="social-icon light-border twitter" href="https://twitter.com/intent/follow?screen_name=CachesToCaches"></a>
+    <a class="social-icon light-border facebook" href="https://www.facebook.com/CachesToCaches"></a>
+    <a class="social-icon light-border googleplus" href="https://www.google.com/+Cachestocaches_c2c" rel="publisher"></a>
+    <a class="social-icon light-border github" href="https://github.com/CachesToCaches"></a>
+    <a class="social-icon light-border rss-feed" href="/feed"></a>
+  </div>
+
+  <br/>
+  <div class="center-text"><a href="http://gjstein.com">designed and maintained by<br/>Gregory J Stein</a></div>
+
+      
+      
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <!-- Sidebar / Table of Contents -->
+    <script src="/static/styles/js/jquery.tableofcontents.g.min.js"></script>
+    <script src="/static/styles/js/sticky-nav.js"></script>
+    <script src="/static/styles/js/bootstrap-scrollspy.min.js"></script>
+    <script>
+    $(function(){$("#toc").tableOfContents(null,{
+      startLevel: 2, depth: 1});
+      $('body').scrollspy({
+        target: '#nav-sidebar',
+        offset: 20});
+    });
+    </script>
+    
+    <!-- Code Highlighting : highlight.js -->
+    
+
+<!-- <link rel="stylesheet" href="/static/highlight/styles/c2c.css"> -->
+<script src="/static/highlight/highlight.pack.js"></script>
+<script>hljs.configure({languages:[]});hljs.initHighlightingOnLoad();</script>
+<script src="/static/styles/js/anchor-scroll.js"></script>
+
+
+    <!-- Equation Rendering : mathjax -->
+    <script type="text/x-mathjax-config">
+     MathJax.Hub.Config({
+       jax: ["input/TeX","output/CommonHTML"],
+       tex2jax: { inlineMath: [["$","$"]] },
+       CommonHTML: {
+         linebreaks: { automatic: true, width: "container" }
+       }
+     });
+    </script>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML" type="text/javascript"></script>
+
+    
+  <script>
+  (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+          function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+          e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+          e.src='//www.google-analytics.com/analytics.js';
+          r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+  ga('create','UA-60578350-2','auto');ga('send','pageview');
+  </script>
+
+  </body>
+</html>
